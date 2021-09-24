@@ -8,7 +8,7 @@ import Footer from './components/Footer/Footer';
 import Home from './components/Home/Home';
 import FormUsers from './components/FormUsers/FormUsers';
 import FormPromoter from './components/FormPromoter/FormPromoter.jsx';
-import EventDetailsUsario from './components/Details/EventDetailsUsario/EventDetailsUsario';
+// import EventDetailsUsario from './components/Details/EventDetailsUsario/EventDetailsUsario';
 import EventsDetailsPromoter from './components/EventDetailsPromotor/EventsDetailsPromoter'
 import FormEvent from './components/FormEvent/FormEvent';
 import Comments from './components/Comments/CreateComment/CreateComment.jsx'
@@ -58,9 +58,9 @@ function App({ setUser, user, modal }) {
         <FormPromoter />
       </Route>
 
-      <Route path='/eventDetailsUsuario/:id' >
+      {/* <Route path='/eventDetailsUsuario/:id' >
         <EventDetailsUsario />
-      </Route>
+      </Route> */}
 
       <Route path='/FormEvent' >
         <FormEvent />
