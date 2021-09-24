@@ -1,0 +1,58 @@
+.newCommentWrapper {
+  background-color: var(--White);
+  color: var(--White);
+  height: 35vw;
+}
+.newCommentTitle {
+  margin-top: 0;
+  text-align: center;
+}
+.newComment {
+  text-align: center;
+  background-color: var(--Primary);
+  width: 700px;
+  padding: 20px 0 20px 0;
+  display: block;
+  margin: auto;
+  margin-top: 150px;
+  border-radius: var(--RadiusOne);
+  box-shadow: var(--ShadowOne);
+}
+.newComment input {
+  width: 500px;
+}
+.newCommentForm {
+  font-size: large;
+  display: block;
+  margin: auto;
+}
+.newCommentButton {
+  margin-top: 10px;
+  font-size: large;
+  width: 150px;
+  height: 30px;
+  color: var(--White);
+  background-color: var(--Button);
+  border: none;
+  border-radius: var(--RadiusOne);
+}
+.newCommentSuccess {
+  text-align: center;
+  background-color: var(--Primary);
+  width: 700px;
+  padding: 20px 0 20px 0;
+  display: block;
+  margin: auto;
+  margin-top: 150px;
+  border-radius: var(--RadiusOne);
+  box-shadow: var(--ShadowOne);
+  margin-bottom: 100px;
+}
+.confirmation {
+  vertical-align: middle;
+}
+.newCommentCheckbox {
+}
+.newCommentConfirmation {
+  font-size: smaller;
+}

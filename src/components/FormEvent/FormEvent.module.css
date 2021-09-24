@@ -1,0 +1,28 @@
+.form-event{
+    background-color: var(--Black);
+}
+.container-event{
+    background-color: var(--Secondary);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: solid 1px;
+    border-radius: var(--RadiusOne);
+    width: 70%; 
+    height: 50%;
+    padding: 10px;
+}
+input{
+    width: 50%;
+}
+/* select{
+    width: 40%;
+} POR FAVOR MIGRAR A MODULE.CSS*/
+.button-event{
+    background-color: var(--Button);
+    width: 12%;
+    border-radius: 7px;
+    /* position: relative;
+    left: 50%; */
+}

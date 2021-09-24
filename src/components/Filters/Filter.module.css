@@ -1,0 +1,26 @@
+.divFilters{
+    display: flex; 
+    flex-direction: column; 
+    margin-left: 1rem;
+    overflow-y:scroll;
+    height: 75vh; 
+}
+.divFilters:-webkit-scrollbar-thumb{
+    border-radius: 2px;
+    color: aqua;
+    background-color: blue;
+}
+.options{
+    cursor: pointer;
+    width: 10%;
+    color: var(--White);
+}
+.options:hover{
+    color: var(--Button);
+}
+.h5Filters{
+    color: var(--Button);
+    /* text-decoration: underline; */
+    font-weight: 300;
+    font-size: 1.25rem;
+}

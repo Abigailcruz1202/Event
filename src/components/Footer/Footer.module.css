@@ -1,0 +1,16 @@
+.Footer {
+    height: 150px;
+    background-color:var(--Primary);
+    color: var(--White);
+    display: flex;
+    align-items: flex-end;
+}
+
+.Footer .logo{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    margin: auto;
+    width: 8rem;
+
+}

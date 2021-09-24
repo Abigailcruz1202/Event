@@ -1,0 +1,59 @@
+.detailsAllUser {
+  background-color: var(--Primary);
+  text-align: center;
+  color: var(--White);
+}
+.otherDetailsUser {
+  margin: auto;
+  margin-top: 135px;
+  background-color: var(--Black);
+  width: 640px;
+  box-shadow: 5px 10px #00000081;
+  border-radius: 4px;
+}
+
+.otherDetailsUser h4 {
+  text-shadow: 1px 1px 2px black;
+}
+.detailsUsers2User {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.buttonContainer {
+  padding: 50px;
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}
+.button {
+  font-size: large;
+  width: 150px;
+  height: 30px;
+  color: var(--White);
+  background-color: var(--Button);
+  border: none;
+  border-radius: var(--RadiusOne);
+}
+
+.description {
+  display: block;
+  margin: auto;
+  text-align: justify;
+  max-width: 600px;
+  /* justify-content: center; */
+}
+
+.rightColumn {
+  max-width: 250px;
+}
+.leftColumn {
+  margin-right: 150px;
+  max-width: 250px;
+}
+
+.titleCard {
+  text-align: center;
+  text-shadow: 1px 1px 2px black;
+}

@@ -1,0 +1,22 @@
+.comment-card {
+  border: 0.5px solid var(--Black);
+  border-radius: 5px;
+  padding: 2px;
+  color: var(--White);
+  width: 640px;
+  margin: auto;
+  background-color: var(--Black);
+  box-shadow: 5px 10px #00000081;
+}
+.stars {
+  color: var(--Button);
+}
+.comment-top-half {
+  text-shadow: 2px 2px 3px black;
+  font-size: large;
+  display: flex;
+  align-items: flex-start;
+}
+.comment-bottom-half {
+  text-align: start;
+}
