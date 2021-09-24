@@ -415,4 +415,4 @@ function mapDispatchToProps(dispatch) {
         postEvent: (event) => dispatch(postEvent(event))
     }
 }
-export default connect(null, mapDispatchToProps)(FormEvent)
+export default connect(null, mapDispatchToProps)(FormEvent) 
