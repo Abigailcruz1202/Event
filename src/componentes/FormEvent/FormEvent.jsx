@@ -389,7 +389,6 @@ export function FormEvent(props) {
                     </select>
                 </div>
                 {errors.tags && (<span className="danger">{errors.tags}</span>)}
-
                 <label>Clasificación: </label>
                 <select style={{ width: '50%' }} className={errors.age_rating && 'danger'} onChange={(e) => options(e)}>
                     <option value=''>Seleccionar</option>
@@ -416,4 +415,4 @@ function mapDispatchToProps(dispatch) {
         postEvent: (event) => dispatch(postEvent(event))
     }
 }
-export default connect(null, mapDispatchToProps)(FormEvent)
+export default connect(null, mapDispatchToProps)(FormEvent) 
