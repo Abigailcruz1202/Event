@@ -347,7 +347,7 @@ export function FormEvent(props) {
                                 return <option key={i}>{e}</option>
                             })}
                         </select></>
-                    // OTRA OPCION: ↓↓
+                    // OTRA OPCION para poder eliminar lo seleccionado: ↓↓
                     // <ul>
                     //     {event.schedule.map((e, i) => {
                     //             return <>
