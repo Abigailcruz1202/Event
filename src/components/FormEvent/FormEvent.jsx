@@ -47,7 +47,6 @@ export function FormEvent(props) {
     useEffect(()=>{
         setErrors(validate(event))
     },[])
-    
     const click = async (e) => {
         const files = e.target.files
         const data = new FormData();
@@ -209,7 +208,7 @@ export function FormEvent(props) {
                         </div>
                     </div>
                     <div className={styles.row}>{/*IMAGENES DEL EVENTO*/}                   
-                        <span>Imagenes del Evento: </span>                    
+                        <span>Imagenes del Evento prueba: </span>                    
                         <div className={styles.inputCheck}>
                             <input 
                                 onChange={click}
