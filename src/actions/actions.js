@@ -25,7 +25,7 @@ export const SEARCH_NAME = 'SEARCH_NAME'; //Abi
 
 
 // const API = 'http://localhost:3001/api/'
-const API = 'https://event-henryapp-backend.herokuapp.com/'
+const API = 'https://event-henryapp-backend.herokuapp.com/api/'
 
 
 //*_get_activities_home______________________________________________
