@@ -59,7 +59,7 @@ export function getEventsHome(){
 export function getEventDetail(id){
   return async function (dispatch) {
     const response = await 
-    axios.get(`${API}${id}`)
+    axios.get(`${API}${'event/'}${id}`)
     dispatch({
       type: GET_DETAIL,
       payload: response.data
@@ -98,7 +98,7 @@ export function setPromoter(promoter){
 export function getEventPromoter (id){
   console.log(id, 'SOY ID')
   return async function(dispatch){
-    const response = await axios(`${API}${id}`);
+    const response = await axios(`${API}${'promoter/'}${id}`);
     console.log(response.data.eventPromotor.events,'SOY RESPUESTA EVENTO')
     return dispatch({
       type:GET_EVENTS_PROMOTER,
