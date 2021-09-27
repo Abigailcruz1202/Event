@@ -24,6 +24,14 @@ export const CHANGE_MODAL = 'CHANGE_MODAL'
 export const SEARCH_NAME = 'SEARCH_NAME'; //Abi
 export const  PROMOTER_USER =' PROMOTER_USER'//daf
 
+//*shopping Cart
+export const ADD_SHOPPING = 'ADD_SHOPPING';
+export const DELETE_SHOPPING = 'DELETE_SHOPPING';
+export const ADD_CHECKOUT = 'ADD_CHECKOUT';
+export const DELETE_CHECKOUT = 'DELETE_CHECKOUT';
+export const SET_TOTAL_CHECKOUT = 'SET_TOTAL_CHECKOUT';
+export const RESET_SHOPPING = 'RESET_SHOPPING'
+
 
 
 // const API = 'http://localhost:3001/api/'
@@ -187,3 +195,40 @@ export function getPromoterUser(id){
 
 }
 
+
+//*Shopping Cart
+export function addShopping(event){
+  return{
+    type: ADD_SHOPPING,
+    payload: event
+  }
+}
+export function deleteShopping(idEvent){
+  return{
+    type: DELETE_SHOPPING,
+    payload:idEvent
+  }
+}
+export function addCheckout(Event){
+  return{
+    type: ADD_CHECKOUT,
+    payload:Event
+  }
+}
+export function deleteCheckout(idEvent){
+  return{
+    type: DELETE_CHECKOUT,
+    payload:idEvent
+  }
+}
+export function setTotalCheckout(total){
+  return{
+    type: SET_TOTAL_CHECKOUT,
+    payload: total
+  }
+}
+export function resetShopping(){
+  return{
+    type: RESET_SHOPPING
+  }
+}

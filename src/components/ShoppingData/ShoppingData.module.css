@@ -1,10 +1,31 @@
+.containerTwo{
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+}
+
+
 .ul{
-    background-color: var(--Back);
+    background-color: rgb(212, 234, 251);
     border-radius: var(--RadiusOne);
     color: var(--Black);
     width: 300px;
     padding: 10px;
 }
+@media (max-width: 420px) { 
+    .ul{
+        width: 50vw;
+    }
+  }
+
+  .li{
+      display: flex;
+      justify-content: right;
+      position: relative;
+      width: 500px;
+  }
 
 .container{
     padding: 50px;
@@ -17,6 +38,9 @@
 
 .title{
     text-align: center;
+    color: var(--Primary);
+    font-size: 40px;
+    margin-bottom: 70px;
 }
 
 .liSubContainer{
@@ -26,8 +50,48 @@ justify-content: flex-end;
 
 .total{
     text-align: right;
+    margin-bottom: 70px;
 }
 
 .p{
    margin-right: 15px;
+}
+
+.contTitles{
+    display: flex;
+    position: relative;
+    width: 500px;
+    margin-bottom: 50px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.pNameT{
+    position: absolute;
+    left: 11px;
+}
+.pQuantityT{
+    position: absolute;
+    right: 120px;
+}
+
+.pPriceT{
+    position: absolute;
+    right: 0px;
+}
+
+.pName{
+    position: absolute;
+    left: 10px;
+}
+
+.pQuantity{
+    position: absolute;
+    right: 150px;
+}
+
+
+
+.paypalBtn{
+    margin: 20px;
 }

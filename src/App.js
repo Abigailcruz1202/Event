@@ -21,6 +21,7 @@ import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import PromotorePorfile from './components/PromotorePorfile/PromotoreProfile';
 import PromoterProfileUser from './components/PromotorePorfile/PerfilPromoterUsuario'
 import EditForm from './components/Details/EventDetailsUsario/EditForm';
+import ShoppingCheckout from './components/ShoppingCheckout/ShoppingCheckout';
 
 
 function App({ setUser, user, modal, modalForm }) {
@@ -34,16 +35,16 @@ function App({ setUser, user, modal, modalForm }) {
       console.log('ENTREEE EL IF', user)
       setUser(loginUser)
     } else
-    console.log('ENTREEE EL ELSE')
-      setUser({})
-  }, [setUser]) 
+      console.log('ENTREEE EL ELSE')
+    setUser({})
+  }, [setUser])
 
   return (
     <>
 
       <NavBar />
-       
-       
+
+
 
 
 
@@ -72,7 +73,7 @@ function App({ setUser, user, modal, modalForm }) {
       </Route>
 
       <Route path='/FormEvent' >
-        {user.msg? user.type === 'user'?<Home />:<FormEvent promoterId={user.id}/>: <Redirect to='/login'/>}
+        {user.msg ? user.type === 'user' ? <Home /> : <FormEvent promoterId={user.id} /> : <Redirect to='/login' />}
       </Route>
 
       <Route path='/EventsDetailsPromoter/:id' >
@@ -80,7 +81,7 @@ function App({ setUser, user, modal, modalForm }) {
       </Route>
 
       <Route path='/perfil' >
-        {user.msg? user.type === 'user' ?<UserPorfile/> : <PromotorePorfile userData={user}/> : <Redirect to='/login'/>}
+        {user.msg ? user.type === 'user' ? <UserPorfile /> : <PromotorePorfile userData={user} /> : <Redirect to='/login' />}
       </Route>
 
 
@@ -95,9 +96,13 @@ function App({ setUser, user, modal, modalForm }) {
       <Route path='/shoppingCart'>
         <ShoppingCart />
       </Route>
-      
+
+      <Route path='/checkout'>
+        <ShoppingCheckout />
+      </Route>
+
       <Route path='/PromoterPorfileUser/:id'>
-        <PromoterProfileUser   />
+        <PromoterProfileUser />
       </Route>
 
 

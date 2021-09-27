@@ -15,6 +15,12 @@ import {
    GET_EVENTS_PROMOTER,
    EDIT_EVENT,
    PROMOTER_USER,
+   ADD_SHOPPING,
+  DELETE_SHOPPING,
+  ADD_CHECKOUT,
+  DELETE_CHECKOUT,
+  SET_TOTAL_CHECKOUT,
+  RESET_SHOPPING,
   } from "../actions/actions";
 
   // Pruebas para guardar usuario en el local storage
@@ -48,7 +54,10 @@ import {
     home:[],
     //promoter user 
     promoterUser:[],
-
+   //*shopping cart
+    cartState:[],
+    checkoutItems:[],
+    checkoutTotal:0,
   };
 
  
@@ -172,10 +181,66 @@ import {
         promoterUser: action.payload
       }
       }
-    return state;
+
+
+
+   //*__SHOPPING_CART
+   if(action.type === ADD_SHOPPING){
+    return{
+      ...state,
+      cartState: state.cartState.concat(action.payload) 
+    }
+  }
+  if(action.type === DELETE_SHOPPING){
+    return{
+      ...state,
+      cartState: state.cartState.filter(e => e.id !== action.payload) 
+    }
+  }
+  if(action.type === ADD_CHECKOUT){
+    const event =  state.checkoutItems.filter(e => e.sku !== action.payload.sku) 
+
+    return{
+      ...state,
+      checkoutItems: event.concat(action.payload) 
+    }
+  }
+  if(action.type === DELETE_CHECKOUT){
+    return{
+      ...state,
+      checkoutItems: state.checkoutItems.filter(e => e.sku !== action.payload) 
+    }
+  }
+  if(action.type === SET_TOTAL_CHECKOUT){
+    return{
+      ...state,
+      checkoutTotal: action.payload
+    }
+  }
+  if(action.type === RESET_SHOPPING){
+    return{
+      ...state,
+      cartState: [],
+      checkoutItems: [],
+      checkoutTotal: []
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+     return state;
   }
   
-  
+
+
 
 
   

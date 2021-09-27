@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import DisplayComments from '../../Comments/DisplayComments/DisplayComments';
 import { Link , useParams, useHistory} from 'react-router-dom';
 import  {useDispatch , useSelector} from 'react-redux';
-import {getEventDetail, changeModal, editEvent} from '../../../actions/actions';
+import {getEventDetail, changeModal, editEvent, addShopping} from '../../../actions/actions';
 import { Carousel } from 'react-carousel-minimal';
 import Loading from '../../Loading/Loading';
 import styles from './EventDetailsUsario.module.css';
-
+import { connect } from "react-redux";
 
 
 
@@ -23,7 +23,7 @@ const pushDta=(detailsEvent)=>{
     return data;
 }
 //Diego: Componente que muestra los detalles de un evento para el tipo Usuario.
-export default function EventDetailsUsario() {
+const EventDetailsUsario = ({ addShopping, cart, user }) => {
     const [render, setRender] = useState(false)
     const [data , setData] = useState()
     const dispatch = useDispatch()
@@ -83,6 +83,21 @@ export default function EventDetailsUsario() {
     useEffect(()=>{
         setData(pushDta(detailsEvent))
     },[detailsEvent])
+
+
+
+//* funcion agregar al carrito...Gerardo
+let eventCart = []
+detailsEvent.consult?
+eventCart = cart.filter(e =>  e.id === detailsEvent.consult.id)
+:eventCart = []
+
+
+console.log(eventCart)
+const setShopping = (event) => {
+    addShopping(event)
+}
+//*_____________________________________
 
 
 
@@ -233,6 +248,22 @@ export default function EventDetailsUsario() {
                                     )
                                 } */}
                         </div>
+
+
+
+                            {user.type !== 'user'? <div></div>: 
+            <>
+         {eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
+            <button onClick={() => setShopping(detailsEvent.consult)}>
+              <span className={styles.icon}>
+                <i className="fas fa-shopping-cart"></i>
+              </span>
+            </button>
+          }
+          </>
+          }
+
+
                         <div className='comments-container'>
                             <DisplayComments state={id}/>
                             <br />
@@ -246,3 +277,13 @@ export default function EventDetailsUsario() {
         return (<Loading/>)
     }
 }
+
+
+function mapStateToProps(state) {
+  return {
+    cart: state.cartState,
+    user: state.userState
+  };
+}
+
+export default connect(mapStateToProps, { addShopping })(EventDetailsUsario);

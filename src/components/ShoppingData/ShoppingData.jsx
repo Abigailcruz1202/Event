@@ -1,24 +1,52 @@
-import React from "react";
-import styles from './ShoppingData.module.css'
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import styles from './ShoppingData.module.css';
+import PayPalCheckoutButton from "../PayPalCheckoutButton/PayPalCheckoutButton";
 
-const ShopingData = ({ result, events }) => {
+const ShopingData = ({ checkout, total }) => {
+  console.log(checkout)
+  const [Order, setOrder] = useState({
+    customer: '12345',
+    total: total,
+    items: checkout
+  })
+
   return (
-    <div >
+    <div className={styles.containerTwo}>
       <h3 className={styles.title}>Resumen de compra</h3>
-      <ul className={ styles.ul}>
-        {events.map((event) => (
-          <li key={event.id}>
+      <div className={styles.contTitles}> 
+          <p className={styles.pNameT}>Evento</p>
+          <p className={styles.pQuantityT}>Cantidad</p>
+          <p className={styles.pPriceT}>Precio</p>
+        </div>
+      <ul >
+        {checkout.map((event) => (
+          <li key={event.id} className={styles.li}>
             <div className={styles.liSubContainer}>
-              <p className={styles.p}> {event.name} </p>
-              <p className={styles.p}>${event.price}</p>
+              <p className={styles.pName}> {event.name} </p>
+              <p className={styles.pQuantity}> {event.quantity} </p>
+              <p className={styles.pPrice}>${(event.price)*(event.quantity)}</p>
             </div>
           </li>
         ))}
       </ul>
-
-      <p className={styles.total}>Total: ${result}</p>
+     
+      <p className={styles.total}>Total:{ total } </p>
+      <div className={styles.paypalBtn}>
+      <PayPalCheckoutButton 
+      order={Order}/>
+      </div>
+      
     </div>
   );
 };
 
-export default ShopingData;
+
+function mapStateToProps(state) {
+  return {
+    checkout: state.checkoutItems,
+    total: state.checkoutTotal
+  };
+}
+
+export default connect(mapStateToProps)(ShopingData);

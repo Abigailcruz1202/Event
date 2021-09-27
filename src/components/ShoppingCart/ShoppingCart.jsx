@@ -1,85 +1,90 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import styles from "./ShoppingCart.module.css";
 import ShoppingList from "../ShoppingList/ShoppingList";
 import ShoppingData from "../ShoppingData/ShoppingData";
 import ShoppingOthers from "../ShoppingOthers/ShoppingOthers";
+import { getEventsHome } from "../../actions/actions";
 
-const ShoppingCart = () => {
-  const events = [
-    {
-      id: "1",
-      name: "El amor de las luciernagas",
-      price: "290",
-      tags: "Teatro",
-      weekday: ["viernes", "sabado"],
-      picture: [
-        "https://teatro-eidos1.netdna-ssl.com/wp-content/uploads/2012/08/el-amor-de-las-luciernagas-250-191017.jpg",
-        "https://i.ytimg.com/vi/dbo9jDeBLcY/maxresdefault.jpg",
-        "https://www.dondeir.com/wp-content/uploads/2020/08/el-amor-de-las-luciernagas-obra.jpg",
-        "https://i.pinimg.com/originals/ac/f1/51/acf151ffc106a9ce64549fad310b8c3a.jpg",
-        "https://i.pinimg.com/originals/ac/f1/51/acf151ffc106a9ce64549fad310b8c3a.jpg",
-        "https://i.ytimg.com/vi/U0hyLctYJqQ/maxresdefault.jpg",
-      ],
-    },
-    {
-      id: "2",
-      name: "Tren Nocturno a Georgia ",
-      price: "290",
-      tags: "Teatro",
-      age_rating: "18+",
-      weekday: ["viernes", "sabado"],
-      picture: [
-        "http://2.bp.blogspot.com/-Tu1q8oLpJtk/Tqc1NRn2fwI/AAAAAAAAABI/TDA9YLxcbVM/s320/Tren+nocturno.jpg",
-        "https://i.ytimg.com/vi/dbo9jDeBLcY/maxresdefault.jpg",
-        "https://www.dondeir.com/wp-content/uploads/2020/08/el-amor-de-las-luciernagas-obra.jpg",
-        "https://i.pinimg.com/originals/ac/f1/51/acf151ffc106a9ce64549fad310b8c3a.jpg",
-        "https://i.pinimg.com/originals/ac/f1/51/acf151ffc106a9ce64549fad310b8c3a.jpg",
-        "https://i.ytimg.com/vi/U0hyLctYJqQ/maxresdefault.jpg",
-      ],
-    },
-    {
-      id: "3",
-      name: "Cirque du Soleil en México JOYA",
-      price: "100",
-      tags: "Teatro",
-      age_rating: "18+",
-      weekday: ["sabado"],
-      picture: ["https://i.ytimg.com/vi/BFUCMWHCfxk/hqdefault.jpg"],
-    },
-  ];
-
-  //*Suma de precios
-  const reducer = (acc, cur) => acc + cur;
-  const price = events.map((e) => Number(e.price));
-  const addMoney = (arr) => {
-    let plus = arr.reduce(reducer);
-    return plus;
-  };
-  const result = addMoney(price);
+const ShoppingCart = ({ cart, getEventsHome }) => {
+  //*p___________________________________________________________
+  const [OffSetY, setOffSetY] = useState(0);
+  const handleScroll = () => setOffSetY(window.pageYOffset);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const imgPruebaCabecera =
     "https://media.iastatic.es/ia_img/image/tienda-online_png_770x570_q85.jpg";
 
+  //*-----------------------------------------------------------------
+
   return (
     <>
-      <img src={imgPruebaCabecera} alt="" className={styles.imgHead} />
-      <div className={styles.container}>
-        <h2 className={styles.title}>Carrito De Compras</h2>
-        <div className={styles.subContainer}>
-          <div className={styles.list}>
-            <h3>Tus eventos en carrito</h3>
-            <ShoppingList events={events} />
-        </div>
-          <div className={styles.containerRight}>
-            <ShoppingData events={events} result={result} />
-          </div>
-        </div>
-        <div>
-            <ShoppingOthers />
-        </div>
+      <div className={styles.containerParrallax}>
+        <img
+          src={imgPruebaCabecera}
+          alt=""
+          className={styles.imgHead}
+          style={{ transform: `translateY(${OffSetY * 0.5}px)` }}
+        />
       </div>
+      {cart.length === 0 ? (
+        <div className={styles.containerEmpty}>
+          <h4 className={styles.title}>
+            No hay eventos guardados en el carrito
+          </h4>
+          <span className={styles.icon}>
+                  <i className="fas fa-store-alt-slash"></i>
+                </span>
+        </div>
+      ) : (
+        <div className={styles.container}>
+          <h2 className={styles.title}>Carrito De Compras</h2>
+          {false ? (
+            <div>
+              <h4>
+                No hay ningun evento o producto agregado al carrito de compras
+              </h4>
+            </div>
+          ) : (
+            <>
+              <div className={styles.subContainer}>
+                <div className={styles.list}>
+                  <h3>Tus eventos en carrito</h3>
+                  <ShoppingList />
+                </div>
+                {false ? (
+                  <div className={styles.containerRight}>
+                    {/* <ShoppingData 
+                  setTotal={setTotal}
+                /> */}
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+              </div>
+              <Link to="/checkout">
+                <a>Checkout</a>
+              </Link>
+
+              <div>
+                <ShoppingOthers />
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </>
   );
 };
 
-export default ShoppingCart;
+function mapStateToProps(state) {
+  return {
+    cart: state.cartState,
+  };
+}
+
+export default connect(mapStateToProps, { getEventsHome })(ShoppingCart);

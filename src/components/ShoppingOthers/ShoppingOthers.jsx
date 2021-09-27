@@ -1,48 +1,45 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import ActivityCard from '../ActivityCard/ActivityCard';
-import styles from './ShoppingOthers.module.css'
+import ActivityCard from "../ActivityCard/ActivityCard";
+import styles from "./ShoppingOthers.module.css";
+import { getEventsHome } from "../../actions/actions";
 
 
-const ShoppingOthers = ( { events }) => {
+const ShoppingOthers = ({ events, getEventsHome }) => {
+  let moreEvents = [];
 
-  
+    useEffect(() => {
+    getEventsHome();
+  }, [getEventsHome]);
 
-    let eventOne = events.filter(event => event.id === 1)
-    let eventTwo = events.filter(event => event.id === 2)
-    let eventThree = events.filter(event => event.id === 3)
-    
-console.log(eventOne)
-    return (
-        <div>
-            <h3>Mas Eventos En Tu Ciudad</h3>
-          <ul className={styles.ul}>
-              <li>
-                  <ActivityCard 
-                    event={eventOne[0]}
-                  />
-              </li>
-              <li>
-                  <ActivityCard 
-                    event={eventTwo[0]}
-                  />
-              </li>
-              <li>
-                  <ActivityCard 
-                    event={eventThree[0]}
-                  />
-              </li>
-          </ul>
-            
-        </div>
-    )
-}
+  for (let i = 0; i < 3; i++) {
+    moreEvents.push(events[i])
+  }
 
+ 
+ 
+  return (
+    <div>
+      <h3>Mas Eventos En Tu Ciudad</h3>
+      {events.length !== 0? (
+        <ul className={styles.ul}>
+          {moreEvents.map(e => (
+            <li key={e.id}> <ActivityCard 
+            event={e}
+            /></li>
+          ))}
+        </ul>
+      ) : (
+        <h3>No hay eventos que mostrar</h3>
+      )}
+    </div>
+  );
+};
 
 function mapStateToProps(state) {
-    return {
-      events: state.eventsHome
-    };
-  }
-  
-  export default connect(mapStateToProps)(ShoppingOthers);
+  return {
+    events: state.eventsHome,
+  };
+}
+
+export default connect(mapStateToProps, { getEventsHome })(ShoppingOthers);
