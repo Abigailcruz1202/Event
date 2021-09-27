@@ -64,7 +64,7 @@ const LoginPromoter = ({setUser, setPromoter, user,  promoter, nameComponent, na
       }
       setButton(true);
       setLoading(false)
-      if (json.msg === 'error') {
+      if (!json.msg) {
         setLogger(false);
       } else {
         setLogger(true);
