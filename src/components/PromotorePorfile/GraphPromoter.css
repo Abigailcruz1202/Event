@@ -3,6 +3,7 @@
     height:600px;
     align-content:center;
     text-align: center;
+    background:var(--White) ;
 } 
 
 .prueba{
