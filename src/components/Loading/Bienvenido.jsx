@@ -9,7 +9,7 @@ function Loading (){
             <Link to='/FormEvent' className={styles.linkcrear}>
             <div className={ styles .threeD}>
                 <h1> Bienvenido a eVent </h1>
-                <h1>Crear su primer evento</h1>
+                <h1>Crea tu primer evento</h1>
                 
             </div></Link>
         </div>
