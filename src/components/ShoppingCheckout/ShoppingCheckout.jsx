@@ -28,10 +28,6 @@ const ShoppingCheckout = () => {
       </div>
       <div className={styles.containerData}>
       <ShoppingData />
-      <br /><br /><br />
-      <br /><br />
-      <br /><br /><br />
-      <br /><br />
       </div>
       
     </div>

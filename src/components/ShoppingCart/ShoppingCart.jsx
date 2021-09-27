@@ -66,8 +66,10 @@ const ShoppingCart = ({ cart, getEventsHome }) => {
                   <div></div>
                 )}
               </div>
-              <Link to="/checkout">
-                <a>Checkout</a>
+              <Link to="/checkout" >
+                <button className={styles.checkout}>
+                Checkout
+                </button>
               </Link>
 
               <div>

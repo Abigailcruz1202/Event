@@ -19,8 +19,8 @@ const ShoppingOthers = ({ events, getEventsHome }) => {
  
  
   return (
-    <div>
-      <h3>Mas Eventos En Tu Ciudad</h3>
+    <div classname={styles.container}>
+      <h3 >Mas Eventos En Tu Ciudad</h3>
       {events.length !== 0? (
         <ul className={styles.ul}>
           {moreEvents.map(e => (

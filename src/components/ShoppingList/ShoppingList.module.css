@@ -1,3 +1,10 @@
+.total{
+    text-align: right;
+    margin-right: 140px;
+}
 
+.span{
+    color: var(--Other);
+}
 
 

@@ -83,15 +83,30 @@ justify-content: flex-end;
 .pName{
     position: absolute;
     left: 10px;
+    font-weight: 500;
 }
 
 .pQuantity{
     position: absolute;
     right: 150px;
+    font-weight: 500;
+}
+
+.pPrice{
+   
+    font-weight: 500;
 }
 
 
 
 .paypalBtn{
     margin: 20px;
+}
+
+.span{
+    color: var(--Other);
+}
+
+.total{
+    font-weight: bold;
 }

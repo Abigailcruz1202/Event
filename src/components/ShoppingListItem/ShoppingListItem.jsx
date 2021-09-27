@@ -47,17 +47,17 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout }) =>
       <img src={event.pictures[0]} alt="" className={styles.img} />
       <h4> {event.name} </h4>
       <p className={styles.tag}>{event.tags}</p>
-      <p className={styles.p}>${(event.price)*NumItem}</p>
       <div className={styles.middle}>
         {NumItem === 1 ? (
-          <button></button>
+          <button className={styles.btnCount}></button>
         ) : (
-          <button onClick={setDel}>-</button>
+          <button onClick={setDel} className={styles.btnCount}>-</button>
         )}
-        <p>{NumItem}</p>
-        <button onClick={setAdd}>+</button>
+        <p className={styles.num}>{NumItem}</p>
+        <button onClick={setAdd} className={styles.btnCount}>+</button>
       </div>
-      <button onClick={() => setEliminate(event.id)}>X</button>
+      <p className={styles.p}>${(event.price)*NumItem}</p>
+      <button onClick={() => setEliminate(event.id)} className={styles.close}>X</button>
     </li>
   );
 };
