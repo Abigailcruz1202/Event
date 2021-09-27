@@ -5,18 +5,22 @@
   color: var(--White);
   width: 640px;
   margin: auto;
-  background-color: var(--Black);
+  background-color: var(--Primary);
   box-shadow: 5px 10px #00000081;
+  margin-bottom: 3px;
+  margin-top: 4px;
 }
 .stars {
   color: var(--Button);
 }
 .comment-top-half {
-  text-shadow: 2px 2px 3px black;
+  padding-left: 5px;
+  text-shadow: 1px 1px 2px black;
   font-size: large;
   display: flex;
   align-items: flex-start;
 }
 .comment-bottom-half {
+  padding-left: 5px;
   text-align: start;
 }

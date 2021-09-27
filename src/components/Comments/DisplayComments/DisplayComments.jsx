@@ -19,7 +19,7 @@ export default function DisplayComments(id) {
         let generalRating;
         try {
             backup = await axios.get(`http://localhost:3001/api/comment/all?id=${id.state}`)
-            temporary = await axios.get(`http://localhost:3001/api/comment/someComments?id=${id.state}`)
+            temporary = await axios.get(`http://localhost:3001/api/comment/getFormattedComments?id=${id.state}`)
             generalRating = await axios.get(`http://localhost:3001/api/comment/generalRating?id=${id.state}`)
             if (backup && backup.data.length) setData(backup.data);
             if (temporary && temporary.data.length) setTempDisplay(temporary.data)
@@ -68,35 +68,32 @@ export default function DisplayComments(id) {
                         <p className={style.noReviews}>Este evento todavia no tiene comentarios.</p>
                     
                 ) : (
-                    <div>
+                    <div className={style.mainContainer}>
                         <div className={style.leftContainer}>
                         {
                             eventRating !== 0 ? (
                                 <>
                                     <p className={style.generalRating}>
-                                    Rating General: <span className='general-stars'>{toStars(eventRating)}</span>
+                                    Rating General: <span className={style.generalStars}>{toStars(eventRating)}</span>
                                     </p>
-                                    <p>
+                                    <p className={style.allRatings} onClick={e => setDisplay(tempDisplay)}>
                                         {totalComments} {totalComments > 1? 'calificaciones' : 'calificación'} para este evento.
                                     </p>
-                                    <p onClick={e => setDisplay(tempDisplay)}>
-                                        Ver algunas
-                                    </p>
                                     <div className={style.starContainer}>
-                                        <p onClick={e => setDisplay(data[4].star5)}>
-                                            ★★★★★ {data[4].star5.length / totalComments * 100}%
+                                        <p className={style.individualStars} onClick={e => setDisplay(data[4].star5)}>
+                                            <span className={style.stars}>★★★★★</span>  {Math.floor(data[4].star5.length / totalComments * 100)}%
                                         </p>
-                                        <p onClick={e => setDisplay(data[3].star4)}>
-                                            ★★★★☆ {data[3].star4.length / totalComments * 100}%
+                                        <p className={style.individualStars} onClick={e => setDisplay(data[3].star4)}>
+                                            <span className={style.stars}>★★★★☆</span> {Math.floor(data[3].star4.length / totalComments * 100)}%
                                         </p>
-                                        <p onClick={e => setDisplay(data[2].star3)}>
-                                            ★★★☆☆ {data[2].star3.length / totalComments * 100}%
+                                        <p className={style.individualStars} onClick={e => setDisplay(data[2].star3)}>
+                                            <span className={style.stars}>★★★☆☆</span> {Math.floor(data[2].star3.length / totalComments * 100)}%
                                         </p>
-                                        <p onClick={e => setDisplay(data[1].star2)}>
-                                            ★★☆☆☆ {data[1].star2.length / totalComments * 100}%
+                                        <p className={style.individualStars} onClick={e => setDisplay(data[1].star2)}>
+                                            <span className={style.stars}>★★☆☆☆</span> {Math.floor(data[1].star2.length / totalComments * 100)}%
                                         </p>
-                                        <p onClick={e => setDisplay(data[0].star1)}>
-                                            ★☆☆☆☆ {data[0].star1.length / totalComments * 100}%
+                                        <p className={style.individualStars} onClick={e => setDisplay(data[0].star1)}>
+                                            <span className={style.stars}>★☆☆☆☆</span> {Math.floor(data[0].star1.length / totalComments * 100)}%
                                         </p>
                                     </div>
                                 </>
