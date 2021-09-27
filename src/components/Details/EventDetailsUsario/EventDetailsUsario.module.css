@@ -1,7 +1,14 @@
 .detailsAllUser {
   text-align: center;
 }
-
+.carouselImages {
+}
+.otherDetailsUser {
+  height: 600px; /* DESPUÉS MODIFICAR. */
+  max-width: 50vw;
+  min-width: 40vw;
+  margin: 20px;
+}
 body {
   color: var(--White);
 }
@@ -19,16 +26,13 @@ body {
 /* @media {} MEDIA QUERY PARA HACER EL FLEX*/
 .carousel,
 .otherDetailsUser {
+  margin: auto;
   background-color: var(--Primary);
   box-shadow: 5px 10px #00000081;
   border-radius: 4px;
-}
-
-.otherDetailsUser {
-  height: 600px; /* DESPUÉS MODIFICAR. */
-  max-width: 50vw;
-  min-width: 40vw;
-  margin: 20px;
+  margin-top: 80px;
+  margin-bottom: 80px;
+  overflow: hidden;
 }
 
 .detailsUsers2User {
@@ -37,7 +41,7 @@ body {
   flex-wrap: wrap;
 }
 .buttonContainer {
-/*   padding: 50px; */
+  /*   padding: 50px; */
   width: 500px;
   display: flex;
   justify-content: space-between;
@@ -45,15 +49,27 @@ body {
 }
 .button {
   cursor: pointer;
+  /* Antigua configuracion de boton, incluye margin-top: 25px;
   font-size: large;
   width: 150px;
   height: 30px;
   color: var(--White);
   background-color: var(--Button);
   border: none;
-  border-radius: var(--RadiusOne);
+  border-radius: var(--RadiusOne);*/
+  margin-top: 25px;
+  background-color: var(--Secondary);
+  color: var(--Black);
+  font-weight: 650;
+  border-style: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  border-radius: 10px;
 }
-
+.button:hover {
+  background-color: var(--Button);
+  color: var(--Black);
+}
 .description {
   display: block;
   margin: auto;
@@ -78,7 +94,8 @@ body {
 .contRend {
   margin: 70px;
   height: auto;
-  width: auto;
+  margin: auto;
+  max-width: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,16 +108,15 @@ body {
 .promoterRow {
   display: flex;
   flex-direction: row;
-  align-items:center;
+  align-items: center;
   justify-content: center;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
   margin-bottom: 20px;
-  box-shadow:
-  0px 15px 10px -15px var(--Black),
-  0px -15px 10px -15px var(--Black);
+  box-shadow: 0px 15px 10px -15px var(--Black),
+    0px -15px 10px -15px var(--Black);
 }
 .promoterName {
   display: flex;
@@ -112,13 +128,13 @@ body {
   margin-right: 30px;
 }
 
-.promoterPicture{
+.promoterPicture {
   width: 4.5rem;
   height: 4.5rem;
   border-radius: 50%;
 }
-.promoter{
-  display:flex;
+.promoter {
+  display: flex;
   border: 0.5px solid var(--Black);
   border-radius: 5px;
   padding: 2px;
@@ -127,11 +143,13 @@ body {
   margin: auto;
   background-color: var(--Primary);
   box-shadow: 5px 10px #00000081;
-
 }
-.whats{
+.whats {
   width: 25px;
   height: 25px;
   border-radius: 50%;
   margin-right: 10px;
+}
+.detailsCard2User {
+  margin-bottom: 40px;
 }
