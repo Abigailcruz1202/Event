@@ -54,8 +54,8 @@
 .confirmation {
   vertical-align: middle;
 }
-/* .newCommentCheckbox {
-} */
+.newCommentCheckbox {
+}
 .newCommentConfirmation {
   font-size: smaller;
 }
