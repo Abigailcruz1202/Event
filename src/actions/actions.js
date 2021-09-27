@@ -22,10 +22,12 @@ export const FILTER_WEEKDAYS = 'FILTER_WEEKDAYS';
 export const REMOVE_FILTERS = 'REMOVE_FILTERS';
 export const CHANGE_MODAL = 'CHANGE_MODAL'
 export const SEARCH_NAME = 'SEARCH_NAME'; //Abi
+export const  PROMOTER_USER =' PROMOTER_USER'//daf
 
 
 
-const API = 'http://localhost:3001/api/'
+// const API = 'http://localhost:3001/api/'
+const API = 'https://event-henryapp-backend.herokuapp.com/api/'
 
 
 //*_get_activities_home______________________________________________
@@ -59,7 +61,7 @@ export function getEventsHome(){
 export function getEventDetail(id){
   return async function (dispatch) {
     const response = await 
-    axios.get(`http://localhost:3001/api/event/${id}`)
+    axios.get(`${API}${'event/'}${id}`)
     dispatch({
       type: GET_DETAIL,
       payload: response.data
@@ -98,7 +100,7 @@ export function setPromoter(promoter){
 export function getEventPromoter (id){
   console.log(id, 'SOY ID')
   return async function(dispatch){
-    const response = await axios(`http://localhost:3001/api/promoter/${id}`);
+    const response = await axios(`${API}${'promoter/'}${id}`);
     console.log(response.data.eventPromotor.events,'SOY RESPUESTA EVENTO')
     return dispatch({
       type:GET_EVENTS_PROMOTER,
@@ -172,3 +174,16 @@ export function searchName(name){
 
 
 }
+//daf
+export function getPromoterUser(id){
+  return async function (dispatch){
+    const response = await 
+    axios.get(`${API}${'promoter/'}${id}`)
+    dispatch({
+      type: PROMOTER_USER,
+      payload:response.data
+    })
+  }
+
+}
+

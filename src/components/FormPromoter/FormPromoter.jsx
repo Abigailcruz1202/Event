@@ -91,7 +91,7 @@ function FormPromoter({changeModal}) {
             changeModal('correct', `Revisa todos los campos`);
         } else {
             try{
-                const res = await axios.post('http://localhost:3001/api/promoter',form)
+                const res = await axios.post('https://event-henryapp-backend.herokuapp.com/api/promoter',form)
                 console.log('respuesta del backkkkkkkkk',res.data)
                 if(res.data.msg){
                     changeModal('correct', `Intentalo de nuevo más tarde`)

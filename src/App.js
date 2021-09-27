@@ -96,8 +96,8 @@ function App({ setUser, user, modal, modalForm }) {
         <ShoppingCart />
       </Route>
       
-      <Route path='/PromoterPorfileUser'>
-        <PromoterProfileUser  userData={user} />
+      <Route path='/PromoterPorfileUser/:id'>
+        <PromoterProfileUser   />
       </Route>
 
 

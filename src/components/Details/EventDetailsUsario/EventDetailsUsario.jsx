@@ -47,14 +47,14 @@ export default function EventDetailsUsario() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[id]);
 
-
+ console.log('soy details',detailsEvent)
     // const  logo = Logo
     // const event = eVent
     //Borrar evento boton unicamente disponoble para promotor
     const deleteEvent = async()=>{
         console.log(detailsEvent.consult.promoterId,userInfo.id)       
         if(detailsEvent.consult.promoterId === userInfo.id){
-            const res = await fetch(`http://localhost:3001/api/event/delete/${id}`,
+            const res = await fetch(`https://event-henryapp-backend.herokuapp.com/api/event/delete/${id}`,
                 {
                     method:'DELETE'
                 }
@@ -161,7 +161,7 @@ export default function EventDetailsUsario() {
                                         className={styles.promoterPicture}
                                     />
                                  </Link>
-                                 <Link to='/PromoterPorfileUser'>
+                                 <Link to={ `/PromoterPorfileUser/${detailsEvent.consult.promoter.id}`}>
                                  <span className={styles.promoterName}>
                                         {`${detailsEvent.consult.promoter.business_name}`}
                                     </span>

@@ -95,7 +95,7 @@ export function FormUsers() {
     ) {
       console.log(user, "user");
       try {
-        const res = await axios.post("http://localhost:3001/api/user/", user);
+        const res = await axios.post("https://event-henryapp-backend.herokuapp.com/api/user/", user);
         alert(res.data.msg);
       } catch (error) {
         console.log("error", error);
