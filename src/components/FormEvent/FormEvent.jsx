@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { changeModal, postEvent } from '../../actions/actions.js';
+import { useHistory } from 'react-router';
+import { changeModal, editEvent, postEvent } from '../../actions/actions.js';
 import styles from './FormEvent.module.css'
 import validate from './validate.js';
 
@@ -13,7 +14,8 @@ const regiones = {
 
 
 export function FormEvent(props) {
-
+    console.log('soyyy props', props)
+    const history = useHistory()
     const [errors, setErrors] = useState({});
     const [load, setLoad] = useState(false);
     const [event, setEvent] = useState({
@@ -28,12 +30,12 @@ export function FormEvent(props) {
         address: '',
         start_date: '',
         finish_date: '',
-        isRecurrent:'',
+        isRecurrent:0,
         schedule: [],
         weekdays: [],
         tags: '',
         age_rating: '',
-        sectorize:'false',
+        sectorize:false,
         sectorsPrice:{},
         moneda:'',
         price: '',
@@ -41,12 +43,75 @@ export function FormEvent(props) {
         promoter_id: props.promoterId
     })
 
+
+
     const tags = ["Exteriores", "Interiores", "En vivo", "Recital", "Teatro", "Película", "Disco", "Deportes"]
   
 
     useEffect(()=>{
-        setErrors(validate(event))
-    },[])
+        if(props.modalForm.data.address){
+            let divC=''
+            if(props.modalForm.data.location.country === 'Argentina'){
+                divC='provincias'
+            }else if(props.modalForm.data.location.country === 'Colombia'){
+                divC='departamentos'
+            }else{
+                divC='estados'
+            }
+            setEvent({
+                name: props.modalForm.data.name,
+                description: props.modalForm.data.description,
+                starring: props.modalForm.data.starring,
+                pictures: props.modalForm.data.pictures,
+                country: props.modalForm.data.location.country,
+                divC: divC,
+                region:props.modalForm.data.location.province,
+                city:props.modalForm.data.location.city,
+                address: props.modalForm.data.address,
+                start_date: props.modalForm.data.start_date,
+                finish_date: props.modalForm.data.finish_date,
+                isRecurrent:props.modalForm.data.isrecurrent,
+                schedule: props.modalForm.data.schedule,
+                weekdays: props.modalForm.data.weekdays,
+                tags: props.modalForm.data.tags,
+                age_rating: props.modalForm.data.age_rating,
+                sectorize:'false',
+                sectorsPrice:{},
+                moneda:props.modalForm.data.moneda,
+                price: props.modalForm.data.price,
+                ticket_limit: props.modalForm.data.ticket_limit,
+                promoter_id: props.modalForm.data.promoter_id,
+            });
+            setErrors(validate({
+                name: props.modalForm.data.name,
+                description: props.modalForm.data.description,
+                starring: props.modalForm.data.starring,
+                pictures: props.modalForm.data.pictures,
+                country: props.modalForm.data.location.country,
+                divC: divC,
+                region:props.modalForm.data.location.province,
+                city:props.modalForm.data.location.city,
+                address: props.modalForm.data.address,
+                start_date: props.modalForm.data.start_date,
+                finish_date: props.modalForm.data.finish_date,
+                isRecurrent:props.modalForm.data.isrecurrent,
+                schedule: props.modalForm.data.schedule,
+                weekdays: props.modalForm.data.weekdays,
+                tags: props.modalForm.data.tags,
+                age_rating: props.modalForm.data.age_rating,
+                sectorize:'false',
+                sectorsPrice:{},
+                moneda:props.modalForm.data.moneda,
+                price: props.modalForm.data.price,
+                ticket_limit: props.modalForm.data.ticket_limit,
+                promoter_id: props.modalForm.data.promoter_id,
+            }));
+        }else{
+            setErrors(validate(event));
+        }
+        
+    },[]);
+
     const click = async (e) => {
         const files = e.target.files
         const data = new FormData();
@@ -92,6 +157,39 @@ export function FormEvent(props) {
             weekdays: event.weekdays.filter((d)=> d!== day)
         })
     }
+
+    const handleEdit = async(e)=>{
+        
+        e.preventDefault();
+        let obj = validate(event)
+      
+        if(Object.keys(obj).length !== 0) {
+            props.changeModal('correct', `Revisa todos los campos`);
+        } else {
+            try{
+                console.log(props.modalForm.data.id,'soy yooo')
+                
+                const res = await axios.put(`http://localhost:3001/api/event/edit/${props.modalForm.data.id}`,{...event,locationId:props.modalForm.data.locationId,id:props.modalForm.data.id})
+                
+                console.log(res)
+                if(res.data.msg==='update'){
+                   props.changeModal('correct', `Evento Actualizado`) 
+                   history.push('/perfil')
+                }
+                              
+                else if(res.data.created){
+                    console.log('eyyyyyyyy', res.data.created)
+                    props.changeModal('correct', `El Nombre del evento ya se encuentra registrado`)
+                }
+                props.editEvent(null)
+            }catch(error){
+               props.changeModal('correct', `Intentalo de nuevo más tarde`)
+               props.editEvent(null)
+            }
+        }
+   }
+    
+    
 
     const handleSubmit= async(e)=>{
          e.preventDefault();
@@ -155,8 +253,13 @@ export function FormEvent(props) {
             console.log(e)
             setEvent(
                 {...event, [e.target.name]:[...event[e.target.name], e.target.value]
-            })
-        }else{
+            }) 
+        }else if(e.target.name === 'isRecurrent'){
+            setEvent(
+                {...event, isRecurrent:parseInt(e.target.value)
+            }) 
+        }
+        else{
             setEvent({
                 ...event,
                 [e.target.name] : e.target.value
@@ -171,7 +274,9 @@ export function FormEvent(props) {
     return (
         <div className={styles.contenedor}>    
             <form className={styles.form}>  
-            <h2>Nuevo Evento</h2>              
+            {props.modalForm.render?
+            <h2>Editar Evento</h2> : 
+            <h2>Nuevo Evento</h2>  }            
                 <div className={styles.section}>
                     <div className={styles.row}>{/*NOMBRE DEL EVENTO*/}
                         <span>Nombre del Evento: </span>
@@ -313,23 +418,25 @@ export function FormEvent(props) {
                         <span>Recurrente: </span>
                         <div className={styles.inputCheckRec}>                           
                             <input 
+                                checked={event.isRecurrent}
                                 type="radio"
                                 name='isRecurrent'
-                                value={true}
+                                value={1}
                                 onChange={inputChange}
                                 
                             />Si <br />  
                             <input 
+                                checked={!event.isRecurrent}
                                 type="radio"
                                 name='isRecurrent'
-                                value={false}
+                                value={0}
                                 onChange={inputChange}
                                 
                             />No <br />                            
                             <span className={styles.tick}>{!errors.isRecurrent && '✓'}</span>
                         </div>
                     </div>
-                    {event.isRecurrent === 'true' &&
+                    {event.isRecurrent  &&
                         <div className={styles.row}>{/*FECHA FINAL*/}
                              <span>Fecha Final: </span>
                              <div className={styles.inputCheck}>
@@ -344,7 +451,7 @@ export function FormEvent(props) {
                             </div>
                         </div>
                     }
-                    {event.isRecurrent === 'true' &&
+                    {event.isRecurrent &&
                     <>
                         <div className={styles.row}>{/*HORARIOS*/}
                             <span>Horarios: </span>
@@ -378,7 +485,7 @@ export function FormEvent(props) {
                         }                                    
                     </>
                     }
-                    {event.isRecurrent === 'true' &&
+                    {event.isRecurrent  &&
                     <>
                         <div className={styles.row}>{/*HORARIOS DISPONIBLES*/}
                             <span>Dias: </span>
@@ -526,7 +633,11 @@ export function FormEvent(props) {
                         </div>                   
                     </div>
                 </div>
-                <input type='submit' onClick={handleSubmit} /> 
+                {props.modalForm.render?
+                <input type='submit' onClick={handleEdit} value='Editar'/>:
+                <input type='submit' onClick={handleSubmit} value='Crear'/> 
+                 }
+                
             </form>
         </div>
     )
@@ -535,7 +646,13 @@ export function FormEvent(props) {
 function mapDispatchToProps(dispatch) {
     return {
         postEvent: (event) => dispatch(postEvent(event)),
-        changeModal:(type,msg)=>dispatch(changeModal(type,msg))
+        changeModal:(type,msg)=>dispatch(changeModal(type,msg)),
+        editEvent:(details)=>dispatch(editEvent(details)),
     }
 }
-export default connect(null, mapDispatchToProps)(FormEvent)
+function mapStateToProps(state){
+    return {
+        modalForm: state.modalForm,
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(FormEvent)

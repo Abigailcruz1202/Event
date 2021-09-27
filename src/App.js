@@ -20,9 +20,10 @@ import LoginContainer from './components/LoginContainer/LoginContainer';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import PromotorePorfile from './components/PromotorePorfile/PromotoreProfile';
 import PromoterProfileUser from './components/PromotorePorfile/PerfilPromoterUsuario'
+import EditForm from './components/Details/EventDetailsUsario/EditForm';
 
 
-function App({ setUser, user, modal }) {
+function App({ setUser, user, modal, modalForm }) {
   console.log(user)
 
   // Usuario en local storage
@@ -102,6 +103,7 @@ function App({ setUser, user, modal }) {
 
       <Footer />
       {modal.render ? <Modal message={modal.message} type={modal.type} /> : null}
+      {modalForm.render && <EditForm />}
     </>
   );
 }
@@ -110,7 +112,8 @@ function App({ setUser, user, modal }) {
 function mapStateToProps(state) {
   return {
     user: state.userState,
-    modal: state.modal
+    modal: state.modal,
+    modalForm: state.modalForm,
   };
 }
 export default connect(mapStateToProps, { setUser })(App);

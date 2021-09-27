@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DisplayComments from '../../Comments/DisplayComments/DisplayComments';
 import { Link , useParams, useHistory} from 'react-router-dom';
 import  {useDispatch , useSelector} from 'react-redux';
-import {getEventDetail, changeModal} from '../../../actions/actions';
+import {getEventDetail, changeModal, editEvent} from '../../../actions/actions';
 import { Carousel } from 'react-carousel-minimal';
 import Loading from '../../Loading/Loading';
 import styles from './EventDetailsUsario.module.css';
@@ -68,7 +68,13 @@ export default function EventDetailsUsario() {
             ))
         }
     }
-    const editEvent = () =>{}
+    //boton unicamente disponible para promotor
+    const editEvento =() =>{
+        console.log('estaaaa es mi prueba 1',detailsEvent.consult)
+        dispatch(editEvent(detailsEvent.consult));
+
+    }
+
     const slideNumberStyle = {
         fontSize: '20px',
         fontWeight: 'bold',
@@ -171,7 +177,7 @@ export default function EventDetailsUsario() {
                         }
 
                             {userInfo?.type === "promoter"?
-                                <button className={styles.button} onClick={editEvent}>Editar</button>:
+                                <button className={styles.button} onClick={editEvento}>Editar</button>:
                                 <button className={styles.button}>Reservar</button>
                             }   
                             {/* Si usuario no logeado, arrojar alerta de "no puedes comentar". Si usuario logeado de

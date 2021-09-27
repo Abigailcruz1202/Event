@@ -10,6 +10,7 @@ export const SET_USER = 'SET_USER'
 //*promoter
 export const SET_PROMOTER = 'SET_PROMOTER'
 export const GET_EVENTS_PROMOTER = 'GET_EVENTS_PROMOTER'
+export const EDIT_EVENT='EDIT_EVENT'
 //*activities home
 export const GET_EVENTS_HOME = 'GET_EVENTS_HOME';
 export const GET_EVENTS = 'GET_EVENTS'; //Abi
@@ -154,7 +155,13 @@ export function changeModal(type,message){
     type: CHANGE_MODAL, payload:{type,message}
   }
 }
-
+//modal formulario edicion
+export function editEvent(eventDatails){
+  console.log('entreeeeeeeeeeee al action',eventDatails)
+  return{
+    type: EDIT_EVENT, payload:eventDatails
+  }
+}
 // * Search
 export function searchName(name){
   console.log(name,'action name')
