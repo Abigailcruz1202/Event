@@ -73,7 +73,7 @@ export default function EventDetailsUsario() {
             ))
         }
     }
-    const editEvent = () =>{}
+    
     const slideNumberStyle = {
         fontSize: '20px',
         fontWeight: 'bold',
