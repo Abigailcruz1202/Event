@@ -7,7 +7,7 @@ import { Carousel } from 'react-carousel-minimal';
 import Loading from '../../Loading/Loading';
 import styles from './EventDetailsUsario.module.css';
 
-
+ 
 
 
 // import Logo from '../../../Utilities/logodivinacodi.gif'
