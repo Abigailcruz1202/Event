@@ -31,3 +31,26 @@
     display: flex;
     
 }
+
+.close{
+    background-color: var(--Other);
+    border: none;
+    border-radius: var(--RadiusBtn);
+    box-shadow: var(--ShadowBtn);
+    color: var(--White);
+}
+.close:hover{
+    background-color: var(--Button);
+    color: var(--Black);
+}
+
+.btnCount{
+    height: 25px;
+   
+    margin: 15px 5px;
+}
+
+.num{
+    color: var(--Primary);
+    font-size: 15px;
+}

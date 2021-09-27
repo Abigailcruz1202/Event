@@ -75,3 +75,16 @@
       font-size: 200px;
       color: var(--Other);
   }
+
+  .checkout{
+      background-color: var(--Button);
+      border-radius: var(--RadiusOne);
+      color: var(--Black);
+      padding: 10px;
+      box-shadow: var(--ShadowOne);
+  }
+  .checkout:hover{
+    background-color: var(--Other);
+    color: var(--White);
+    transition: .3s;
+}

@@ -31,7 +31,7 @@ const ShopingData = ({ checkout, total }) => {
         ))}
       </ul>
      
-      <p className={styles.total}>Total:{ total } </p>
+      <p className={styles.total} className={styles.total}>Total<span className={styles.span}>:</span>{ total } </p>
       <div className={styles.paypalBtn}>
       <PayPalCheckoutButton 
       order={Order}/>

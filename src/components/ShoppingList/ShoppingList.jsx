@@ -43,7 +43,7 @@ useEffect(() => {
          />
         ))}
       </ul>
-      <h3>total:{Total}</h3>
+      <h3 className={styles.total} >total<span className={styles.span}>:</span>{Total}</h3>
       </>
   );
 };
