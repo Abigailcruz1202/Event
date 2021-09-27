@@ -18,9 +18,9 @@ export default function DisplayComments(id) {
         let temporary;
         let generalRating;
         try {
-            backup = await axios.get(`http://localhost:3001/api/comment/all?id=${id.state}`)
-            temporary = await axios.get(`http://localhost:3001/api/comment/getFormattedComments?id=${id.state}`)
-            generalRating = await axios.get(`http://localhost:3001/api/comment/generalRating?id=${id.state}`)
+            backup = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/comment/all?id=${id.state}`)
+            temporary = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/comment/getFormattedComments?id=${id.state}`)
+            generalRating = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/comment/generalRating?id=${id.state}`)
             if (backup && backup.data.length) setData(backup.data);
             if (temporary && temporary.data.length) setTempDisplay(temporary.data)
             if (generalRating && generalRating.data !== 0) setEventRating(generalRating.data)

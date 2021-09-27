@@ -8,8 +8,8 @@ function Loading (){
         <div className={ styles .bienvenidosCrear}>
             <Link to='/FormEvent' className={styles.linkcrear}>
             <div className={ styles .threeD}>
-                <h1> Bienvedido a eVent </h1>
-                <h1>Crear Su primer un evento</h1>
+                <h1> Bienvenido a eVent </h1>
+                <h1>Crear su primer evento</h1>
                 
             </div></Link>
         </div>

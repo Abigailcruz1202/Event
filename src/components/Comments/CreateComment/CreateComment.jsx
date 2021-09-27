@@ -34,7 +34,7 @@ export default function CreateComment() {
             let userCheck;
             let response;
             try {
-                response = await axios.get(`http://localhost:3001/api/user/${userId}`)
+                response = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userId}`)
                 userCheck = response.data.comments.filter(comment => comment.eventId === location.state.id)
             } catch (e) {
                 console.log(e)
@@ -80,7 +80,7 @@ export default function CreateComment() {
         else if (review.length < 40 || review.length > 300) return alert('El comentario debe tener entre 40 y 300 caracteres.')
         else if (!checkbox) return alert('Es necesario que confirmes que tu comentario sigue nuestras normas.')
             else {
-                axios.post('http://localhost:3001/api/comment', {
+                axios.post('https://event-henryapp-backend.herokuapp.com/api/comment', {
                     review,
                     rating,
                     user_id,
