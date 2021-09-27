@@ -13,6 +13,7 @@ import {
    SEARCH_NAME,
    GET_EVENTS,
    GET_EVENTS_PROMOTER,
+   EDIT_EVENT,
    PROMOTER_USER,
   } from "../actions/actions";
 
@@ -36,6 +37,11 @@ import {
       render:false,
       type:null,
       message:null,
+    },
+    //modL FORM 
+    modalForm:{
+      render:false,
+      data:{},
     },
     //*filter //Abi
     filters:[],
@@ -129,8 +135,7 @@ import {
       }
     }
 
-    if(action.type === CHANGE_MODAL){
-     
+    if(action.type === CHANGE_MODAL){    
       return{
         ...state,
         modal:{
@@ -138,6 +143,19 @@ import {
           render:!state.modal.render,
           message: action.payload.message,
           type: action.payload.type
+        }
+      }
+    }
+
+    
+    if(action.type === EDIT_EVENT){    
+      console.log('en el reducer',action.payload)
+      return{
+        ...state,
+        modalForm:{
+          ...state.modalForm,
+          render:!state.modalForm.render,
+          data: action.payload,
         }
       }
     }

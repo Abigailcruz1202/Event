@@ -6,6 +6,7 @@
     align-items: center;
     border-bottom: 1px var(--Black) solid;
     padding-bottom: 10px;
+    color: black;
 }
 @media (max-width: 768px) { 
     .contEvent{
