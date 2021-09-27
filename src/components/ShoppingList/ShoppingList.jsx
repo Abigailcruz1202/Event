@@ -1,38 +1,57 @@
-import React from "react";
-import styles from './ShoppingList.module.css'
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import styles from './ShoppingList.module.css';
+import { deleteShopping, setTotalCheckout } from '../../actions/actions';
+import ShoppingListItem from "../ShoppingListItem/ShoppingListItem";
 
-const ShoppingList = ({ events }) => {
+const ShoppingList = ({ events, deleteShopping, checkout, setTotalCheckout}) => {
+  
+
+//*F.Plus___________________________________________________________
+const [Total, setTotal] = useState(0);
+const price = checkout.map((e) => Number(e.price)*e.quantity);
+
+
+
+useEffect(() => {
+  
+  const addMoney = (arr) => {
+    const reducer = (acc, cur) => acc + cur;
+    if (arr.length === 0) {
+      setTotal(0)
+    return;
+    }
+    setTotal(arr.reduce(reducer))
+    setTotalCheckout(arr.reduce(reducer))
+    return;
+  };
+  addMoney(price)
+ 
+}, [checkout])
+//*---------------------------------------------------------------
+
+  const setDelCart = (id) => {
+    deleteShopping(id)
+  }
   return (
     <>
-      <ul className={styles.ul}>
+    <ul className={styles.ul}>
         {events.map((event) => (
-          <li
-          className={styles.li}
-          key={ event.id}>
-            <img src={event.picture[0]} alt="" className={styles.img}/>
-            <h4> {event.name} </h4>
-            <p className={styles.tag}>{event.tags}</p>
-            <p className={styles.p}>${event.price}</p>
-            <div className={styles.middle}>
-            <label className={styles.label}></label>
-            <select
-            //   name="number"
-            //   onChange={actualizarState}
-            //   value={difficulty}
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-
-          </div>
-          </li>
+         <ShoppingListItem 
+          event={event}
+          setDelCart={setDelCart}
+         />
         ))}
       </ul>
-    </>
+      <h3>total:{Total}</h3>
+      </>
   );
 };
 
-export default ShoppingList;
+function mapStateToProps(state) {
+  return {
+    events: state.cartState,
+    checkout: state.checkoutItems
+  };
+}
+export default connect(mapStateToProps, { deleteShopping, setTotalCheckout })(ShoppingList);

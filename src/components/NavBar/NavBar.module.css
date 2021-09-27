@@ -48,3 +48,23 @@
  /* .shoppingIcono{
    color: var;
  } */
+
+
+ .counterContainer{
+  position: absolute;
+  top: 17px;
+  right: 7px;
+  background-color: var(--Button);
+  width: 15px;
+  height: 15px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.counter{
+  font-size: 10px;
+  text-align: center;
+  top: 2px;
+}

@@ -8,7 +8,7 @@ import Logout from '../Logout/Logout'
 import img2 from '../../Utilities/eVent-08.svg';
 
 
-const NavBar = ({ user, setUser }) => {
+const NavBar = ({ user, setUser, cart }) => {
   const history = useHistory();
 
   const [Out, setOut] = useState(false);
@@ -46,11 +46,18 @@ const NavBar = ({ user, setUser }) => {
               <a className="logoutBtn pointer" onClick={setLogout}>
                 Logout
               </a>
+              {user.type === "promoter"? <div></div>: 
+              <>
               <Link to="/shoppingCart" className={styles.loginBtn}>
                 <span className={styles.icon}>
                   <i className="fas fa-shopping-cart"></i>
                 </span>
               </Link>
+              <div className={styles.counterContainer}>
+                <p className={styles.counter}>{ cart.length }</p>
+              </div>
+              </>
+              }
             </>
           ) : (
             <Link to="/login" className={styles.loginBtn}>
@@ -73,6 +80,7 @@ function mapStateToProps(state) {
   return {
     switchSide: state.sideBarSwitch,
     user: state.userState,
+    cart: state.cartState,
   };
 }
 
