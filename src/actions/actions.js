@@ -9,6 +9,7 @@ export const POST_EVENT = 'POST_EVENT'; //Abi
 export const SET_USER = 'SET_USER'
 //*promoter
 export const SET_PROMOTER = 'SET_PROMOTER'
+export const GET_EVENTS_PROMOTER = 'GET_EVENTS_PROMOTER'
 //*activities home
 export const GET_EVENTS_HOME = 'GET_EVENTS_HOME';
 export const GET_EVENTS = 'GET_EVENTS'; //Abi
@@ -92,6 +93,18 @@ export function setPromoter(promoter){
     payload: promoter
   }
 }
+// get eventos por promotor-------------------------------------------
+export function getEventPromoter (id){
+  console.log(id, 'SOY ID')
+  return async function(dispatch){
+    const response = await axios(`http://localhost:3001/api/promoter/${id}`);
+    console.log(response.data.eventPromotor.events,'SOY RESPUESTA EVENTO')
+    return dispatch({
+      type:GET_EVENTS_PROMOTER,
+      payload:response.data.eventPromotor.events,
+    });
+  }
+}
 
 //* POST_EVENT
 export function postEvent(event){
@@ -149,4 +162,6 @@ export function searchName(name){
     type: SEARCH_NAME,
     payload: name
   }
+
+
 }

@@ -1,0 +1,29 @@
+
+.li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--WhiteTwo);
+    margin: 15px 5px 15px 5px;
+    padding: 15px;
+    width: 50vw;
+}
+
+.img{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin-right: 11px;
+}
+
+.p{
+    margin-left: 20px;
+}
+
+.tag{
+    color: var(--White);
+    background-color: var(--Other);
+    padding: 7px;
+    border-radius: var(--RadiusBtn);
+}

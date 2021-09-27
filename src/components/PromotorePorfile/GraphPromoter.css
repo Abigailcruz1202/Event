@@ -1,0 +1,10 @@
+.graphpromoter{
+    width:550px;
+    height:600px;
+    align-content:center;
+    text-align: center;
+} 
+
+.prueba{
+    color:var(--Button);
+}

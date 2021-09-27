@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import ListEvent from "./ListEvent";
 import Grafica from  './GraphPromoter'
@@ -13,6 +14,7 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
         const getEvents = async()=>{
             try{
             const events = await getEventPromoter(userData.id)
+            console.log('soy el id de data',userData.id)
             return events
             }catch(error){
                 console.log(error)
@@ -21,6 +23,7 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
         }
         const eventos = getEvents()
     },[])
+    const whats ={whats:`https://api.whatsapp.com/send?phone=${524612917348}`}
     return(
         <div className={styles.contPrin}>
             <div className={styles.contProfile}>
@@ -35,17 +38,17 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
             
             <div className={styles.contEvents}>
                 <div className={styles.barEvent}>  
-                    <h4>Mis Eventos</h4>
-                    <Link to='/FormEvent' className={styles.link}>              
-                        <button className={styles.btnAddEvent}>
-                            Nuevo Evento 
-                        </button>     
-                    </Link>           
+                    <h4> Eventos</h4>           
                 </div>
+                <div className={styles.whats}>
+                     <a href={whats.whats} target="_blank" rel="noopener noreferrer">
+                         <img src='https://1.bp.blogspot.com/-c156R1-yBRg/YIJJXWpUS9I/AAAAAAAAFP4/Q7eQOnTtqesWS2Q7s8CxireQvnB1OwNUwCLcBGAsYHQ/w680/logo-whatsApp-'className={styles.whats}/>
+                     </a> 
+                 </div>                
             
                 <ListEvent events={promoterEvents}/>
             </div>
-            <Grafica/>
+           
 
         </div>
     );

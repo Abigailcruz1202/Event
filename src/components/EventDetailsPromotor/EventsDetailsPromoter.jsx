@@ -34,6 +34,7 @@ export default function EventDetailsUsario() {
         const params =useParams()
         const {id}=params
         const detailsEvent = useSelector(state => state.detailsEvent)
+        console.log('holis cesar soy detalle ', detailsEvent)
 
         useEffect(async()=>{
             try{
@@ -58,12 +59,12 @@ export default function EventDetailsUsario() {
             setData(pushDta(detailsEvent))
         },[detailsEvent])
 
-    if(render){
+    if(render&&detailsEvent.result){
             return(   
             <div className={styles.detailsAllUser}>
                 <div className='detailsCardUser'> 
                     <div className='deailscard2User'>
-                        <h1 className={styles.titleCard}>{detailsEvent.result.name}</h1>
+                        <h1 className={styles.titleCard}>{detailsEvent?.result.name}</h1>
                         <div className='img'>                               
                             <Carousel   
                                 data={data}

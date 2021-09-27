@@ -22,9 +22,11 @@
   --Button: #f5af00;
   --Other: #ce0b0b;
   --White: #f1f1f1;
+  --WhiteTwo: #d8d8d8;
   --Black: #00171f;
   --Alert: #ff4444;
   --Success: #09e74c;
+  --Back: #e7e7e7;
 
   /* Fonts */
   --Alumni: 'Alumni Sans', sans-serif;
@@ -38,8 +40,11 @@
   --RadiusBtn: 4px;
   --RadiusSide: 0 10px 10px 0;
   --ShadowOne: 3px 3px 3px rgba(0, 0, 0, 1);
+  --InnerShadowOne: -3px -3px 3px rgba(0, 0, 0, 1);
+  --ShadowOneInv: -3px -3px 3px rgba(0, 0, 0, 1);
   --ShadowTwo: 2px 2px 2px rgba(0, 0, 0, 1);
   --ShadowBtn:  1px 1px 1px rgba(0, 0, 0, 1);
+  --BigShadow: 0 0 20px 30px var(--Black);
   --Transition: .4s;
   --CustomBezier: cubic-bezier(0.1, 0.9, 1, 1); /* Transición animada personalizada */
 }
@@ -50,37 +55,39 @@ body{
   margin-top: 6rem;  /* CORRESPONDE CON NavBar.module.css: .Navbar {height: 4rem;} */
   background: var(--Black);
 }
-ul {
-padding-left: 0px;
-}
 li {
   list-style: none;
 }
-ul{
+ul {
   padding-left: 0px;
 }
-a{
+a {
   text-decoration: none;
+}
+
+.formTitle {
+  font-size: 1.5rem;
+  color: var(--Button);
+  font-weight: 350;
+  margin: 20px;
 }
 
 .thumbnail {
   margin: 0 5px;
   height: 90px;
 }
-.carousel-caption-bottom{
+.carousel-caption-bottom {
  opacity: 0%;
  font-size: 18px;
-
- 
 }
 
-.carousel-caption-bottom:hover{
+.carousel-caption-bottom:hover {
   padding:5px;
   margin:0px;
   opacity: 100%;
   font-size: 18px;
   background: var(--Black ) 50%;
-  rgba:0.5;
+  /* rgba:0.5; */
 }
 
 ::-webkit-scrollbar {
@@ -92,7 +99,6 @@ a{
 ::-webkit-scrollbar-track-piece {
   background: var(--Black);
   border-radius: 5px;
-
 }
 
 /* Handle */
@@ -107,7 +113,6 @@ a{
 ::-webkit-scrollbar-thumb:hover {
   background-color: #00b4d8df; 
 }
-
 
 /** EventStrap */
 
@@ -137,13 +142,13 @@ a{
    height: max-content;
   }
 }
-.imgCard{
+.imgCard {
   width: 100%;
 height: 180px;
 position: absolute;
 filter: brightness(60%);
 }  
-.titleCard{
+.titleCard {
   color: var(--White);
   z-index: 10;
   font-size: var(--TitleCard);
@@ -155,18 +160,16 @@ filter: brightness(60%);
       }
     }
   
-  .infoCard{
+  .infoCard {
       color: var(--White);
       z-index: 10;
       margin-bottom: 0px;
   }
-  @media (max-width: 420px) { 
+  @media (max-width: 420px) {
       .infoCard{
       font-size: 1rem;
       }
     }
-
-
 
 /** Buttons */
 .EbtnCard{
@@ -263,7 +266,6 @@ filter: brightness(60%);
   border-radius: 70px;
  }
 
-
  .contFlex{
    display: flex;
    flex-wrap: wrap;
@@ -276,7 +278,6 @@ filter: brightness(60%);
   color: var(--White);
   margin-right: 15px;
  }
-
 
  .pointer{
   cursor: pointer;

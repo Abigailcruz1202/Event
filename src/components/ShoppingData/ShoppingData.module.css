@@ -1,0 +1,33 @@
+.ul{
+    background-color: var(--Back);
+    border-radius: var(--RadiusOne);
+    color: var(--Black);
+    width: 300px;
+    padding: 10px;
+}
+
+.container{
+    padding: 50px;
+    background-color: var(--Primary);
+    color: var(--White);
+    border-radius: var(--RadiusOne);
+    margin: 20px;
+    
+}
+
+.title{
+    text-align: center;
+}
+
+.liSubContainer{
+display: flex;
+justify-content: flex-end;
+}
+
+.total{
+    text-align: right;
+}
+
+.p{
+   margin-right: 15px;
+}

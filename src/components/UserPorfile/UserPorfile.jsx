@@ -1,7 +1,9 @@
 import React from "react";
 import styles from './UserPorfile.module.css'
 import { connect } from 'react-redux';
-import SubCarousel from '../subCarousel/SubCarousel'
+import SubCarousel from '../SubCarousel/SubCarousel' // Diego: Este es el correcto, cambienle el nombre a sus carpetas
+// import SubCarousel from '../subCarousel/SubCarousel' <-------- Este no jeje
+
 const UserPorfile = ({userState})=>{
     console.log(userState)
     return(
@@ -14,7 +16,7 @@ const UserPorfile = ({userState})=>{
                 <h4 className={styles.ciudad}>Bogotá, Colombia</h4> */}
             </div>
             <div className={styles.contInfo} >
-                <h3>¡Bievenido! {userState.username}</h3>
+                <h3>¡Bienvenido! {userState.username}</h3>
             </div>
 
             <div className={styles.myEvents}>

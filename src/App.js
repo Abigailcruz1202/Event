@@ -6,9 +6,9 @@ import { Route } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
 import Home from './components/Home/Home';
-import FormUsers from './components/FormUsers/FormUsers';
+import FormUsers from './components/FormUsers/FormUsers.jsx';
 import FormPromoter from './components/FormPromoter/FormPromoter.jsx';
-// import EventDetailsUsario from './components/Details/EventDetailsUsario/EventDetailsUsario';
+import EventDetailsUsario from './components/Details/EventDetailsUsario/EventDetailsUsario';
 import EventsDetailsPromoter from './components/EventDetailsPromotor/EventsDetailsPromoter'
 import FormEvent from './components/FormEvent/FormEvent';
 import Comments from './components/Comments/CreateComment/CreateComment.jsx'
@@ -19,24 +19,32 @@ import Modal from './components/Modal/Modal';
 import LoginContainer from './components/LoginContainer/LoginContainer';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import PromotorePorfile from './components/PromotorePorfile/PromotoreProfile';
+import PromoterProfileUser from './components/PromotorePorfile/PerfilPromoterUsuario'
 
 
 function App({ setUser, user, modal }) {
-  
+  console.log(user)
 
   // Usuario en local storage
   let loginUser = JSON.parse(localStorage.getItem('User'))
+  console.log(loginUser)
   useEffect(() => {
     if (loginUser) {
+      console.log('ENTREEE EL IF', user)
       setUser(loginUser)
     } else
+    console.log('ENTREEE EL ELSE')
       setUser({})
-  }, [setUser])
+  }, [setUser]) 
 
   return (
     <>
 
       <NavBar />
+       
+       
+
+
 
       <Route exact path='/'>
         <Home />
@@ -58,12 +66,12 @@ function App({ setUser, user, modal }) {
         <FormPromoter />
       </Route>
 
-      {/* <Route path='/eventDetailsUsuario/:id' >
+      <Route path='/eventDetailsUsuario/:id' >
         <EventDetailsUsario />
-      </Route> */}
+      </Route>
 
       <Route path='/FormEvent' >
-        <FormEvent />
+        {user.msg? user.type === 'user'?<Home />:<FormEvent promoterId={user.id}/>: <Redirect to='/login'/>}
       </Route>
 
       <Route path='/EventsDetailsPromoter/:id' >
@@ -71,8 +79,7 @@ function App({ setUser, user, modal }) {
       </Route>
 
       <Route path='/perfil' >
-        {console.log(user)}
-        {user.msg? <UserPorfile/> : <Redirect to='/login'/>}
+        {user.msg? user.type === 'user' ?<UserPorfile/> : <PromotorePorfile userData={user}/> : <Redirect to='/login'/>}
       </Route>
 
 
@@ -80,13 +87,18 @@ function App({ setUser, user, modal }) {
         <Comments />
       </Route>
 
-      <Route path='/perfilPromotor'>
+      {/* <Route path='/perfilPromotor'>
         <PromotorePorfile />
-      </Route>
+      </Route> */}
 
       <Route path='/shoppingCart'>
         <ShoppingCart />
       </Route>
+      
+      <Route path='/PromoterPorfileUser'>
+        <PromoterProfileUser  userData={user} />
+      </Route>
+
 
       <Footer />
       {modal.render ? <Modal message={modal.message} type={modal.type} /> : null}
