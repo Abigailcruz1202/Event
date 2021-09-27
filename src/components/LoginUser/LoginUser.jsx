@@ -51,7 +51,7 @@ const Login = ({ setUser, user, nameComponent, nameComponentOne, nameComponentTw
         },
         body: JSON.stringify(obj),
       };
-      let res = await fetch("http://localhost:3001/api/user/login", config);
+      let res = await fetch("https://event-henryapp-backend.herokuapp.com/api/user/login", config);
       let json = await res.json();
       let user = {
         msg:json.msg,
@@ -153,7 +153,7 @@ const Login = ({ setUser, user, nameComponent, nameComponentOne, nameComponentTw
         },
         body: JSON.stringify(obj),
       };
-      let res = await fetch("http://localhost:3001/api/user/login", config);
+      let res = await fetch("https://event-henryapp-backend.herokuapp.com/api/user/login", config);
       let json = await res.json();
    
       let user = {
