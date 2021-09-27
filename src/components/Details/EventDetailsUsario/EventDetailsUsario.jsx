@@ -152,7 +152,7 @@ export default function EventDetailsUsario() {
                                     alt=''
                                 />
                                 </Link>
-                            <Link to='/PromoterPorfileUser'>
+                            <Link to={`/PromoterPorfileUser${detailsEvent.consult.promoter.id}`}>
                             <span className={styles.promoterName}>
                                     {`${detailsEvent.consult.promoter.business_name}`}
                                 </span>
