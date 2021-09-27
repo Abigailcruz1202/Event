@@ -140,6 +140,17 @@ export default function EventDetailsUsario() {
                                 </div>                                
                             </div>
                         </div>
+                        {user.type !== 'user'? <div></div>: 
+                            <>
+                            {eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
+                                <button onClick={() => setShopping(detailsEvent.consult)}>
+                                <span className={styles.icon}>
+                                    <i className="fas fa-shopping-cart"></i>
+                                </span>
+                                </button>
+                            }
+                            </>
+                        }
                         {userInfo?.type=== 'promoter'||
 
                         <div className={styles.contRend}>
