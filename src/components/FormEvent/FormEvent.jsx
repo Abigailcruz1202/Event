@@ -169,7 +169,7 @@ export function FormEvent(props) {
             try{
                 console.log(props.modalForm.data.id,'soy yooo')
                 
-                const res = await axios.put(`http://localhost:3001/api/event/edit/${props.modalForm.data.id}`,{...event,locationId:props.modalForm.data.locationId,id:props.modalForm.data.id})
+                const res = await axios.put(`https://event-henryapp-backend.herokuapp.com/api/event/edit/${props.modalForm.data.id}`,{...event,locationId:props.modalForm.data.locationId,id:props.modalForm.data.id})
                 
                 console.log(res)
                 if(res.data.msg==='update'){
@@ -199,7 +199,7 @@ export function FormEvent(props) {
              props.changeModal('correct', `Revisa todos los campos`);
          } else {
              try{
-                 const res = await axios.post('http://localhost:3001/api/event',event)
+                 const res = await axios.post('https://event-henryapp-backend.herokuapp.com/api/event',event)
                  console.log('respuesta del backkkkkkkkk',res.data)
                  if(res.data.msg){
                     props.changeModal('correct', `Intentalo de nuevo más tarde`) 

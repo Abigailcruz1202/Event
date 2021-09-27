@@ -54,7 +54,7 @@ export default function EventDetailsUsario() {
     const deleteEvent = async()=>{
         console.log(detailsEvent.consult.promoterId,userInfo.id)       
         if(detailsEvent.consult.promoterId === userInfo.id){
-            const res = await fetch(`http://localhost:3001/api/event/delete/${id}`,
+            const res = await fetch(`https://event-henryapp-backend.herokuapp.com/api/event/delete/${id}`,
                 {
                     method:'DELETE'
                 }
