@@ -1,5 +1,5 @@
 .newCommentWrapper {
-  background-color: var(--White);
+  background-color: var(--Black);
   color: var(--White);
   height: 35vw;
 }
@@ -27,14 +27,26 @@
   margin: auto;
 }
 .newCommentButton {
-  margin-top: 10px;
+  background-color: var(--Secondary);
+  color: var(--Black);
+  font-weight: 650;
+  border-style: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  border-radius: 10px;
+
+  /* margin-top: 10px;
   font-size: large;
   width: 150px;
   height: 30px;
-  color: var(--White);
-  background-color: var(--Button);
+  color: var(--White); */
+  /* background-color: var(--Button);
   border: none;
-  border-radius: var(--RadiusOne);
+  border-radius: var(--RadiusOne); */
+}
+.newCommentButton:hover {
+  background-color: var(--Button);
+  color: var(--Black);
 }
 .newCommentSuccess {
   text-align: center;
@@ -51,14 +63,6 @@
 .newCommentSuccessImg {
   max-width: 345px;
 }
-.confirmation {
-  vertical-align: middle;
-}
-.newCommentCheckbox {
-}
-.newCommentConfirmation {
-  font-size: smaller;
-}
 
 .minimumRequired {
   color: green;
@@ -66,4 +70,24 @@
 
 .notMinimumRequired {
   color: red;
+}
+.charactersRequired {
+  justify-content: center;
+  text-align: right;
+  padding-right: 50px;
+  font-size: smaller;
+}
+
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.newCommentCheckbox {
+  display: inline;
+  max-width: 30px;
+}
+.newCommentConfirmation {
+  display: inline;
+  font-size: smaller;
 }

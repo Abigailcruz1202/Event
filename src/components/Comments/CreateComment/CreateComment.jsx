@@ -36,8 +36,8 @@ export default function CreateComment() {
             try {
                 response = await axios.get(`http://localhost:3001/api/user/${userId}`)
                 userCheck = response.data.comments.filter(comment => comment.eventId === location.state.id)
-            } catch (error) {
-                console.log(error)
+            } catch (e) {
+                console.log(e)
                 return
             }
             if (userCheck) setCommentedBefore(true)
@@ -52,7 +52,7 @@ export default function CreateComment() {
 
     // Diego: Handler para la longitud minima del comentario
     useEffect(() => {
-        setMinimumRequired(input.review.length >= 39 ? true : false)
+        setMinimumRequired(input.review.length >= 39 && input.review.length <= 300 ? true : false)
     },[input.review.length])
 
 
@@ -77,7 +77,7 @@ export default function CreateComment() {
         e.preventDefault();
         const { review, rating, user_id, event_id, checkbox } = input
         if (!rating || !review) return alert('Todos los campos son requeridos.')
-        else if (review.length < 40) return alert('El comentario debe tener un mínimo de 40 caracteres.')
+        else if (review.length < 40 || review.length > 300) return alert('El comentario debe tener entre 40 y 300 caracteres.')
         else if (!checkbox) return alert('Es necesario que confirmes que tu comentario sigue nuestras normas.')
             else {
                 axios.post('http://localhost:3001/api/comment', {
@@ -110,8 +110,8 @@ export default function CreateComment() {
                                 <input name='rating' type="number" min='1' max='5' placeholder='1-5' onChange={e => handleChange(e)}/>
                                 <br />
                                 <label> Comentario*: </label>
-                                <input name='review' placeholder='Mínimo 40 caracteres...' onChange={e => handleChange(e)}/>
-                                <p> 
+                                <input name='review' placeholder='Mínimo 40 caracteres, máximo 300.' onChange={e => handleChange(e)}/>
+                                <p className={style.charactersRequired}> 
                                     {
                                         !minimumRequired ? (                                  
                                             <span className={style.notMinimumRequired}>
@@ -123,16 +123,15 @@ export default function CreateComment() {
                                             </span>
                                         )
                                     }
-                                    /40
+                                    /300
                                 </p>
                                 <br />
-                                <br />
-                                <li className={style.confirmation}>
-                                    <p className={style.newCommentConfirmation}>
+                                <div className={style.confirmation}>
+                                    <label className={style.newCommentConfirmation}>
                                     <input type="checkbox" name='checkbox' className={style.newCommentCheckbox} onChange={e => handleChange(e)}/>
                                     Confirmo que mi comentario respeta las normas del sitio.
-                                    </p>
-                                </li>
+                                    </label>
+                                </div>
                                 <br />
                                 <button type='submit' className={style.newCommentButton}>Enviar</button>                            
                             </form>
