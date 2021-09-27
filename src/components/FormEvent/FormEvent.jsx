@@ -47,6 +47,7 @@ export function FormEvent(props) {
     useEffect(()=>{
         setErrors(validate(event))
     },[])
+    
     const click = async (e) => {
         const files = e.target.files
         const data = new FormData();
