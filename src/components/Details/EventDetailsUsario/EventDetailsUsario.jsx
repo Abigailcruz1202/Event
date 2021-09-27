@@ -47,6 +47,11 @@ export default function EventDetailsUsario() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[id]);
 
+    const editEvento =() =>{
+
+        dispatch(editEvent(detailsEvent.consult));
+
+    }
 
     // const  logo = Logo
     // const event = eVent
@@ -184,7 +189,7 @@ export default function EventDetailsUsario() {
                             ) : (
                                 userInfo.type === 'promoter' ? (
                                 <>
-                                    <button className={styles.button} onClick={editEvent}>Editar</button>
+                                    <button className={styles.button} onClick={editEvento}>Editar</button>
                                     <button className={styles.button} onClick={deleteEvent}>Eliminar</button>
                                 </>
                                 ) : (
