@@ -21,6 +21,7 @@ export const FILTER_WEEKDAYS = 'FILTER_WEEKDAYS';
 export const REMOVE_FILTERS = 'REMOVE_FILTERS';
 export const CHANGE_MODAL = 'CHANGE_MODAL'
 export const SEARCH_NAME = 'SEARCH_NAME'; //Abi
+export const  PROMOTER_USER =' PROMOTER_USER'//daf
 
 
 
@@ -166,3 +167,16 @@ export function searchName(name){
 
 
 }
+//daf
+export function getPromoterUser(id){
+  return async function (dispatch){
+    const response = await 
+    axios.get(`${API}${'promoter/'}${id}`)
+    dispatch({
+      type: PROMOTER_USER,
+      payload:response.data
+    })
+  }
+
+}
+

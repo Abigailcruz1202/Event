@@ -13,6 +13,7 @@ import {
    SEARCH_NAME,
    GET_EVENTS,
    GET_EVENTS_PROMOTER,
+   PROMOTER_USER,
   } from "../actions/actions";
 
   // Pruebas para guardar usuario en el local storage
@@ -39,6 +40,8 @@ import {
     //*filter //Abi
     filters:[],
     home:[],
+    //promoter user 
+    promoterUser:[],
 
   };
 
@@ -145,9 +148,18 @@ import {
 
       }
     }
-  
+    if(action.type=== PROMOTER_USER){
+      return {
+        ...state,
+        promoterUser: action.payload
+      }
+      }
     return state;
   }
+  
+  
+
+
   
   export default rootReducer;
   

@@ -7,5 +7,5 @@
     border: 1px var(--Primary) solid;
     border-radius: 10px;
     overflow: auto;
-    background-color: white;   
+    background-color: var(--Primary);   
 }
