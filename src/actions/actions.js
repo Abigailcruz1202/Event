@@ -24,7 +24,8 @@ export const SEARCH_NAME = 'SEARCH_NAME'; //Abi
 
 
 
-const API = 'http://localhost:3001/api/'
+// const API = 'http://localhost:3001/api/'
+const API = 'https://event-henryapp-backend.herokuapp.com/'
 
 
 //*_get_activities_home______________________________________________
@@ -58,7 +59,7 @@ export function getEventsHome(){
 export function getEventDetail(id){
   return async function (dispatch) {
     const response = await 
-    axios.get(`http://localhost:3001/api/event/${id}`)
+    axios.get(`${API}${id}`)
     dispatch({
       type: GET_DETAIL,
       payload: response.data
@@ -97,7 +98,7 @@ export function setPromoter(promoter){
 export function getEventPromoter (id){
   console.log(id, 'SOY ID')
   return async function(dispatch){
-    const response = await axios(`http://localhost:3001/api/promoter/${id}`);
+    const response = await axios(`${API}${id}`);
     console.log(response.data.eventPromotor.events,'SOY RESPUESTA EVENTO')
     return dispatch({
       type:GET_EVENTS_PROMOTER,
