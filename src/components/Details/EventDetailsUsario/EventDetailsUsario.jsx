@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import DisplayComments from '../../Comments/DisplayComments/DisplayComments';
 import { Link , useParams, useHistory} from 'react-router-dom';
-import  {useDispatch , useSelector} from 'react-redux';
-import {getEventDetail, changeModal} from '../../../actions/actions';
+import  { useDispatch , useSelector, connect } from 'react-redux';
+import { getEventDetail, changeModal, editEvent, addShopping } from '../../../actions/actions';
 import { Carousel } from 'react-carousel-minimal';
 import Loading from '../../Loading/Loading';
 import styles from './EventDetailsUsario.module.css';
 
- 
-
-
-// import Logo from '../../../Utilities/logodivinacodi.gif'
-// import eVent from '../../../Utilities/eVent-05.svg'
 
 const pushDta=(detailsEvent)=>{
     let data = [];
@@ -23,7 +18,7 @@ const pushDta=(detailsEvent)=>{
     return data;
 }
 //Diego: Componente que muestra los detalles de un evento para el tipo Usuario.
-export default function EventDetailsUsario() {
+const EventDetailsUsario = ({ addShopping, cart, user }) => {
     const [render, setRender] = useState(false)
     const [data , setData] = useState()
     const dispatch = useDispatch()
@@ -33,7 +28,6 @@ export default function EventDetailsUsario() {
     const userInfo = useSelector(state => state.userState)
     const history = useHistory();
 
-    console.log(userInfo)
     useEffect( () => {
         const fetchData = async () => {
             try{
@@ -48,25 +42,19 @@ export default function EventDetailsUsario() {
     },[id]);
 
     const editEvento =() =>{
-
         dispatch(editEvent(detailsEvent.consult));
-
     }
 
-    // const  logo = Logo
-    // const event = eVent
     //Borrar evento boton unicamente disponoble para promotor
-    const deleteEvent = async()=>{
-        console.log(detailsEvent.consult.promoterId,userInfo.id)       
+    const deleteEvent = async()=>{  
         if(detailsEvent.consult.promoterId === userInfo.id){
             const res = await fetch(`https://event-henryapp-backend.herokuapp.com/api/event/delete/${id}`,
                 {
                     method:'DELETE'
                 }
             )
-            const data = await res.text();
+                await res.json();
             history.push('/perfil');
-            // console.log(data)
         }else{
             dispatch(changeModal(
                 'correct','No puedes eliminar un evento que no te pertenece'
@@ -83,10 +71,23 @@ export default function EventDetailsUsario() {
         setData(pushDta(detailsEvent))
     },[detailsEvent])
 
-
-
+    
+    
+    const setShopping = (event) => {
+        addShopping(event)
+    }
+    
+    
+    
     if(render){
+        
         const whats ={whats:`https://api.whatsapp.com/send?phone=${detailsEvent.consult.promoter.phone}`}
+        //* funcion agregar al carrito...Gerardo
+        let eventCart = []
+        // detailsEvent.consult?
+        // eventCart = cart.filter(e =>  e.id === detailsEvent.consult.id)
+        // :eventCart = []
+        
             return(   
             <div className={styles.detailsAllUser}>
                 <div className='detailsCardUser'> 
@@ -248,10 +249,22 @@ export default function EventDetailsUsario() {
                                         }}>
                                             <button className={styles.button}>Reseña</button>
                                         </Link>
+                                        
                                         ) : (
                                             <span>&nbsp;</span>
                                         )
                                     )
+                                }
+                                {user.type !== 'user'? <div></div>: 
+                                <>
+                                    {eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
+                                        <button onClick={() => setShopping(detailsEvent.consult)}>
+                                        <span className={styles.icon}>
+                                            <i className="fas fa-shopping-cart"></i>
+                                        </span>
+                                        </button>
+                                    }
+                                </>
                                 }
                             </div>
                             <br />
@@ -265,3 +278,13 @@ export default function EventDetailsUsario() {
         return (<Loading/>)
     }
 }
+
+
+function mapStateToProps(state) {
+    return {
+        cart: state.cartState,
+        user: state.userState
+    };
+}
+
+    export default connect(mapStateToProps, { addShopping })(EventDetailsUsario);
