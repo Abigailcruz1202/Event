@@ -255,17 +255,6 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
                                         )
                                     )
                                 }
-                                {user.type !== 'user'? <div></div>: 
-                                <>
-                                    {eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
-                                        <button onClick={() => setShopping(detailsEvent.consult)}>
-                                        <span className={styles.icon}>
-                                            <i className="fas fa-shopping-cart"></i>
-                                        </span>
-                                        </button>
-                                    }
-                                </>
-                                }
                             </div>
                             <br />
                             <br />

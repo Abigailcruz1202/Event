@@ -55,6 +55,7 @@ export function FormUsers() {
     photo: "",
     email: "",
     phone: "",
+    country: ""
   });
   const handleInputChange = function (e) {
     setUser({
@@ -91,7 +92,8 @@ export function FormUsers() {
       user.username &&
       user.email &&
       user.password &&
-      user.phone
+      user.phone &&
+      user.country
     ) {
       console.log(user, "user");
       try {
@@ -259,17 +261,19 @@ export function FormUsers() {
             </div>
 
           </div>
-          {/* <label>País: </label>
+          <label>País: </label>
           <div className={styles.inputCheck}>
           <input
-           className={errors.country && "danger"}
+            className={errors.country && "danger"}
             type="text"
             name="country"
             value={user.country}
             onChange={handleInputChange}
             placeholder='País..'
-          ></input> */}
-          {/* {errors.country && <span className="danger">{errors.country}</span>}
+          />
+          {errors.country && <span className="danger">{errors.country}</span>}
+          </div>
+          {/* 
           <label>Provincia/Estado/Departamento: </label>
           <div className={styles.inputCheck}>
           <input
