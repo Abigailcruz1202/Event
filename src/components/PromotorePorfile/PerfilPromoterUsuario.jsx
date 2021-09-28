@@ -1,15 +1,20 @@
 
 import React, { useState,useEffect } from "react";
-import ListEvent from "./ListEvent";
 import { useDispatch,useSelector } from "react-redux";
 import styles from './PerfilPromoterUsuario.module.css';
 import {Link, useParams} from 'react-router-dom';
 import {getPromoterUser} from '../../actions/actions';
 import Loading from "../Loading/Loading";
+import Card from './Card'
+import axios from 'axios'
+
 
 
 const PromotorePorfile = () =>{
     const [render, setRender] = useState(false)
+    const [eventRating, setEventRating] = useState(0)
+    const [page, setPage]=useState(1)
+    const [ppp]=useState(10)
     const dispatch =useDispatch();
     const params =useParams();
     const {id}=params;
@@ -17,15 +22,51 @@ const PromotorePorfile = () =>{
     console.log('soy promoter',promoterUser)
 
 
-    useEffect(async()=>{
+    useEffect( async ()=>{
         await dispatch(getPromoterUser(id))
         setRender(true)
 
     },[id])
-    console.log('soy id',id)
-    console.log('soy get',getPromoterUser)
+  
     //
+    useEffect(() => {
+        const fetchData = async () => {
+        let generalRating;
+        try {
+            generalRating = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/comment/generalRating?id=${id.state}`)
+            if (generalRating && generalRating.data !== 0) setEventRating(generalRating.data)
+        } catch (error) {
+            console.log(error)
+        }
+        }
+    fetchData()
+   
+    },[])
+
+
+   
+    
+    // const toStars = (grade) => {
+    //     let result = ''
+    //     while (grade !== 0){
+    //         result += '★'
+    //         grade--
+    //     }        
+    //     while (result.length < 5) {
+    //         result += '☆'
+    //     }
+    //     return result
+    // }
+
+
+
+
     if(render){
+        const indexOfLastEvents= page * ppp
+    const indexOfFirstEvents = indexOfLastEvents - ppp
+    const eventos = promoterUser.eventPromotor.events?.slice(indexOfFirstEvents,indexOfLastEvents)
+    console.log('soy evento', eventos)
+    const  p = np =>setPage(np)
         const whats ={whats:`https://api.whatsapp.com/send?phone=${promoterUser.eventPromotor.phone}`}
         console.log('soy whasts',whats)
         return(
@@ -53,11 +94,12 @@ const PromotorePorfile = () =>{
                 <h4>Mis Eventos</h4>
                        
             </div>
-           <div>
-           <Link to={`/eventDetailsUsuario/${promoterUser.eventPromotor.events.map((e)=>e.id)}`}className={styles.link}>
-               <h2>{promoterUser.eventPromotor.events.map((e)=>e.name)}</h2>
-               <img src={promoterUser.eventPromotor.events.map((e)=>e.pictures[0])} alt='Imagen del evento'/>
-            </Link>
+           <div className={styles.cards}>
+          { eventos ? 
+                    eventos.map((e, id)=>{
+                       return  <Card props={e} key={id}/> }) :
+                        <Loading/>
+                    }
            </div>
            
         </div>
