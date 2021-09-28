@@ -23,9 +23,7 @@ export default function CreateComment() {
         event_id: location.state.id,
         checkbox: false,
     })
-    console.log(canComment, 'canComment')
-    console.log(commentedBefore, 'commentedBefore')
-    console.log(userInfo, 'user info')
+
     useEffect(() => {
         setInput({
             ...input,
@@ -35,7 +33,6 @@ export default function CreateComment() {
         const fetchUserComments = async (userId) => {
             let userCheck;
             let response;
-            console.log(userCheck, 'usercheck')
             try {
                 response = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userId}`)
                 userCheck = response.data.comments.filter(comment => comment.eventId === location.state.id)
@@ -49,6 +46,14 @@ export default function CreateComment() {
         fetchUserComments(userInfo.id)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[userInfo])
+
+    useEffect(() => {
+        if (performance.navigation.type == performance.navigation.TYPE_RELOAD) return (
+            alert('Algo salio mal.'),
+            window.location = `/eventDetailsUsuario/${input.event_id}`
+        )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     useEffect(() => {
         if (commentedBefore === true) setCanComment(false)
@@ -110,11 +115,12 @@ export default function CreateComment() {
                             <h2 className={style.newCommentTitle}>Agregar Comentario:</h2>
                             <form className={style.newCommentForm} onSubmit={e => handleSubmit(e)}>
                                 <p>¡Cuéntanos cómo te fue en <b>{location.state.eventName.trim()}</b>!</p>
-                                <label> Calificacion*: </label>
-                                <input name='rating' type="number" min='1' max='5' placeholder='1-5' onChange={e => handleChange(e)}/>
-                                <br />
-                                <label> Comentario*: </label>
-                                <input name='review' placeholder='Mínimo 40 caracteres, máximo 300.' onChange={e => handleChange(e)}/>
+                                <div className={style.inputGrid}>
+                                <label className={style.gridItem}> Calificacion*: </label>
+                                <input className={style.gridItem} name='rating' type="number" min='1' max='5' placeholder='1-5' onChange={e => handleChange(e)}/>
+                                <label className={style.gridItem}> Comentario*: </label>
+                                <input className={style.gridItem} name='review' placeholder='Mínimo 40 caracteres, máximo 300.' onChange={e => handleChange(e)}/>
+                                </div>
                                 <p className={style.charactersRequired}> 
                                     {
                                         !minimumRequired ? (                                  
