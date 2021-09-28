@@ -18,8 +18,20 @@
   border-radius: var(--RadiusOne);
   box-shadow: var(--ShadowOne);
 }
+.inputGrid {
+  /* display: grid;
+  grid-template-columns: 120px 1fr;
+  grid-gap: 5px; */
+}
+.gridItem {
+}
 .newComment input {
   width: 500px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  background-color: var(--Black);
+  color: var(--White);
 }
 .newCommentForm {
   font-size: large;
