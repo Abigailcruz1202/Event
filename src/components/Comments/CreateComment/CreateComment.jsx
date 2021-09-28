@@ -23,7 +23,9 @@ export default function CreateComment() {
         event_id: location.state.id,
         checkbox: false,
     })
-    
+    console.log(canComment, 'canComment')
+    console.log(commentedBefore, 'commentedBefore')
+    console.log(userInfo, 'user info')
     useEffect(() => {
         setInput({
             ...input,
@@ -33,6 +35,7 @@ export default function CreateComment() {
         const fetchUserComments = async (userId) => {
             let userCheck;
             let response;
+            console.log(userCheck, 'usercheck')
             try {
                 response = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userId}`)
                 userCheck = response.data.comments.filter(comment => comment.eventId === location.state.id)
@@ -40,14 +43,15 @@ export default function CreateComment() {
                 console.log(e)
                 return
             }
-            if (userCheck) setCommentedBefore(true)
+            console.log(userCheck, 'usercheck')
+            if (userCheck.length) setCommentedBefore(true)
         }
         fetchUserComments(userInfo.id)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[userInfo])
 
     useEffect(() => {
-        if (commentedBefore) setCanComment(false)
+        if (commentedBefore === true) setCanComment(false)
     },[commentedBefore])
 
     // Diego: Handler para la longitud minima del comentario

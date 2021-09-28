@@ -197,34 +197,7 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
                                     <button className={styles.button}>Reservar</button>
                                 )
                             )
-                            // !userInfo.type ? (
-                            //     <button 
-                            //     onClick={e => alert('Solo usuarios logeados pueden dejar comentarios')}
-                            //     className={styles.button}>    
-                            //             Reseña
-                            //     </button>
-                            // ) : (
-                            //     userInfo.type === 'user' ? (
-                                    // <>
-                                    // <Link to={{
-                                    //     pathname:'/nuevoComentario',
-                                    //     state: {
-                                    //         id: id,
-                                    //         eventName: detailsEvent.consult.name
-                                    //     }
-                                    // }}>
-                                    //     <button className={styles.button}>Reseña</button>
-                                    // </Link>
-                                    /* El siguiente boton se activara y se hara la logica ya que exista pasarela de pagos
-                                    <button className={styles.button}>Reservar</button> */
-                                    // </>
-                            //     ) : (
-                            //         <>
-                            //             <button className={styles.button} onClick={editEvent}>Editar</button>
-                            //             <button className={styles.button} onClick={deleteEvent}>Eliminar</button>
-                            //         </>
-                            //     )
-                            // )
+                        
                         } 
                         </div>
 
