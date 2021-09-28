@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { setUser } from "./actions/actions";
+import { setUser, addShopping } from "./actions/actions";
 import { Route } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
@@ -24,20 +24,22 @@ import EditForm from './components/Details/EventDetailsUsario/EditForm';
 import ShoppingCheckout from './components/ShoppingCheckout/ShoppingCheckout';
 
 
-function App({ setUser, user, modal, modalForm }) {
-  console.log(user)
+function App({ setUser, user, modal, modalForm, cart, addShopping }) {
 
-  // Usuario en local storage
   let loginUser = JSON.parse(localStorage.getItem('User'))
-  console.log(loginUser)
+  let shoppingCart = JSON.parse(localStorage.getItem('Cart'))
   useEffect(() => {
     if (loginUser) {
-      console.log('ENTREEE EL IF', user)
       setUser(loginUser)
     } else
-      console.log('ENTREEE EL ELSE')
-    setUser({})
-  }, [setUser])
+      setUser({})
+      if (shoppingCart) {
+        addShopping(shoppingCart)
+      } 
+  }, [setUser, addShopping]) 
+  useEffect(() => {
+    localStorage.setItem('Cart',JSON.stringify(cart))
+  }, [cart]) 
 
   return (
     <>
@@ -119,6 +121,7 @@ function mapStateToProps(state) {
     user: state.userState,
     modal: state.modal,
     modalForm: state.modalForm,
+    cart: state.cartState
   };
 }
-export default connect(mapStateToProps, { setUser })(App);
+export default connect(mapStateToProps, { setUser, addShopping })(App);

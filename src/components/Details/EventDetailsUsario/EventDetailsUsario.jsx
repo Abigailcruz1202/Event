@@ -82,10 +82,11 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
     if(render){
         
         const whats ={whats:`https://api.whatsapp.com/send?phone=${detailsEvent.consult.promoter.phone}`}
-        //* funcion agregar al carrito...Gerardo
+        
+         //* funcion agregar al carrito...Gerardo
         let eventCart = []
         // detailsEvent.consult?
-        // eventCart = cart.filter(e =>  e.id === detailsEvent.consult.id)
+        eventCart = cart.filter(e =>  e.id === detailsEvent.consult.id)
         // :eventCart = []
         
             return(   

@@ -90,7 +90,7 @@ export function setSideBar(boolean){
 
 //*___USER_________________________________________________________________
 export function setUser(user){
-  localStorage.setItem('User',JSON.stringify(user))//Envia a localStorage
+  localStorage.setItem('User',JSON.stringify(user))
   return{
     type: SET_USER,
     payload: user
@@ -98,7 +98,7 @@ export function setUser(user){
 }
 //*___PROMOTER_________________________________________________________________
 export function setPromoter(promoter){
-  localStorage.setItem('User',JSON.stringify(promoter))//Envia a localStorage
+  localStorage.setItem('User',JSON.stringify(promoter))
   return{
     type: SET_PROMOTER,
     payload: promoter
