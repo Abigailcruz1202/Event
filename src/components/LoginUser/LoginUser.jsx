@@ -11,6 +11,7 @@ import { GoogleLogin } from "react-google-login";
  import loading from "../../Utilities/ajax-loader.gif";
 
 const Login = ({ setUser, user, nameComponent, nameComponentOne, nameComponentTwo, messageFalse, messageTwoFalse }) => {
+  const API = 'https://event-henryapp-backend.herokuapp.com/api/'
   const history = useHistory();
 
   //*Estados______________________________________________________________________
