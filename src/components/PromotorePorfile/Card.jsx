@@ -4,7 +4,7 @@ import{useEffect, useState} from 'react'
 import axios from 'axios'
 import styles from './PerfilPromoterUsuario.module.css'
 
-function Pais ({props}){
+function CardPromoter ({props}){
     
     
     let { name,pictures,id}=props
@@ -74,4 +74,4 @@ function Pais ({props}){
         </>
     )
 }
- export default Pais 
+ export default CardPromoter

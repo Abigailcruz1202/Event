@@ -29,8 +29,8 @@ const ListEvent = ({events})=>{
                 if(events.length===0){
                     return(<Bienvenido/>)
                 }else{
-                    return( events?.map((event)=>
-                    <Evento name={event.name} qualification='4' id={event.id}/>)
+                    return( events?.map((event,id)=>
+                    <Evento props={event} key={id} id={event.id}/>)
                      ) }
 
             })()}
