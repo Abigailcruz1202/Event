@@ -28,6 +28,7 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
     const params =useParams()
     const {id}=params
     const detailsEvent = useSelector(state => state.detailsEvent)
+    console.log('soy eventos',detailsEvent)
     const userInfo = useSelector(state => state.userState)
     const history = useHistory();
 
@@ -129,16 +130,23 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
                                 <div className={styles.leftColumn}>
                                     <h4>Artistas:</h4>
                                     <p>{` ${detailsEvent.consult.starring}`}</p>
+                                    <h4>País:</h4>
+                                    <p> {` ${detailsEvent.consult.location.country}`}</p>
+                                    <h4>Estado/Provincia:</h4>
+                                    <p> {` ${detailsEvent.consult.location.province}`}</p>
+                                    <h4>Ciudad:</h4>
+                                    <p> {` ${detailsEvent.consult.location.city}`}</p>
                                     <h4>Dirreción:</h4>
                                     <p> {` ${detailsEvent.consult.address}`}</p>
                                     <h4>Fecha:</h4>
                                     <p>{` ${detailsEvent.consult.start_date}`}</p>
+                                    
+                                </div>
+                                <div className={styles.rightColumn}>
                                     <h4>Fecha Finalización:</h4>
                                     <p>{` ${detailsEvent.consult.finish_date}`}</p>
                                     <h4>Dias:</h4>
                                     <p>{` ${detailsEvent.consult.weekdays.map((e)=>(e))}`}</p>
-                                </div>
-                                <div className={styles.rightColumn}>
                                     <h4>Horarios:</h4>
                                     <p>{` ${detailsEvent.consult.schedule.map((e)=>(e))}`}</p>
                                     <h4>Tipo de Evento:</h4>
@@ -166,14 +174,14 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
                         <div className={styles.contRend}>
                                 <h2 className='formTitle'>Promotor</h2>
                                 <div className={styles.promoterRow}>
-                                <Link to='/PromoterPorfileUser'>
+                                <Link to={`/PromoterPorfileUser/${detailsEvent.consult.promoter.id}`}>
                                 <img
                                     src={detailsEvent.consult.promoter.picture}
                                     className={styles.promoterPicture}
                                     alt=''
                                 />
-                                </Link>
-                            <Link to={`/PromoterPorfileUser/${detailsEvent.consult.promoter.id}`}>
+                                
+                           
                             <span className={styles.promoterName}>
                                     {`${detailsEvent.consult.promoter.business_name}`}
                                 </span>

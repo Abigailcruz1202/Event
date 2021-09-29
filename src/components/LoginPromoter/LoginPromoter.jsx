@@ -175,8 +175,8 @@ const LoginPromoter = ({setUser, setPromoter, user,  promoter, nameComponent, na
   return (
     <div >
       <h5 className={styles.message}> {Message}</h5>
-
       <form className={styles.form} onSubmit={setLog}> 
+      <div className={styles.decoration}><h3>Promotor</h3></div>
         {
          Loading
          ?

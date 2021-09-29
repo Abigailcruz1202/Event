@@ -73,3 +73,75 @@
     text-decoration: none;
     align-items: center;
 }
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--Primary);
+    width: 280px;
+    height: 220px;
+    margin:30px;
+    margin-bottom: 50px;
+    padding: 30px;
+    border-radius: var(--RadiusOne);
+    box-shadow: var(--ShadowOne) ;
+    position: relative;
+  }
+  @media (max-width: 768px) { 
+  .card{
+   height: max-content;
+  }
+  }
+  @media (max-width: 420px) { 
+    .card{
+     width: 50vw;
+     height: max-content;
+    }
+  }
+  .imgCard {
+    width: 130PX;
+  height: 100px;
+  margin-left: 35px;
+  align-items: center;
+  filter: brightness(60%);
+  
+  }  
+  .titleCard {
+    color: var(--White);
+    z-index: 10;
+    font-size: var(--TitleCard);
+    font-size: 20px;
+    }
+    @media (max-width: 420px) { 
+        .titleCard{
+        font-size: 1.2rem;
+        }
+      }
+    
+    .infoCard {
+        color: var(--White);
+        z-index: 10;
+        margin-bottom: 0px;
+    }
+    @media (max-width: 420px) {
+        .infoCard{
+        font-size: 1rem;
+        }
+      }
+
+      .cards{
+        display: flex;
+        z-index: 300;
+      }
+      .generalRating {
+        color: var(--White);
+        font-size: x-large;
+        text-shadow: 2px 2px 3px black;
+      }
+      .generalStars {
+        font-size: x-large;
+        color: var(--Button);
+      }
+      .no-rating {
+        color: var(--White);
+      }

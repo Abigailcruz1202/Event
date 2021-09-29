@@ -1,10 +1,9 @@
 .detailsAllUser {
   text-align: center;
 }
-.carouselImages {
-}
+
 .otherDetailsUser {
-  height: 600px; /* DESPUÉS MODIFICAR. */
+  height: 700px; /* DESPUÉS MODIFICAR. */
   max-width: 50vw;
   min-width: 40vw;
   margin: 20px;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux';
-import { filterTags, filterAgeRating, filerWeekdays, getEvents, removeFilters } from '../../actions/actions';
+import { orderAscPrice, orderDescPrice, filterCountry, filterProvince, filterTags, filterAgeRating, filterWeekdays, getEvents, removeFilters } from '../../actions/actions';
 import styles from './Filter.module.css';
 
 //tags -- age_rating
@@ -8,6 +8,8 @@ import styles from './Filter.module.css';
 export function Filters(props) {
     // console.log(props)
     const stateFilters = useSelector(state => state.filters)
+    const stateHome = useSelector(state => state.home)
+
     const tags = ["Exteriores", "Interiores", "En vivo", "Recital", "Teatro", "Película", "Disco", "Deportes"]
     const age_rating = ["0+", "7+", "13+", "18+"]
     const weekdays = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
@@ -16,25 +18,124 @@ export function Filters(props) {
     const DEPARTAMENTOS = ['Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bolívar', 'Boyacá', 'Caldas', 'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía', 'Guaviare', 'Huila', 'La Guajira', 'Magdalena', 'Meta', 'Nariño', 'Norte de Santander', 'Putumayo', 'Quindío', 'Risaralda', 'San Andrés y Providencia', 'Santander', 'Sucre', 'Tolima', 'Valle del Cauca', 'Vaupés', 'Vichada']
     const PROVINCIAS = ['Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba', 'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa', 'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro', 'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe', 'Santiago del Estero', 'Tierra del Fuego', 'Tucumán']
 
+    const [state, setState] = useState([])
     const [country, setCountry] = useState()
     const get = props.getEvents
+    let result;
     useEffect(() => {
         props.getEvents()
     }, [get])
-    // const [type, setType] = useState()
+    useEffect(() => {
+        if (state === 'DESC') {
+            if (stateFilters.length === 0) {
+                console.log('if,"DESC"')
+                props.orderDescPrice(stateHome.sort((a, b) => b.price - a.price))
+            } else {
+                console.log('else,"DESC"')
+                props.orderDescPrice(stateFilters.sort((a, b) => b.price - a.price))
+            }
+        } else if (state === 'ASC') {
+            if (stateFilters.length === 0) {
+                console.log('if,"ASC"')
+                props.orderAscPrice(stateHome.sort((a, b) => a.price - b.price))
+            } else {
+                console.log('else,"ASC"')
+                props.orderAscPrice(stateFilters.sort((a, b) => a.price - b.price))
+            }
+        }
+    }, [state, stateFilters, stateHome, orderDescPrice, orderAscPrice])
 
     const handleChange = (e) => {
-        console.log(e.target.name, 'pruebaaaaaa', e.target.value)
-        props.filterTags(e.target.value)
+        console.log('TIPO:', e.target.name)
+        let val = e.target.value;
+        if (e.target.name === 'tags') {
+            if (stateFilters.length === 0) {
+                result = stateHome.filter((e) => e.tags === val)
+                console.log(val, '....¿IF', result)
+                props.filterTags(result)
+            } else {
+                result = stateFilters.filter((e) => e.tags === val)
+                console.log(result, 'stateELSE', val)
+                props.filterTags(result)
+            }
+        }
+        if (e.target.name === 'age_rating') {
+            if (stateFilters.length === 0) {
+                result = stateHome.filter((e) => e.age_rating === val)
+                console.log(val, '....¿IF', result)
+                props.filterAgeRating(result)
+            } else {
+                result = stateFilters.filter((e) => e.age_rating === val)
+                console.log(result, 'state ELSE', val)
+                props.filterAgeRating(result)
+            }
+            // props.filterAgeRating(val)
+        }
+        if (e.target.name === 'weekdays') {
+            if (stateFilters.length === 0) {
+                result = stateHome.filter((e) => e.weekdays.find((day) => day === val))
+                console.log(val, '....¿IF', result)
+                props.filterWeekdays(result)
+            } else {
+                result = stateFilters.filter((e) => e.weekdays.find((day) => day === val))
+                console.log(result, 'state ELSE', val)
+                props.filterWeekdays(result)
+            }
+            // props.filterWeekdays(val)
+        }
+        if (e.target.name === 'country') {
+            setCountry(val)
+            if (stateFilters.length === 0) {
+                result = stateHome.filter((e) => e.location.country === val)
+                console.log(val, '....¿IF', result)
+                props.filterCountry(result)
+            } else {
+                result = stateFilters.filter((e) => e.location.country === val)
+                console.log(result, 'state ELSE', val)
+                props.filterCountry(result)
+            }
+            // props.filterCountry(val)
+        }
+        if (e.target.name === 'province') {
+            if (stateFilters.length === 0) {
+                result = stateHome.filter((e) => e.location.province === val)
+                console.log(val, '....¿IF', result)
+                props.filterProvince(result)
+            } else {
+                result = stateFilters.filter((e) => e.location.province === val)
+                console.log(result, 'state ELSE', val)
+                props.filterProvince(result)
+            }
+            // props.filterProvince(e.target.value)
+        }
     }
-    const ageRatingChange = (e) => {
-        props.filterAgeRating(e.target.value)
-    }
-    const weekdaysChange = (e) => {
-        props.filerWeekdays(e.target.value)
-    }
-    const change = (e) =>{
-        setCountry(e.target.value)
+    const orderChange = (e) => {
+        if (e.target.name === 'DESC') {
+            console.log('DESC')
+            setState('DESC')
+            // if (stateFilters.length === 0){
+            //     result = stateHome.sort((a, b) => b.price - a.price)
+            //     console.log('if,"DESC"')
+            //     props.orderDescPrice(result)
+            // }else {
+            //     result = stateFilters.sort((a, b) => b.price - a.price)
+            //     console.log('else,"DESC"')
+            //     props.orderDescPrice(result)
+            // }
+        }
+        if (e.target.name === 'ASC') {
+            console.log('ASC')
+            setState('ASC')
+            // if(stateFilters.length === 0){
+            // result = stateHome.sort((a, b) => a.price - b.price)
+            // console.log('if,"ASC"')
+            // props.orderAscPrice(result)
+            // }else{
+            //     result = stateFilters.sort((a, b) => a.price - b.price)
+            //     console.log('else,"ASC"')
+            //     props.orderAscPrice(result)
+            // }
+        }
     }
     const all = (e) => {
         props.removeFilters()
@@ -43,46 +144,51 @@ export function Filters(props) {
         <div className={styles.divFilters}>
             <h5 style={{ marginBlockEnd: '0', cursor: 'pointer', textDecoration: 'underline', color: '#f5af00' }} onClick={all}>Eliminar Filtros</h5>
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Tipos de eventos:</h5>
-            
+
             {tags.map((e, i) => {
-                return <option className={styles.options} key={i} name='tags' value={e} onClick={handleChange}>{e}</option>
+                return <button className={styles.butt} key={i} name='tags' value={e} onClick={handleChange}>{e}</button>
             })}
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Clasificación:</h5>
 
             {age_rating.map((e, i) => {
-                return <option className={styles.options} key={i} name='age_rating' value={e} onClick={ageRatingChange}>{e}</option>
+                return <button className={styles.butt} key={i} name='age_rating' value={e} onClick={handleChange}>{e}</button>
             })}
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Días:</h5>
 
             {weekdays.map((e, i) => {
-                return <option className={styles.options} key={i} name='weekdays' value={e} onClick={weekdaysChange}>{e}</option>
+                return <button className={styles.butt} key={i} name='weekdays' value={e} onClick={handleChange}>{e}</button>
             })}
+
+            <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Ordenar precios:</h5>
+            <button className={styles.butt} name='DESC' onClick={orderChange}>DESC</button>
+            <button className={styles.butt} name='ASC' onClick={orderChange}>ASC</button>
+
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>País:</h5>
 
             {countrys.map((e, i) => {
-                return <option className={styles.options} key={i} name='country' value={e} onClick={change}>{e}</option>
+                return <button className={styles.butt} key={i} name='country' value={e} onClick={handleChange}>{e}</button>
             })}
             {country === 'Argentina' ?
                 <><h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Provincia:</h5>
 
                     {PROVINCIAS.map((e, i) => {
-                        return <option className={styles.options} key={i} name='region' value={e} onClick={weekdaysChange}>{e}</option>
+                        return <button className={styles.butt} key={i} name='province' value={e} onClick={handleChange}>{e}</button>
                     })}</>
                 : country === 'México' ?
                     <><h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Estado:</h5>
 
                         {ESTADOS.map((e, i) => {
-                            return <option className={styles.options} key={i} name='region' value={e} onClick={weekdaysChange}>{e}</option>
+                            return <button className={styles.butt} key={i} name='province' value={e} onClick={handleChange}>{e}</button>
                         })}</>
-                : country === 'Colombia' ?
-                    <><h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Departamento:</h5>
+                    : country === 'Colombia' ?
+                        <><h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Departamento:</h5>
                             {DEPARTAMENTOS.map((e, i) => {
-                                return <option className={styles.options} key={i} name='region' value={e} onClick={weekdaysChange}>{e}</option>
+                                return <button className={styles.butt} key={i} name='province' value={e} onClick={handleChange}>{e}</button>
                             })}</>
-                : null
+                        : null
             }
 
         </div>
     )
 }
-export default connect(null, { filterTags, filterAgeRating, getEvents, filerWeekdays, removeFilters })(Filters)
+export default connect(null, { orderAscPrice, orderDescPrice, filterCountry, filterProvince, filterTags, filterAgeRating, getEvents, filterWeekdays, removeFilters })(Filters)
