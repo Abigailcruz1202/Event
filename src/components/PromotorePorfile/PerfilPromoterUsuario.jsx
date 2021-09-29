@@ -28,23 +28,7 @@ const PromotorePorfile = () =>{
 
     },[id])
   
-    //
     
-
-
-   
-    
-    // const toStars = (grade) => {
-    //     let result = ''
-    //     while (grade !== 0){
-    //         result += '★'
-    //         grade--
-    //     }        
-    //     while (result.length < 5) {
-    //         result += '☆'
-    //     }
-    //     return result
-    // }
 
 
 
