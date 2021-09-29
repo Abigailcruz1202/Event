@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux';
-import { filterCountry, filterProvince, filterTags, filterAgeRating, filterWeekdays, getEvents, removeFilters } from '../../actions/actions';
+import { orderAscPrice, orderDescPrice, filterCountry, filterProvince, filterTags, filterAgeRating, filterWeekdays, getEvents, removeFilters } from '../../actions/actions';
 import styles from './Filter.module.css';
 
 //tags -- age_rating
@@ -21,13 +21,32 @@ export function Filters(props) {
     const [state, setState] = useState([])
     const [country, setCountry] = useState()
     const get = props.getEvents
+    let result;
     useEffect(() => {
         props.getEvents()
     }, [get])
+    useEffect(() => {
+        if (state === 'DESC') {
+            if (stateFilters.length === 0) {
+                console.log('if,"DESC"')
+                props.orderDescPrice(stateHome.sort((a, b) => b.price - a.price))
+            } else {
+                console.log('else,"DESC"')
+                props.orderDescPrice(stateFilters.sort((a, b) => b.price - a.price))
+            }
+        } else if (state === 'ASC') {
+            if (stateFilters.length === 0) {
+                console.log('if,"ASC"')
+                props.orderAscPrice(stateHome.sort((a, b) => a.price - b.price))
+            } else {
+                console.log('else,"ASC"')
+                props.orderAscPrice(stateFilters.sort((a, b) => a.price - b.price))
+            }
+        }
+    }, [state, stateFilters, stateHome, orderDescPrice, orderAscPrice])
 
     const handleChange = (e) => {
         console.log('TIPO:', e.target.name)
-        let result;
         let val = e.target.value;
         if (e.target.name === 'tags') {
             if (stateFilters.length === 0) {
@@ -52,14 +71,71 @@ export function Filters(props) {
             }
             // props.filterAgeRating(val)
         }
-        if (e.target.name === 'weekdays') props.filterWeekdays(val)
-
+        if (e.target.name === 'weekdays') {
+            if (stateFilters.length === 0) {
+                result = stateHome.filter((e) => e.weekdays.find((day) => day === val))
+                console.log(val, '....¿IF', result)
+                props.filterWeekdays(result)
+            } else {
+                result = stateFilters.filter((e) => e.weekdays.find((day) => day === val))
+                console.log(result, 'state ELSE', val)
+                props.filterWeekdays(result)
+            }
+            // props.filterWeekdays(val)
+        }
         if (e.target.name === 'country') {
             setCountry(val)
-            props.filterCountry(val)
+            if (stateFilters.length === 0) {
+                result = stateHome.filter((e) => e.location.country === val)
+                console.log(val, '....¿IF', result)
+                props.filterCountry(result)
+            } else {
+                result = stateFilters.filter((e) => e.location.country === val)
+                console.log(result, 'state ELSE', val)
+                props.filterCountry(result)
+            }
+            // props.filterCountry(val)
         }
-        if (e.target.name === 'province') props.filterProvince(e.target.value)
-
+        if (e.target.name === 'province') {
+            if (stateFilters.length === 0) {
+                result = stateHome.filter((e) => e.location.province === val)
+                console.log(val, '....¿IF', result)
+                props.filterProvince(result)
+            } else {
+                result = stateFilters.filter((e) => e.location.province === val)
+                console.log(result, 'state ELSE', val)
+                props.filterProvince(result)
+            }
+            // props.filterProvince(e.target.value)
+        }
+    }
+    const orderChange = (e) => {
+        if (e.target.name === 'DESC') {
+            console.log('DESC')
+            setState('DESC')
+            // if (stateFilters.length === 0){
+            //     result = stateHome.sort((a, b) => b.price - a.price)
+            //     console.log('if,"DESC"')
+            //     props.orderDescPrice(result)
+            // }else {
+            //     result = stateFilters.sort((a, b) => b.price - a.price)
+            //     console.log('else,"DESC"')
+            //     props.orderDescPrice(result)
+            // }
+        }
+        if (e.target.name === 'ASC') {
+            console.log('ASC')
+            setState('ASC')
+            // if(stateFilters.length === 0){
+            // result = stateHome.sort((a, b) => a.price - b.price)
+            // console.log('if,"ASC"')
+            // props.orderAscPrice(result)
+            // }else{
+            //     result = stateFilters.sort((a, b) => a.price - b.price)
+            //     console.log('else,"ASC"')
+            //     props.orderAscPrice(result)
+            // }
+        }
     }
     const all = (e) => {
         props.removeFilters()
@@ -82,6 +158,11 @@ export function Filters(props) {
             {weekdays.map((e, i) => {
                 return <button className={styles.butt} key={i} name='weekdays' value={e} onClick={handleChange}>{e}</button>
             })}
+
+            <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Ordenar precios:</h5>
+            <button className={styles.butt} name='DESC' onClick={orderChange}>DESC</button>
+            <button className={styles.butt} name='ASC' onClick={orderChange}>ASC</button>
+
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>País:</h5>
 
             {countrys.map((e, i) => {
@@ -110,4 +191,4 @@ export function Filters(props) {
         </div>
     )
 }
-export default connect(null, { filterCountry, filterProvince, filterTags, filterAgeRating, getEvents, filterWeekdays, removeFilters })(Filters)
+export default connect(null, { orderAscPrice, orderDescPrice, filterCountry, filterProvince, filterTags, filterAgeRating, getEvents, filterWeekdays, removeFilters })(Filters)

@@ -10,6 +10,8 @@ import {
    FILTER_WEEKDAYS,
    FILTER_COUNTRY,
    FILTER_PROVINCE,
+   ORDER_PRICE_ASC,
+   ORDER_PRICE_DESC,
    REMOVE_FILTERS,
    CHANGE_MODAL,
    SEARCH_NAME,
@@ -136,19 +138,31 @@ import {
     if(action.type === FILTER_WEEKDAYS){
       return{
         ...state,
-        filters: state.home.filter((e)=> e.weekdays.find((day)=> day === action.payload))
+        filters: action.payload
       }
     }
     if(action.type === FILTER_COUNTRY){
       return{
         ...state,
-        filters: state.home.filter((e)=> e.location.country === action.payload)
+        filters: action.payload
       }
     }
     if(action.type === FILTER_PROVINCE){
       return{
         ...state,
-        filters: state.home.filter((e)=> e.location.province === action.payload)
+        filters: action.payload
+      }
+    }
+    if(action.type === ORDER_PRICE_ASC){
+      return{
+        ...state,
+        filters: action.payload
+      }
+    }
+    if(action.type === ORDER_PRICE_DESC){
+      return{
+        ...state,
+        filters: action.payload
       }
     }
     if(action.type === REMOVE_FILTERS){
