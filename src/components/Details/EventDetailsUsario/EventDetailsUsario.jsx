@@ -10,10 +10,13 @@ import styles from './EventDetailsUsario.module.css';
 
 const pushDta=(detailsEvent)=>{
     let data = [];
-    let picture = detailsEvent.consult?.pictures
-   
-     for (let index = 0; index < picture?.length; index++) {
-        data.push({image:picture[index],caption:detailsEvent.consult.description })
+    let picture = detailsEvent.consult?.pictures    
+    for (let index = 0; index < picture?.length; index++) {
+        data.push({
+            image:picture[index],
+            caption:detailsEvent.consult.description,
+        })
+
     }
     return data;
 }
