@@ -186,6 +186,7 @@ const Login = ({ setUser, user, nameComponent, nameComponentOne, nameComponentTw
       <h5 className={styles.message}> {Message}</h5>
 
       <form className={styles.form} onSubmit={setLog}> 
+      <div className={styles.decoration}><h3>Usuario</h3></div>
         {
          Loading
          ?
