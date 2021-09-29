@@ -12,7 +12,7 @@ import axios from 'axios'
 
 const PromotorePorfile = () =>{
     const [render, setRender] = useState(false)
-    const [eventRating, setEventRating] = useState(0)
+   
     const [page, setPage]=useState(1)
     const [ppp]=useState(10)
     const dispatch =useDispatch();
@@ -29,19 +29,7 @@ const PromotorePorfile = () =>{
     },[id])
   
     //
-    useEffect(() => {
-        const fetchData = async () => {
-        let generalRating;
-        try {
-            generalRating = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/comment/generalRating?id=${id.state}`)
-            if (generalRating && generalRating.data !== 0) setEventRating(generalRating.data)
-        } catch (error) {
-            console.log(error)
-        }
-        }
-    fetchData()
-   
-    },[])
+    
 
 
    

@@ -79,7 +79,7 @@
     align-items: center;
     background-color: var(--Primary);
     width: 280px;
-    height: 180px;
+    height: 220px;
     margin:30px;
     margin-bottom: 50px;
     padding: 30px;
@@ -132,4 +132,16 @@
       .cards{
         display: flex;
         z-index: 300;
+      }
+      .generalRating {
+        color: var(--White);
+        font-size: x-large;
+        text-shadow: 2px 2px 3px black;
+      }
+      .generalStars {
+        font-size: x-large;
+        color: var(--Button);
+      }
+      .no-rating {
+        color: var(--White);
       }
