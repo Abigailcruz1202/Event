@@ -8,3 +8,27 @@
     flex-direction: column;
     align-items: center; 
 }
+
+.btnUser{
+    background-color: var(--Secondary);
+    border-radius: var(--RadiusOne);
+  width: 90px;
+  padding: 5px 0 5px 0;
+  cursor: pointer;
+}
+.btnUser:hover{
+    background-color: var(--White);
+    color: var(--Black);
+  }
+
+.btnPromoter{
+    background-color: var(--Button);
+    border-radius: var(--RadiusOne);
+  width: 90px;
+  padding: 5px 0 5px 0;
+  cursor: pointer;
+}
+.btnPromoter:hover{
+    background-color: var(--White);
+    color: var(--Black);
+  }

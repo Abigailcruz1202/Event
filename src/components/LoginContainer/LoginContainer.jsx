@@ -16,14 +16,14 @@ const LoginContainer = () => {
     return (
         <div className={ styles.container }>
             <div>
-            <button onClick={ setUser }>Usuario</button>
-            <button onClick={ setPromoter }>Promotor</button>
+            <button onClick={ setUser } className={styles.btnUser}>Usuario</button>
+            <button onClick={ setPromoter } className={styles.btnPromoter}>Promotor</button>
             </div>
             
             {Switch
             ?
             <LoginUser
-            nameComponent='Log in Usuario'
+            nameComponent='Log in'
                 nameComponentOne='Ingresando usuario'
                 nameComponentTwo='Usuario no encontrado'
                 messageFalse='El usuario no se encuentra registrado'
@@ -31,7 +31,7 @@ const LoginContainer = () => {
             />
             :
             <LoginPromoter 
-            nameComponent='Log in Promotor'
+            nameComponent='Log in'
                 nameComponentOne='Ingresando Promotor'
                 nameComponentTwo='promotor no encontrado'
                 messageFalse='El promotor no se encuentra registrado'

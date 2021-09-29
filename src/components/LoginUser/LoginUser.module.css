@@ -33,6 +33,18 @@
     }
   }
 
+.decoration{
+    height: 50px;
+    width: 100%;
+    background-color: var(--Secondary);
+   color: var(--White);
+   text-align: center;
+   font-size: 23px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}  
+
 .formCont{
     width: 450px;
     height: 350px;

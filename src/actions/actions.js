@@ -19,6 +19,8 @@ export const GET_EVENTS = 'GET_EVENTS'; //Abi
 export const FILTER_TAGS = 'FILTER_TAGS';
 export const FILTER_AGE_RATING = 'FILTER_AGE_RATING';
 export const FILTER_WEEKDAYS = 'FILTER_WEEKDAYS';
+export const FILTER_COUNTRY = 'FILTER_COUNTRY';
+export const FILTER_PROVINCE = 'FILTER_PROVINCE'
 export const REMOVE_FILTERS = 'REMOVE_FILTERS';
 export const CHANGE_MODAL = 'CHANGE_MODAL'
 export const SEARCH_NAME = 'SEARCH_NAME'; //Abi
@@ -146,10 +148,28 @@ export function filterAgeRating(type){
     payload: type
   }
 }
-export function filerWeekdays(type){
+export function filterWeekdays(type){
   console.log(type,'action weekdays')
   return{
     type:FILTER_WEEKDAYS,
+    payload: type
+  }
+}
+export function filterCountry(type){
+  console.log(type,'action Country')
+  if(type === 'México'){
+    type = 'Mexico'
+  }
+  console.log(type,'¿')
+  return{
+    type:FILTER_COUNTRY,
+    payload: type
+  }
+}
+export function filterProvince(type){
+  console.log(type,'action province')
+  return{
+    type:FILTER_PROVINCE,
     payload: type
   }
 }

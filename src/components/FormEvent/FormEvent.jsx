@@ -228,7 +228,8 @@ export function FormEvent(props) {
                         moneda:'',
                         price: '',
                         ticket_limit: '',
-                    });               
+                    });
+                    history.push('/perfil')
                  }else if(!res.data.created){
                      console.log('eyyyyyyyy', res.data.created)
                      props.changeModal('correct', `El Nombre del evento ya se encuentra registrado`)
@@ -351,7 +352,7 @@ export function FormEvent(props) {
                             >
                                 <option value="Argentina">Argentina</option>
                                 <option value="Colombia">Colombia</option>
-                                <option value="Mexico">Mexico</option>
+                                <option value="México">Mexico</option>
                             </select>
                             <span className={styles.tick}>{!errors.country && '✓'}</span>
                         </div>
