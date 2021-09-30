@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { searchName, getEvents } from '../../actions/actions';
 
 
@@ -7,6 +7,7 @@ export function Search(props){
     const [input, setInput] = useState({
         name:''
     })
+    const stateHome = useSelector(state => state.home)
     const get = props.getEvents
     useEffect(() => {
         props.getEvents()
@@ -16,10 +17,15 @@ export function Search(props){
     }
     const handleClick = (e) =>{
         e.preventDefault()
-        let name = input.name
-        props.search(name)
+        let aux = stateHome.filter((e)=> e.name.toLowerCase().includes(input.name.toLowerCase()))
+        if(aux.length === 0){
+            aux = undefined
+        }else{
+            aux = aux
+        }
+        props.search(aux)
         setInput({name:''})
-        console.log(input.name,'input')
+        // console.log(input.name,'input')
     }
 
     return (

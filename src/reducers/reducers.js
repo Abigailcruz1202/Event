@@ -199,7 +199,7 @@ import {
     if(action.type === SEARCH_NAME){
       return{
         ...state,
-        filters: state.home.filter((e)=> e.name.toLowerCase().includes(action.payload.toLowerCase()))
+        filters: action.payload
 
       }
     }

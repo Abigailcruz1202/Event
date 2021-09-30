@@ -18,32 +18,24 @@ export function Filters(props) {
     const DEPARTAMENTOS = ['Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bolívar', 'Boyacá', 'Caldas', 'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía', 'Guaviare', 'Huila', 'La Guajira', 'Magdalena', 'Meta', 'Nariño', 'Norte de Santander', 'Putumayo', 'Quindío', 'Risaralda', 'San Andrés y Providencia', 'Santander', 'Sucre', 'Tolima', 'Valle del Cauca', 'Vaupés', 'Vichada']
     const PROVINCIAS = ['Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba', 'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa', 'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro', 'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe', 'Santiago del Estero', 'Tierra del Fuego', 'Tucumán']
 
-    const [state, setState] = useState([])
+    const [state, setState] = useState()
+    const [type, setType] = useState('')
     const [country, setCountry] = useState()
     const get = props.getEvents
     let result;
     useEffect(() => {
         props.getEvents()
     }, [get])
-    useEffect(() => {
-        if (state === 'DESC') {
-            if (stateFilters.length === 0) {
-                console.log('if,"DESC"')
-                props.orderDescPrice(stateHome.sort((a, b) => b.price - a.price))
-            } else {
-                console.log('else,"DESC"')
-                props.orderDescPrice(stateFilters.sort((a, b) => b.price - a.price))
-            }
-        } else if (state === 'ASC') {
-            if (stateFilters.length === 0) {
-                console.log('if,"ASC"')
-                props.orderAscPrice(stateHome.sort((a, b) => a.price - b.price))
-            } else {
-                console.log('else,"ASC"')
-                props.orderAscPrice(stateFilters.sort((a, b) => a.price - b.price))
-            }
+
+    useEffect(()=>{
+        if(type === 'DESC'){
+            console.log(state,'sta desc')
+            props.orderDescPrice(state)
+        }else if(type === 'ASC'){
+            console.log(state,'sta')
+            props.orderAscPrice(state)
         }
-    }, [state, stateFilters, stateHome, orderDescPrice, orderAscPrice])
+    },[type,props.orderAscPrice, props.orderDescPrice])
 
     const handleChange = (e) => {
         console.log('TIPO:', e.target.name)
@@ -112,29 +104,33 @@ export function Filters(props) {
     const orderChange = (e) => {
         if (e.target.name === 'DESC') {
             console.log('DESC')
-            setState('DESC')
-            // if (stateFilters.length === 0){
-            //     result = stateHome.sort((a, b) => b.price - a.price)
-            //     console.log('if,"DESC"')
-            //     props.orderDescPrice(result)
-            // }else {
-            //     result = stateFilters.sort((a, b) => b.price - a.price)
-            //     console.log('else,"DESC"')
-            //     props.orderDescPrice(result)
-            // }
+            setType('DESC')
+            if (stateFilters.length === 0 || stateFilters === undefined){
+                result = stateHome.sort((a, b) => b.price - a.price)
+                setState(result)
+                console.log('if,"DESC"')
+                // props.orderDescPrice(result)
+            }else {
+                result = stateFilters.sort((a, b) => b.price - a.price)
+                setState(result)
+                console.log('else,"DESC"')
+                // props.orderDescPrice(result)
+            }
         }
         if (e.target.name === 'ASC') {
             console.log('ASC')
-            setState('ASC')
-            // if(stateFilters.length === 0){
-            // result = stateHome.sort((a, b) => a.price - b.price)
-            // console.log('if,"ASC"')
+            setType('ASC')
+            if(stateFilters.length === 0 || stateFilters === undefined){
+            result = stateHome.sort((a, b) => a.price - b.price)
+            setState(result)
+            console.log('if,"ASC"')
             // props.orderAscPrice(result)
-            // }else{
-            //     result = stateFilters.sort((a, b) => a.price - b.price)
-            //     console.log('else,"ASC"')
-            //     props.orderAscPrice(result)
-            // }
+            }else{
+                result = stateFilters.sort((a, b) => a.price - b.price)
+                setState(result)
+                console.log('else,"ASC"')
+                // props.orderAscPrice(result)
+            }
         }
     }
     const all = (e) => {
