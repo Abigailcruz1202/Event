@@ -6,15 +6,18 @@ import Carousel from "../Carousel/Carousel";
 import SideBar from "../SideBar/SideBar";
 import NavBarHome from "../NavBarHome/NavBarHome";
 import activitiesList from "../../FakeDB/FakeDB";
-import { getEventsHome } from "../../actions/actions";
+import { getEventsHome,removeFilters } from "../../actions/actions";
 
-const Home = ({ switchSide, getEventsHome, events, filters }) => {
+const Home = ({ switchSide, getEventsHome, events, filters, removeFilters }) => {
   //* La informacion de las actividades esta en el archivo FakeDB
 
   useEffect(() => {
     getEventsHome()
   }, [getEventsHome])
 
+  const all = (e) => {
+    removeFilters()
+}
 
   return (
     <>
@@ -25,8 +28,14 @@ const Home = ({ switchSide, getEventsHome, events, filters }) => {
         </div>: <div></div> }
       <div>
         {/* <Carousel /> */}
-        {filters.length > 0 ?
+        {filters === undefined ?
+        <><h4 style={{marginLeft: '10px'}}>No se encontró lo que buscaba..</h4>
+        <h5 style={{ marginBlockEnd: '0', marginLeft: '10px', cursor: 'pointer', textDecoration: 'underline', color: '#f5af00' }} onClick={all}>Regregsar</h5>
+        </>
+        :filters.length > 0 ?
+        <><h5 style={{ marginBlockEnd: '0', marginLeft: '10px', cursor: 'pointer', textDecoration: 'underline', color: '#f5af00' }} onClick={all}>Eliminar Filtros</h5>
         <ActivityCards events={filters}/>
+        </>
         :<div>
         <Carousel />
           <ActivityCards events={events} /></div>}
@@ -46,4 +55,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getEventsHome })(Home);
+export default connect(mapStateToProps, { getEventsHome, removeFilters })(Home);

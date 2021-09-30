@@ -5,6 +5,7 @@ import  { useDispatch , useSelector, connect } from 'react-redux';
 import { getEventDetail, changeModal, editEvent, addShopping } from '../../../actions/actions';
 import { Carousel } from 'react-carousel-minimal';
 import Loading from '../../Loading/Loading';
+import Heart from "react-animated-heart";
 import styles from './EventDetailsUsario.module.css';
 
 
@@ -23,13 +24,16 @@ const pushDta=(detailsEvent)=>{
 const EventDetailsUsario = ({ addShopping, cart, user }) => {
     const [render, setRender] = useState(false)
     const [data , setData] = useState()
+    const [isClick, setClick] = useState(false);
+
     const dispatch = useDispatch()
     const params =useParams()
-    const {id}=params
+    const history = useHistory();
+    
+    const {id} = params
     const detailsEvent = useSelector(state => state.detailsEvent)
     console.log('soy eventos', detailsEvent)
     const userInfo = useSelector(state => state.userState)
-    const history = useHistory();
 
     useEffect( () => {
         const fetchData = async () => {
@@ -73,7 +77,7 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
     useEffect(()=>{
         setData(pushDta(detailsEvent))
     },[detailsEvent])
-
+    
     
     
     const setShopping = (event) => {
@@ -123,6 +127,35 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
                         </div>  
                         <div className={styles.otherDetailsUser}>  
                             <br/> 
+                            {
+                                // Boton de Favoritos
+                                !userInfo.type ? (
+                                    <div className={styles.heart}>
+                                        <Heart 
+                                            
+                                            isClick={isClick}
+                                            onClick={() => {
+                                                alert('Inicia sesión para guardar este evento en tus favoritos.')                                            
+                                            }} 
+                                        />
+                                    </div>
+                                ) : (
+                                    userInfo.type === 'user' ? (                                        
+                                        <div className={styles.heart}>
+                                            <Heart 
+                                            
+                                            isClick={isClick}
+                                            onClick={() => {
+                                                setClick(!isClick)
+                                            }} 
+                                            />
+                                        </div>
+                                    ) : (
+                                        <span>&nbsp;</span>
+                                    )
+                                )
+                                
+                            }
                             <h4>Descripcion:</h4>
                             <p className={styles.description}>{ detailsEvent.consult.description}</p>
                             <div className={styles.detailsUsers2User}>
