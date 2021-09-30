@@ -54,6 +54,8 @@ const PromotorePorfile = () =>{
             </div>
             <h3>{promoterUser.eventPromotor.business_name}</h3>
             <h3>{promoterUser.eventPromotor.business_type} </h3>
+            <span>0 seguidores</span>
+           { /* Convertir en link y derivar a view que liste los seguidores */ }
             { userInfo?.type === 'user' ?
                 <button className={styles.btn2}>Seguir</button> :
                 <div>&nbsp;</div>
