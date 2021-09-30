@@ -42,6 +42,7 @@ const PromotorePorfile = () =>{
         const whats ={whats:`https://api.whatsapp.com/send?phone=${promoterUser.eventPromotor.phone}`}
         console.log('soy whasts',whats)
         return(
+
         <div className={styles.contPrin}>
         <div className={styles.contProfile}>
         <div className={styles.imgProfile}>
