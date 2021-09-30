@@ -32,6 +32,7 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
     
     const {id} = params
     const detailsEvent = useSelector(state => state.detailsEvent)
+    console.log('soy eventos', detailsEvent)
     const userInfo = useSelector(state => state.userState)
 
     useEffect( () => {
