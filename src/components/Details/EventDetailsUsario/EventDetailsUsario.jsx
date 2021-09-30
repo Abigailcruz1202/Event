@@ -27,7 +27,7 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
     const params =useParams()
     const {id}=params
     const detailsEvent = useSelector(state => state.detailsEvent)
-    console.log('soy eventos',detailsEvent)
+    console.log('soy eventos', detailsEvent)
     const userInfo = useSelector(state => state.userState)
     const history = useHistory();
 
