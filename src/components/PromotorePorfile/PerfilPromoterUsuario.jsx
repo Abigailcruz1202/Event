@@ -6,6 +6,7 @@ import {Link, useParams} from 'react-router-dom';
 import {getPromoterUser} from '../../actions/actions';
 import Loading from "../Loading/Loading";
 import Card from './Card';
+import FollowButton from "../Follow/FollowButton";
 /* import axios from 'axios' */
 
 const PromotorePorfile = () =>{
@@ -58,7 +59,7 @@ const PromotorePorfile = () =>{
             <span>0 seguidores</span>
            { /* Convertir en link y derivar a view que liste los seguidores */ }
             { userInfo?.type === 'user' ?
-                <button className={styles.btn2}>Seguir</button> :
+                <FollowButton /> :
                 <div>&nbsp;</div>
             /* Sólo mostrar botón Seguir si estoy logueado */}
             <div className={styles.whats}>
