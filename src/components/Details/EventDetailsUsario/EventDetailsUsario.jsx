@@ -77,7 +77,7 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
         addShopping(event)
     }
     
-    
+    console.log('detalles--------------',detailsEvent.consult)
     
     if(render){
         
