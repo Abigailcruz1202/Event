@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import styles from './ShoppingData.module.css';
 import PayPalCheckoutButton from "../PayPalCheckoutButton/PayPalCheckoutButton";
 
-const ShopingData = ({ checkout, total }) => {
+const ShopingData = ({ checkout, total, user }) => {
   console.log(checkout)
   const [Order, setOrder] = useState({
-    customer: '12345',
+    customer: user.username,
     total: total,
     items: checkout
   })
@@ -45,7 +45,8 @@ const ShopingData = ({ checkout, total }) => {
 function mapStateToProps(state) {
   return {
     checkout: state.checkoutItems,
-    total: state.checkoutTotal
+    total: state.checkoutTotal,
+    user: state.userState
   };
 }
 

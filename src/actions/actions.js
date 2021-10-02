@@ -35,7 +35,9 @@ export const DELETE_SHOPPING = 'DELETE_SHOPPING';
 export const ADD_CHECKOUT = 'ADD_CHECKOUT';
 export const DELETE_CHECKOUT = 'DELETE_CHECKOUT';
 export const SET_TOTAL_CHECKOUT = 'SET_TOTAL_CHECKOUT';
-export const RESET_SHOPPING = 'RESET_SHOPPING'
+export const RESET_SHOPPING = 'RESET_SHOPPING';
+export const ADD_TICKET = 'ADD_TICKET';
+export const DELETE_TICKET = 'DELETE_TICKET';
 
 
 
@@ -275,3 +277,16 @@ export function resetShopping(){
     type: RESET_SHOPPING
   }
 }
+export function addTicket(ticket){
+  return{
+    type: ADD_TICKET,
+    payload: ticket
+  }
+}
+export function deleteTicket(idEvent){
+  return{
+    type: DELETE_TICKET,
+    payload:idEvent
+  }
+}
+

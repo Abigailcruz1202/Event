@@ -57,6 +57,7 @@ const Login = ({ setUser, user, nameComponent, nameComponentOne, nameComponentTw
       let user = {
         msg:json.msg,
         id: json.id,
+        fullName: json.fullName,
         username: resG.profileObj.givenName,
         picture: resG.profileObj.imageUrl,
         type: json.type
@@ -160,6 +161,7 @@ const Login = ({ setUser, user, nameComponent, nameComponentOne, nameComponentTw
       let user = {
         msg: json.msg,
         id: json.id,
+        fullName: json.fullName,
         username: json.username,
         picture: json.picture,
         type: json.type

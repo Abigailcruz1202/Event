@@ -25,6 +25,9 @@ import {
   DELETE_CHECKOUT,
   SET_TOTAL_CHECKOUT,
   RESET_SHOPPING,
+  ADD_TICKET,
+  DELETE_TICKET,
+
   CHANGE_MODAL_CONFIRM,
   } from "../actions/actions";
 
@@ -70,6 +73,7 @@ import {
     cartState:[],
     checkoutItems:[],
     checkoutTotal:0,
+    ticketItems: [],
   };
 
  
@@ -274,13 +278,24 @@ import {
       checkoutTotal: []
     }
   }
+  if(action.type === ADD_TICKET){
+    const ticket =  state.ticketItems.filter(e => e.idEvent !== action.payload.idEvent)
+    return{
+      ...state,
+      ticketItems: ticket.concat(action.payload) 
+    }
+  }
+  if(action.type === DELETE_TICKET){
+    return{
+      ...state,
+      ticketItems: state.ticketItems.filter(e => e.idEvent !== action.payload) 
+    }
+  }
 
 
 
 
-
-
-
+  
 
 
 
