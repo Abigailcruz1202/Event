@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styles from "./ShoppingListItem.module.css";
-import { addCheckout, deleteCheckout } from "../../actions/actions";
+import { addCheckout, deleteCheckout, addTicket, deleteTicket, setTotalCheckout } from "../../actions/actions";
 
-const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout }) => {
+const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addTicket, user, deleteTicket }) => {
   
   const [NumItem, setNumItem] = useState(1);
   const [NewPrice, setNewPrice] = useState(event.price)
@@ -14,14 +14,29 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout }) =>
       quantity: NumItem,
       currency: 'MXN'
   }
+  const ticket = {
+    idUser: user.id,
+    nameUser: user.username,
+    idEvent: event.id,
+    nameEvent: event.name,
+    unityPrice: event.price,
+    total: Number(event.price) * NumItem,
+    quantity: NumItem,
+    direction: 'sin direccion',
+    date: event.start_date,
+    schedule: event.schedule,
+    seatings: ['a1','a2']
+  }
 
   useEffect(() => {
     addCheckout(eventCheck)
+    addTicket(ticket)
   }, [NumItem])
  
   const setEliminate = (id) => {
     setDelCart(id);
-    deleteCheckout(id)
+    deleteCheckout(id);
+     deleteTicket(id);  
   }; 
 
   const setAdd = () => {
@@ -65,9 +80,9 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout }) =>
 
 function mapStateToProps(state) {
   return {
-    events: state.eventsHome,
-    checkOut: state.checkoutItems
+    checkOut: state.checkoutItems,
+    user: state.userState,
   };
 }
 
-export default connect(mapStateToProps, { addCheckout, deleteCheckout })(ShoppingListItem);
+export default connect(mapStateToProps, { addCheckout, deleteCheckout, addTicket, deleteTicket })(ShoppingListItem);

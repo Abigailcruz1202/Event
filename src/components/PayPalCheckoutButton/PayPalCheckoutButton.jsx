@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import paypal from "paypal-checkout";
 import { resetShopping } from "../../actions/actions";
 
-const PayPalCheckoutButton = ({ order, resetShopping }) => {
+const PayPalCheckoutButton = ({ order, resetShopping, ticket }) => {
   const history = useHistory();
   const redirec = (dir) => {
     history.push(dir);
@@ -45,7 +45,7 @@ const PayPalCheckoutButton = ({ order, resetShopping }) => {
           },
         },
       ],
-      note_to_payer: 'Contactacons para cualquier aclaración'
+      note_to_payer: 'Contactanos para cualquier aclaración'
     };
     return actions.payment.create({ payment });
   };
@@ -85,5 +85,10 @@ const PayPalCheckoutButton = ({ order, resetShopping }) => {
   )
 };
 
+function mapStateToProps(state) {
+  return {
+    ticket: state.ticketItems
+  };
+}
 
 export default connect(null, { resetShopping })(PayPalCheckoutButton);
