@@ -25,6 +25,7 @@ import {
   DELETE_CHECKOUT,
   SET_TOTAL_CHECKOUT,
   RESET_SHOPPING,
+  CHANGE_MODAL_CONFIRM,
   } from "../actions/actions";
 
   // Pruebas para guardar usuario en el local storage
@@ -47,6 +48,13 @@ import {
       render:false,
       type:null,
       message:null,
+    },
+    //modal confirm
+    modalConfirm:{
+      render:false,
+      type:null,
+      message:null,
+      response:null,
     },
     //modL FORM 
     modalForm:{
@@ -180,6 +188,19 @@ import {
           render:!state.modal.render,
           message: action.payload.message,
           type: action.payload.type
+        }
+      }
+    }
+
+    if(action.type === CHANGE_MODAL_CONFIRM){    
+      return{
+        ...state,
+        modalConfirm:{
+          ...state.modalConfirm,
+          render:!state.modalConfirm.render,
+          message: action.payload.message,
+          type: action.payload.type,
+          response: action.payload.response,
         }
       }
     }

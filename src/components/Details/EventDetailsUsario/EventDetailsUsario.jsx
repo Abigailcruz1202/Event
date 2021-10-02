@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DisplayComments from '../../Comments/DisplayComments/DisplayComments';
 import { Link , useParams, useHistory} from 'react-router-dom';
 import  { useDispatch , useSelector, connect } from 'react-redux';
-import { getEventDetail, changeModal, editEvent, addShopping } from '../../../actions/actions';
+import { getEventDetail, changeModal, editEvent, addShopping,changeModalConfirm, API } from '../../../actions/actions';
 import { Carousel } from 'react-carousel-minimal';
 import Loading from '../../Loading/Loading';
 import Heart from "react-animated-heart";
@@ -21,7 +21,7 @@ const pushDta=(detailsEvent)=>{
     return data;
 }
 //Diego: Componente que muestra los detalles de un evento para el tipo Usuario.
-const EventDetailsUsario = ({ addShopping, cart, user }) => {
+const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModalConfirm }) => {
     const [render, setRender] = useState(false)
     const [data , setData] = useState()
     const [isClick, setClick] = useState(false);
@@ -51,23 +51,29 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
         dispatch(editEvent(detailsEvent.consult));
     }
 
-    //Borrar evento boton unicamente disponoble para promotor
+    // Inicio Borrar evento boton unicamente disponoble para promotor
+    useEffect(()=>{
+        const deleteEvent2 = async()=>{  
+            if(modalConfirm.response === 'si'){
+                const res = await fetch(`${API}event/delete/${id}`,
+                    {
+                        method:'DELETE'
+                    }
+                )
+                await res.text();
+                history.push('/perfil');
+            }          
+        }
+        deleteEvent2();
+    },[modalConfirm]);
     const deleteEvent = async()=>{  
         if(detailsEvent.consult.promoterId === userInfo.id){
-            const res = await fetch(`https://event-henryapp-backend.herokuapp.com/api/event/delete/${id}`,
-                {
-                    method:'DELETE'
-                }
-            )
-                await res.json();
-            history.push('/perfil');
+            changeModalConfirm('correct', `Desea Eliminar el Evento ${detailsEvent.consult.name}`, null);
         }else{
-            dispatch(changeModal(
-                'correct','No puedes eliminar un evento que no te pertenece'
-            ))
-        }
+            dispatch(changeModal('correct','No puedes eliminar un evento que no te pertenece'));
+        }        
     }
-    
+    //Fin Borrar evento boton unicamente disponoble para promotor
     const slideNumberStyle = {
         fontSize: '20px',
         fontWeight: 'bold',
@@ -300,8 +306,9 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
 function mapStateToProps(state) {
     return {
         cart: state.cartState,
-        user: state.userState
+        user: state.userState,
+        modalConfirm: state.modalConfirm,
     };
 }
 
-    export default connect(mapStateToProps, { addShopping })(EventDetailsUsario);
+    export default connect(mapStateToProps, { addShopping, changeModalConfirm })(EventDetailsUsario);
