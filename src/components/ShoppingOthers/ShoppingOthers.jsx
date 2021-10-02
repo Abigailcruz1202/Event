@@ -19,7 +19,7 @@ const ShoppingOthers = ({ events, getEventsHome }) => {
  
  
   return (
-    <div classname={styles.container}>
+    <div className={styles.container}>
       <h3 >Mas Eventos En Tu Ciudad</h3>
       {moreEvents.length > 3? (
         <ul className={styles.ul}>
