@@ -16,7 +16,7 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addT
   }
   const ticket = {
     idUser: user.id,
-    nameUser: user.username,
+    nameUser: user.fullName,
     idEvent: event.id,
     nameEvent: event.name,
     unityPrice: event.price,
