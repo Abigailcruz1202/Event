@@ -22,6 +22,7 @@ import PromotorePorfile from './components/PromotorePorfile/PromotoreProfile';
 import PromoterProfileUser from './components/PromotorePorfile/PerfilPromoterUsuario'
 import EditForm from './components/Details/EventDetailsUsario/EditForm';
 import ShoppingCheckout from './components/ShoppingCheckout/ShoppingCheckout';
+import Croquis from './components/Croquis/Body'
 
 
 function App({ setUser, user, modal, modalForm, cart, addShopping }) {
@@ -106,6 +107,11 @@ function App({ setUser, user, modal, modalForm, cart, addShopping }) {
       <Route path='/PromoterPorfileUser/:id'>
         <PromoterProfileUser />
       </Route>
+
+      <Route path= '/croquis/:id'>
+        <Croquis/>
+      </Route>
+
 
 
       <Footer />
