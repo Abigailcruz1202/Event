@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
     console.log('soy user data',userData)
     useEffect(()=>{
-        console.log('entreeeee el use efect')
         const getEvents = async()=>{
             try{
             const events = await getEventPromoter(userData.id)
