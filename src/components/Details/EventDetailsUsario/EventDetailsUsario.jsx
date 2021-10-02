@@ -82,7 +82,7 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
     const setShopping = (event) => {
         addShopping(event)
     }
-console.log(id, userInfo)
+    console.log(id, userInfo)
     const addOrRemoveFavorite = async (eventId, userId) => {
 
     }
