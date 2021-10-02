@@ -27,12 +27,11 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
     const [isClick, setClick] = useState(false);
 
     const dispatch = useDispatch()
-    const params =useParams()
+    const params = useParams()
     const history = useHistory();
     
     const {id} = params
     const detailsEvent = useSelector(state => state.detailsEvent)
-    console.log('soy eventos', detailsEvent)
     const userInfo = useSelector(state => state.userState)
 
     useEffect( () => {
@@ -83,8 +82,19 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
     const setShopping = (event) => {
         addShopping(event)
     }
+    console.log(id, userInfo)
+    const addOrRemoveFavorite = async (eventId, userId) => {
+
+    }
     
-    console.log('detalles--------------',detailsEvent.consult)
+    // useEffect(() => {
+    //     // get a ruta de likes para ver si like, si like entonces corazon active
+    // },[])
+    // useEffect(() => {
+    //     if (isClick) {
+    //         // se hace el post a la tabla intermedia
+    //     }
+    // },[isClick])
     
     if(render){
         
@@ -147,6 +157,7 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
                                             isClick={isClick}
                                             onClick={() => {
                                                 setClick(!isClick)
+                                                addOrRemoveFavorite(id, userInfo.userId)
                                             }} 
                                             />
                                         </div>
