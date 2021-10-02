@@ -19,13 +19,13 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addT
     nameUser: user.fullName,
     idEvent: event.id,
     nameEvent: event.name,
-    unityPrice: event.price,
+    price: event.price,
     total: Number(event.price) * NumItem,
     quantity: NumItem,
     direction: 'sin direccion',
     date: event.start_date,
     schedule: event.schedule,
-    seatings: ['a1','a2']
+    seating: ['a1','a2']
   }
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addT
   };
 
   return (
-    <li className={styles.li} key={event.id}>
+    < >
       <img src={event.pictures[0]} alt="" className={styles.img} />
       <h4> {event.name} </h4>
       <p className={styles.tag}>{event.tags}</p>
@@ -73,7 +73,7 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addT
       </div>
       <p className={styles.p}>${(event.price)*NumItem}</p>
       <button onClick={() => setEliminate(event.id)} className={styles.close}>X</button>
-    </li>
+    </>
   );
 };
 
