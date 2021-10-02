@@ -8,6 +8,10 @@ import {
    FILTER_TAGS,
    FILTER_AGE_RATING,
    FILTER_WEEKDAYS,
+   FILTER_COUNTRY,
+   FILTER_PROVINCE,
+   ORDER_PRICE_ASC,
+   ORDER_PRICE_DESC,
    REMOVE_FILTERS,
    CHANGE_MODAL,
    SEARCH_NAME,
@@ -23,6 +27,8 @@ import {
   RESET_SHOPPING,
   ADD_TICKET,
   DELETE_TICKET,
+
+  CHANGE_MODAL_CONFIRM,
   } from "../actions/actions";
 
   // Pruebas para guardar usuario en el local storage
@@ -45,6 +51,13 @@ import {
       render:false,
       type:null,
       message:null,
+    },
+    //modal confirm
+    modalConfirm:{
+      render:false,
+      type:null,
+      message:null,
+      response:null,
     },
     //modL FORM 
     modalForm:{
@@ -125,19 +138,43 @@ import {
     if(action.type === FILTER_TAGS){
       return{
         ...state,
-        filters: state.home.filter((e)=> e.tags === action.payload)
+        filters: action.payload
       }
     }
     if(action.type === FILTER_AGE_RATING){
       return{
         ...state,
-        filters: state.home.filter((e)=> e.age_rating === action.payload)
+        filters: action.payload
       }
     }
     if(action.type === FILTER_WEEKDAYS){
       return{
         ...state,
-        filters: state.home.filter((e)=> e.weekdays.find((day)=> day === action.payload))
+        filters: action.payload
+      }
+    }
+    if(action.type === FILTER_COUNTRY){
+      return{
+        ...state,
+        filters: action.payload
+      }
+    }
+    if(action.type === FILTER_PROVINCE){
+      return{
+        ...state,
+        filters: action.payload
+      }
+    }
+    if(action.type === ORDER_PRICE_ASC){
+      return{
+        ...state,
+        filters: action.payload
+      }
+    }
+    if(action.type === ORDER_PRICE_DESC){
+      return{
+        ...state,
+        filters: action.payload
       }
     }
     if(action.type === REMOVE_FILTERS){
@@ -159,6 +196,19 @@ import {
       }
     }
 
+    if(action.type === CHANGE_MODAL_CONFIRM){    
+      return{
+        ...state,
+        modalConfirm:{
+          ...state.modalConfirm,
+          render:!state.modalConfirm.render,
+          message: action.payload.message,
+          type: action.payload.type,
+          response: action.payload.response,
+        }
+      }
+    }
+
     
     if(action.type === EDIT_EVENT){    
       console.log('en el reducer',action.payload)
@@ -174,7 +224,7 @@ import {
     if(action.type === SEARCH_NAME){
       return{
         ...state,
-        home: state.home.filter((e)=> e.name.includes(action.payload))
+        filters: action.payload
 
       }
     }

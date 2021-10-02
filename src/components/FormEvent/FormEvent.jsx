@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
-import { changeModal, editEvent, postEvent } from '../../actions/actions.js';
+import { API, changeModal, editEvent, postEvent } from '../../actions/actions.js';
 import styles from './FormEvent.module.css'
 import validate from './validate.js';
 
@@ -169,7 +169,7 @@ export function FormEvent(props) {
             try{
                 console.log(props.modalForm.data.id,'soy yooo')
                 
-                const res = await axios.put(`https://event-henryapp-backend.herokuapp.com/api/event/edit/${props.modalForm.data.id}`,{...event,locationId:props.modalForm.data.locationId,id:props.modalForm.data.id})
+                const res = await axios.put(`${API}/event/edit/${props.modalForm.data.id}`,{...event,locationId:props.modalForm.data.locationId,id:props.modalForm.data.id})
                 
                 console.log(res)
                 if(res.data.msg==='update'){
@@ -199,7 +199,7 @@ export function FormEvent(props) {
              props.changeModal('correct', `Revisa todos los campos`);
          } else {
              try{
-                 const res = await axios.post('https://event-henryapp-backend.herokuapp.com/api/event',event)
+                 const res = await axios.post(`${API}/event`,event)
                  console.log('respuesta del backkkkkkkkk',res.data)
                  if(res.data.msg){
                     props.changeModal('correct', `Intentalo de nuevo más tarde`) 
@@ -228,7 +228,8 @@ export function FormEvent(props) {
                         moneda:'',
                         price: '',
                         ticket_limit: '',
-                    });               
+                    });
+                    history.push('/perfil')
                  }else if(!res.data.created){
                      console.log('eyyyyyyyy', res.data.created)
                      props.changeModal('correct', `El Nombre del evento ya se encuentra registrado`)
@@ -351,7 +352,7 @@ export function FormEvent(props) {
                             >
                                 <option value="Argentina">Argentina</option>
                                 <option value="Colombia">Colombia</option>
-                                <option value="Mexico">Mexico</option>
+                                <option value="México">Mexico</option>
                             </select>
                             <span className={styles.tick}>{!errors.country && '✓'}</span>
                         </div>

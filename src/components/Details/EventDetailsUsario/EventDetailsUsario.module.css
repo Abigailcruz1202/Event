@@ -1,13 +1,20 @@
 .detailsAllUser {
   text-align: center;
 }
-.carouselImages {
-}
+
 .otherDetailsUser {
-  height: 600px; /* DESPUÉS MODIFICAR. */
+  height: 700px; /* DESPUÉS MODIFICAR. */
   max-width: 50vw;
   min-width: 40vw;
   margin: 20px;
+}
+.heart {
+  position: relative;
+  left: 38%;
+  overflow: auto;
+  /* display: flex;
+  justify-content: flex-end;
+  margin-right: 15px; */
 }
 body {
   color: var(--White);
@@ -153,3 +160,9 @@ body {
 .detailsCard2User {
   margin-bottom: 40px;
 }
+/* .heartButton {
+  cursor: pointer;
+  display: inline-block;
+}
+.heartButton:hover {
+} */

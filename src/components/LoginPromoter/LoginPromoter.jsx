@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { setUser, setPromoter } from "../../actions/actions";
+import { setUser, setPromoter, API } from "../../actions/actions";
 import { Link } from "react-router-dom";
 import styles from "./LoginPromoter.module.css";
 import { useHistory } from "react-router-dom";
@@ -51,7 +51,7 @@ const LoginPromoter = ({setUser, setPromoter, user,  promoter, nameComponent, na
         },
         body: JSON.stringify(obj), 
       };
-      let res = await fetch("https://event-henryapp-backend.herokuapp.com/api/promoter/login", config);
+      let res = await fetch(`${API}/promoter/login`, config);
       let json = await res.json();
       let promoter = {
         msg:json.msg,

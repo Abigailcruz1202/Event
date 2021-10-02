@@ -19,8 +19,13 @@ export const GET_EVENTS = 'GET_EVENTS'; //Abi
 export const FILTER_TAGS = 'FILTER_TAGS';
 export const FILTER_AGE_RATING = 'FILTER_AGE_RATING';
 export const FILTER_WEEKDAYS = 'FILTER_WEEKDAYS';
+export const FILTER_COUNTRY = 'FILTER_COUNTRY';
+export const FILTER_PROVINCE = 'FILTER_PROVINCE';
+export const ORDER_PRICE_ASC = 'ORDER_PRICE_ASC';
+export const ORDER_PRICE_DESC = 'ORDER_PRICE_DESC';
 export const REMOVE_FILTERS = 'REMOVE_FILTERS';
-export const CHANGE_MODAL = 'CHANGE_MODAL'
+export const CHANGE_MODAL = 'CHANGE_MODAL';//leo
+export const CHANGE_MODAL_CONFIRM = 'CHANGE_MODAL_CONFIRM';//leo
 export const SEARCH_NAME = 'SEARCH_NAME'; //Abi
 export const  PROMOTER_USER =' PROMOTER_USER'//daf
 
@@ -36,8 +41,8 @@ export const DELETE_TICKET = 'DELETE_TICKET';
 
 
 
-// const API = 'http://localhost:3001/api/'
-const API = 'https://event-henryapp-backend.herokuapp.com/api/'
+export const API = 'http://localhost:3001/api/'
+//export const API = 'https://event-henryapp-backend.herokuapp.com/api/'
 
 
 //*_get_activities_home______________________________________________
@@ -111,7 +116,6 @@ export function getEventPromoter (id){
   console.log(id, 'SOY ID')
   return async function(dispatch){
     const response = await axios(`${API}${'promoter/'}${id}`);
-    console.log(response.data.eventPromotor.events,'SOY RESPUESTA EVENTO')
     return dispatch({
       type:GET_EVENTS_PROMOTER,
       payload:response.data.eventPromotor.events,
@@ -148,10 +152,42 @@ export function filterAgeRating(type){
     payload: type
   }
 }
-export function filerWeekdays(type){
+export function filterWeekdays(type){
   console.log(type,'action weekdays')
   return{
     type:FILTER_WEEKDAYS,
+    payload: type
+  }
+}
+export function filterCountry(type){
+  console.log(type,'action Country')
+  if(type === 'México'){
+    type = 'Mexico'
+  }
+  console.log(type,'¿')
+  return{
+    type:FILTER_COUNTRY,
+    payload: type
+  }
+}
+export function filterProvince(type){
+  console.log(type,'action province')
+  return{
+    type:FILTER_PROVINCE,
+    payload: type
+  }
+}
+export function orderAscPrice(type){
+  console.log(type,'action priceASC')
+  return{
+    type:ORDER_PRICE_ASC,
+    payload: type
+  }
+}
+export function orderDescPrice(type){
+  console.log(type,'action priceDESC')
+  return{
+    type:ORDER_PRICE_DESC,
     payload: type
   }
 }
@@ -165,6 +201,13 @@ export function removeFilters(){
 export function changeModal(type,message){
   return{
     type: CHANGE_MODAL, payload:{type,message}
+  }
+}
+//Modal Delete
+export function changeModalConfirm(type,message,response){
+  console.log('action linea 206', type,message, response)
+  return{
+    type: CHANGE_MODAL_CONFIRM, payload:{type,message,response}
   }
 }
 //modal formulario edicion

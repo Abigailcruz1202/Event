@@ -2,31 +2,37 @@ import React, { useState, useEffect } from 'react';
 import DisplayComments from '../../Comments/DisplayComments/DisplayComments';
 import { Link , useParams, useHistory} from 'react-router-dom';
 import  { useDispatch , useSelector, connect } from 'react-redux';
-import { getEventDetail, changeModal, editEvent, addShopping } from '../../../actions/actions';
+import { getEventDetail, changeModal, editEvent, addShopping,changeModalConfirm, API } from '../../../actions/actions';
 import { Carousel } from 'react-carousel-minimal';
 import Loading from '../../Loading/Loading';
+import Heart from "react-animated-heart";
 import styles from './EventDetailsUsario.module.css';
 
 
 const pushDta=(detailsEvent)=>{
     let data = [];
     let picture = detailsEvent.consult?.pictures
-    
     for (let index = 0; index < picture?.length; index++) {
-        data.push({image:picture[index],caption:detailsEvent.consult.description})
+        data.push({
+            image:picture[index],
+            caption:detailsEvent.consult.description,
+        })
     }
     return data;
 }
 //Diego: Componente que muestra los detalles de un evento para el tipo Usuario.
-const EventDetailsUsario = ({ addShopping, cart, user }) => {
+const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModalConfirm }) => {
     const [render, setRender] = useState(false)
     const [data , setData] = useState()
+    const [isClick, setClick] = useState(false);
+
     const dispatch = useDispatch()
-    const params =useParams()
-    const {id}=params
+    const params = useParams()
+    const history = useHistory();
+    
+    const {id} = params
     const detailsEvent = useSelector(state => state.detailsEvent)
     const userInfo = useSelector(state => state.userState)
-    const history = useHistory();
 
     useEffect( () => {
         const fetchData = async () => {
@@ -45,23 +51,29 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
         dispatch(editEvent(detailsEvent.consult));
     }
 
-    //Borrar evento boton unicamente disponoble para promotor
+    // Inicio Borrar evento boton unicamente disponoble para promotor
+    useEffect(()=>{
+        const deleteEvent2 = async()=>{  
+            if(modalConfirm.response === 'si'){
+                const res = await fetch(`${API}event/delete/${id}`,
+                    {
+                        method:'DELETE'
+                    }
+                )
+                await res.text();
+                history.push('/perfil');
+            }          
+        }
+        deleteEvent2();
+    },[modalConfirm]);
     const deleteEvent = async()=>{  
         if(detailsEvent.consult.promoterId === userInfo.id){
-            const res = await fetch(`https://event-henryapp-backend.herokuapp.com/api/event/delete/${id}`,
-                {
-                    method:'DELETE'
-                }
-            )
-                await res.json();
-            history.push('/perfil');
+            changeModalConfirm('correct', `Desea Eliminar el Evento ${detailsEvent.consult.name}`, null);
         }else{
-            dispatch(changeModal(
-                'correct','No puedes eliminar un evento que no te pertenece'
-            ))
-        }
+            dispatch(changeModal('correct','No puedes eliminar un evento que no te pertenece'));
+        }        
     }
-    
+    //Fin Borrar evento boton unicamente disponoble para promotor
     const slideNumberStyle = {
         fontSize: '20px',
         fontWeight: 'bold',
@@ -70,14 +82,25 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
     useEffect(()=>{
         setData(pushDta(detailsEvent))
     },[detailsEvent])
-
+    
     
     
     const setShopping = (event) => {
         addShopping(event)
     }
+    console.log(id, userInfo)
+    const addOrRemoveFavorite = async (eventId, userId) => {
+
+    }
     
-    console.log('detalles--------------',detailsEvent.consult)
+    // useEffect(() => {
+    //     // get a ruta de likes para ver si like, si like entonces corazon active
+    // },[])
+    // useEffect(() => {
+    //     if (isClick) {
+    //         // se hace el post a la tabla intermedia
+    //     }
+    // },[isClick])
     
     if(render){
         
@@ -120,22 +143,59 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
                         </div>  
                         <div className={styles.otherDetailsUser}>  
                             <br/> 
+                            {
+                                // Boton de Favoritos
+                                !userInfo.type ? (
+                                    <div className={styles.heart}>
+                                        <Heart 
+                                            
+                                            isClick={isClick}
+                                            onClick={() => {
+                                                alert('Inicia sesión para guardar este evento en tus favoritos.')                                            
+                                            }} 
+                                        />
+                                    </div>
+                                ) : (
+                                    userInfo.type === 'user' ? (                                        
+                                        <div className={styles.heart}>
+                                            <Heart 
+                                            
+                                            isClick={isClick}
+                                            onClick={() => {
+                                                setClick(!isClick)
+                                                addOrRemoveFavorite(id, userInfo.userId)
+                                            }} 
+                                            />
+                                        </div>
+                                    ) : (
+                                        <span>&nbsp;</span>
+                                    )
+                                )
+                                
+                            }
                             <h4>Descripcion:</h4>
                             <p className={styles.description}>{ detailsEvent.consult.description}</p>
                             <div className={styles.detailsUsers2User}>
                                 <div className={styles.leftColumn}>
                                     <h4>Artistas:</h4>
                                     <p>{` ${detailsEvent.consult.starring}`}</p>
+                                    <h4>País:</h4>
+                                    <p> {` ${detailsEvent.consult.location.country}`}</p>
+                                    <h4>Estado/Provincia:</h4>
+                                    <p> {` ${detailsEvent.consult.location.province}`}</p>
+                                    <h4>Ciudad:</h4>
+                                    <p> {` ${detailsEvent.consult.location.city}`}</p>
                                     <h4>Dirreción:</h4>
                                     <p> {` ${detailsEvent.consult.address}`}</p>
                                     <h4>Fecha:</h4>
                                     <p>{` ${detailsEvent.consult.start_date}`}</p>
+                                    
+                                </div>
+                                <div className={styles.rightColumn}>
                                     <h4>Fecha Finalización:</h4>
                                     <p>{` ${detailsEvent.consult.finish_date}`}</p>
                                     <h4>Dias:</h4>
                                     <p>{` ${detailsEvent.consult.weekdays.map((e)=>(e))}`}</p>
-                                </div>
-                                <div className={styles.rightColumn}>
                                     <h4>Horarios:</h4>
                                     <p>{` ${detailsEvent.consult.schedule.map((e)=>(e))}`}</p>
                                     <h4>Tipo de Evento:</h4>
@@ -163,14 +223,14 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
                         <div className={styles.contRend}>
                                 <h2 className='formTitle'>Promotor</h2>
                                 <div className={styles.promoterRow}>
-                                <Link to='/PromoterPorfileUser'>
+                                <Link to={`/PromoterPorfileUser/${detailsEvent.consult.promoter.id}`}>
                                 <img
                                     src={detailsEvent.consult.promoter.picture}
                                     className={styles.promoterPicture}
                                     alt=''
                                 />
-                                </Link>
-                            <Link to={`/PromoterPorfileUser/${detailsEvent.consult.promoter.id}`}>
+                                
+                           
                             <span className={styles.promoterName}>
                                     {`${detailsEvent.consult.promoter.business_name}`}
                                 </span>
@@ -246,8 +306,9 @@ const EventDetailsUsario = ({ addShopping, cart, user }) => {
 function mapStateToProps(state) {
     return {
         cart: state.cartState,
-        user: state.userState
+        user: state.userState,
+        modalConfirm: state.modalConfirm,
     };
 }
 
-    export default connect(mapStateToProps, { addShopping })(EventDetailsUsario);
+    export default connect(mapStateToProps, { addShopping, changeModalConfirm })(EventDetailsUsario);
