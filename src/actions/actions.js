@@ -38,8 +38,8 @@ export const RESET_SHOPPING = 'RESET_SHOPPING'
 
 
 
-// const API = 'http://localhost:3001/api/'
-const API = 'https://event-henryapp-backend.herokuapp.com/api/'
+//export const API = 'http://localhost:3001/api/'
+export const API = 'https://event-henryapp-backend.herokuapp.com/api/'
 
 
 //*_get_activities_home______________________________________________
@@ -113,7 +113,6 @@ export function getEventPromoter (id){
   console.log(id, 'SOY ID')
   return async function(dispatch){
     const response = await axios(`${API}${'promoter/'}${id}`);
-    console.log(response.data.eventPromotor.events,'SOY RESPUESTA EVENTO')
     return dispatch({
       type:GET_EVENTS_PROMOTER,
       payload:response.data.eventPromotor.events,
