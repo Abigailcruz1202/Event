@@ -40,9 +40,8 @@ export const ADD_TICKET = 'ADD_TICKET';
 export const DELETE_TICKET = 'DELETE_TICKET';
 
 
-
 // export const API = 'http://localhost:3001/api/'
-export const API = 'https://event-henryapp-backend.herokuapp.com/api/'
+ export const API = 'https://event-henryapp-backend.herokuapp.com/api/'
 
 
 //*_get_activities_home______________________________________________

@@ -75,13 +75,12 @@ const PayPalCheckoutButton = ({ order, resetShopping, tickets }) => {
           console.log(response)
           alert(`el pago se realizo correctamente, ID: ${response.id}`)
 
-
-          resetShopping()
+          redirec("/");
           tickets.map( async ticket => (
             await fetchPostTicket(ticket)
           ))
-            redirec("/");
-
+           resetShopping()
+             
 
       })
       .catch(error => {

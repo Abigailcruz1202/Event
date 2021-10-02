@@ -275,7 +275,8 @@ import {
       ...state,
       cartState: [],
       checkoutItems: [],
-      checkoutTotal: []
+      checkoutTotal: [],
+      ticketItems: []
     }
   }
   if(action.type === ADD_TICKET){
