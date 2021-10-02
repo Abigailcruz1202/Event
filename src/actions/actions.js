@@ -24,7 +24,8 @@ export const FILTER_PROVINCE = 'FILTER_PROVINCE';
 export const ORDER_PRICE_ASC = 'ORDER_PRICE_ASC';
 export const ORDER_PRICE_DESC = 'ORDER_PRICE_DESC';
 export const REMOVE_FILTERS = 'REMOVE_FILTERS';
-export const CHANGE_MODAL = 'CHANGE_MODAL'
+export const CHANGE_MODAL = 'CHANGE_MODAL';//leo
+export const CHANGE_MODAL_CONFIRM = 'CHANGE_MODAL_CONFIRM';//leo
 export const SEARCH_NAME = 'SEARCH_NAME'; //Abi
 export const  PROMOTER_USER =' PROMOTER_USER'//daf
 
@@ -38,8 +39,8 @@ export const RESET_SHOPPING = 'RESET_SHOPPING'
 
 
 
-//export const API = 'http://localhost:3001/api/'
-export const API = 'https://event-henryapp-backend.herokuapp.com/api/'
+export const API = 'http://localhost:3001/api/'
+//export const API = 'https://event-henryapp-backend.herokuapp.com/api/'
 
 
 //*_get_activities_home______________________________________________
@@ -198,6 +199,13 @@ export function removeFilters(){
 export function changeModal(type,message){
   return{
     type: CHANGE_MODAL, payload:{type,message}
+  }
+}
+//Modal Delete
+export function changeModalConfirm(type,message,response){
+  console.log('action linea 206', type,message, response)
+  return{
+    type: CHANGE_MODAL_CONFIRM, payload:{type,message,response}
   }
 }
 //modal formulario edicion
