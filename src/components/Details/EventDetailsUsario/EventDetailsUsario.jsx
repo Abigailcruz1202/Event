@@ -112,7 +112,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModal
         // detailsEvent.consult?
         eventCart = cart.filter(e =>  e.id === detailsEvent.consult.id)
         // :eventCart = []
-        
+        console.log(detailsEvent.consult)
             return(   
             <div className={styles.detailsAllUser}>
                 <div className='detailsCardUser'> 

@@ -19,10 +19,11 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addT
     nameUser: user.fullName,
     idEvent: event.id,
     nameEvent: event.name,
+    idPromoter: event.promoter.id,
     price: event.price,
     total: Number(event.price) * NumItem,
     quantity: NumItem,
-    direction: 'sin direccion',
+    direction: event.address,
     date: event.start_date,
     schedule: event.schedule,
     seating: ['a1','a2']

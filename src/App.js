@@ -24,6 +24,7 @@ import EditForm from './components/Details/EventDetailsUsario/EditForm';
 import ShoppingCheckout from './components/ShoppingCheckout/ShoppingCheckout';
 import Croquis from './components/Croquis/Body'
 import ModalConfirm from './components/ModalConfirm/ModalConfirm';
+import TicketsContainer from './components/TicketsContainer/TicketsContainer';
 
 
 function App({ setUser, user, modal, modalForm, cart, addShopping, modalConfirm }) {
@@ -103,6 +104,10 @@ function App({ setUser, user, modal, modalForm, cart, addShopping, modalConfirm 
 
       <Route path='/checkout'>
         <ShoppingCheckout />
+      </Route>
+
+       <Route path='/tickets/:id'>
+        <TicketsContainer />
       </Route>
 
       <Route path='/PromoterPorfileUser/:id'>
