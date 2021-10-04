@@ -1,0 +1,8 @@
+.li{
+    width: 900px;
+    background-color: var(--White);
+    color: var(--Black);
+    margin: 20px;
+    display: flex;
+
+}
