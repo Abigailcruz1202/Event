@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react";
 import styles from './Event.module.css';
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import { API } from "../../actions/actions";
 
 
 
@@ -13,7 +14,7 @@ const Evento=({props})=>{
         const fetchData = async () => {
         let generalRating;
         try {
-            generalRating = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/comment/generalRating?id=${props.id}`)
+            generalRating = await axios.get(`${API}comment/generalRating?id=${props.id}`)
             if (generalRating && generalRating.data !== 0) setEventRating(generalRating.data)
         } catch (error) {
             console.log(error)

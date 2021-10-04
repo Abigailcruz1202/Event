@@ -129,3 +129,48 @@ hr{
     background-size: cover;
     display: table;
 }
+
+.sectorizarQ{
+    display: flex;
+    flex-direction: column;
+}
+
+.contAddSection{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.contAddSection input{
+    width: 50%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.sectionsCont{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.rowCroquis{
+    display: flex;
+    flex-direction: column;   
+}
+
+.contAddCroquis{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.contAddCroquis input{
+    width: 50%;
+    border-radius: 10px;
+}
+
+.contCroquis{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+}
