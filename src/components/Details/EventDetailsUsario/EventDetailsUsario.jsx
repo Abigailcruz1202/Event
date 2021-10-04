@@ -98,7 +98,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModal
         const checkFavorite = async () => {
             const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
             // cambiar comments por favoritos en la sig linea
-            let isFavoriteResult = req.data.comments.includes(detailsEvent.consult?.name)
+            let isFavoriteResult = req.data.favorite.includes(detailsEvent.consult?.name)
             if (isFavoriteResult) {
                 setClick(true)
                 setFavorite(true)
@@ -113,8 +113,11 @@ const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModal
             if (isClick && !isFavorite) {
                 console.log('hago mi put')
                 await axios.put(`https://event-henryapp-backend.herokuapp.com/api/user/fav`,{
-                    event: detailsEvent.consult.name,
-                    user_id: userInfo.id,
+                    id_user: userInfo.id,
+                    event: {
+                        name: detailsEvent.consult.name,
+                        id: id
+                    },
                 })
                 setFavorite(true)
             }
