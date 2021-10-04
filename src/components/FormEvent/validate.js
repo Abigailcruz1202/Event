@@ -13,12 +13,13 @@ export default function validate(form) {
         /[' ']/.test(form.address)
         )) error.address = true
     if(!form.start_date) error.start_date = true;
-    if(!form.isRecurrent)error.isRecurrent=true;
+    //if(!form.isRecurrent)error.isRecurrent=true;
     if(form.isRecurrent){   
-        if(!form.finish_date) error.finish_date = true;
-        if(form.schedule.length < 1) error.schedule=true;
-        if(form.weekdays.length < 1) error.weekdays=true;
+        if(!form.finish_date) error.finish_date = true; 
+        if(form.weekdays.length < 1) error.weekdays=true;  
     }
+    if(form.schedule.length < 1) error.schedule=true;
+    
     if(!form.tags) error.tags=true;
     if(!form.age_rating) error.age_rating=true;
     if(!form.moneda) error.moneda=true;
