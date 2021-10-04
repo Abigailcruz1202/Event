@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './ListEvent.module.css';
 import Bienvenido from '../Loading/Bienvenido'
 import Evento from './Event';
-import FakeDB from '../../FakeDB/FakeDB'
+
 
 
 // {(() => {
@@ -22,7 +22,7 @@ import FakeDB from '../../FakeDB/FakeDB'
 //   })()}
 
 const ListEvent = ({events})=>{
-    console.log('se q se guardo')
+    
     return(
         <div className={styles.containerList}>
             {(()=>{
