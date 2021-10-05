@@ -37,10 +37,12 @@ useEffect(() => {
     <>
     <ul className={styles.ul}>
         {events.map((event) => (
-         <ShoppingListItem 
+          <li className={styles.li} key={event.id}>
+                <ShoppingListItem 
           event={event}
           setDelCart={setDelCart}
          />
+          </li>
         ))}
       </ul>
       <h3 className={styles.total} >total<span className={styles.span}>:</span>{Total}</h3>

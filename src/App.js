@@ -22,9 +22,11 @@ import PromotorePorfile from './components/PromotorePorfile/PromotoreProfile';
 import PromoterProfileUser from './components/PromotorePorfile/PerfilPromoterUsuario'
 import EditForm from './components/Details/EventDetailsUsario/EditForm';
 import ShoppingCheckout from './components/ShoppingCheckout/ShoppingCheckout';
+import ModalConfirm from './components/ModalConfirm/ModalConfirm';
+import TicketsContainer from './components/TicketsContainer/TicketsContainer';
 
 
-function App({ setUser, user, modal, modalForm, cart, addShopping }) {
+function App({ setUser, user, modal, modalForm, cart, addShopping, modalConfirm }) {
 
   let loginUser = JSON.parse(localStorage.getItem('User'))
   let shoppingCart = JSON.parse(localStorage.getItem('Cart'))
@@ -103,13 +105,23 @@ function App({ setUser, user, modal, modalForm, cart, addShopping }) {
         <ShoppingCheckout />
       </Route>
 
+       <Route path='/tickets/:id'>
+        <TicketsContainer />
+      </Route>
+
       <Route path='/PromoterPorfileUser/:id'>
         <PromoterProfileUser />
       </Route>
 
+      {/* <Route path= '/croquis/:id'>
+        <Croquis/>
+      </Route> */}
+
+
 
       <Footer />
       {modal.render ? <Modal message={modal.message} type={modal.type} /> : null}
+      {modalConfirm.render && <ModalConfirm message={modalConfirm.message} type={modalConfirm.type}/>}
       {modalForm.render && <EditForm />}
     </>
   );
@@ -121,6 +133,7 @@ function mapStateToProps(state) {
     user: state.userState,
     modal: state.modal,
     modalForm: state.modalForm,
+    modalConfirm: state.modalConfirm,
     cart: state.cartState
   };
 }

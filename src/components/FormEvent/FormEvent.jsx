@@ -2,8 +2,10 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
-import { changeModal, editEvent, postEvent } from '../../actions/actions.js';
+import { API, changeModal, editEvent, postEvent } from '../../actions/actions.js';
+import Croquis from '../Croquis/Croquis.jsx';
 import styles from './FormEvent.module.css'
+import SectorsForm from './SectorsForm.jsx';
 import validate from './validate.js';
 
 const regiones = {
@@ -18,6 +20,24 @@ export function FormEvent(props) {
     const history = useHistory()
     const [errors, setErrors] = useState({});
     const [load, setLoad] = useState(false);
+    const [sections,setSections] = useState({
+        name:'',
+        limit:'',
+        price:'',
+    });
+    const [sectionsCroquis,setSectionsCroquis] = useState({
+        nameC:'',
+        limitC:'',
+        priceC:'',
+        filasC:'',
+        columnasC:'',
+    }); 
+    const [dataCroquis, setDataCroquis] = useState({
+        name:'',
+        price:'',
+        limit:'',
+        filas:[]
+    })   
     const [event, setEvent] = useState({
         name: '',
         description: '',
@@ -35,12 +55,12 @@ export function FormEvent(props) {
         weekdays: [],
         tags: '',
         age_rating: '',
-        sectorize:false,
-        sectorsPrice:{},
-        moneda:'',
-        price: '',
-        ticket_limit: '',
-        promoter_id: props.promoterId
+        sectorize:'no sectorizar',
+        sectores:[],//nombre,precio,limite por sector
+        sectoresCroquis:[],//nombre,precio,limite y croquis por sector
+        price: '',// precio para eventos sin sectorización
+        ticket_limit: '',//limite para eventos sin secorización
+        promoter_id: props.promoterId,
     })
 
 
@@ -157,7 +177,94 @@ export function FormEvent(props) {
             weekdays: event.weekdays.filter((d)=> d!== day)
         })
     }
+    //Inicio secciones
+    const handleChangeSection = (e)=>{
+        setSections({
+            ...sections,
+            [e.target.name]:e.target.value
+        })
+    }
+    
+    const addSection = (e)=>{
+        e.preventDefault()
+        setEvent({
+            ...event,
+            sectores:[...event.sectores,sections]
+        })
+        setSections({
+            name:'',
+            limit:'',
+            price:''
+        })
+    }
 
+    const onCloseSection = (e,name)=>{
+        e.preventDefault()
+        setEvent({
+            ...event,
+            sectores:event.sectores.filter(s=>s.name!==name)
+        })
+    }
+
+    const addCroquis = (e)=>{
+        e.preventDefault()
+        setEvent({
+            ...event,
+            sectoresCroquis:[...event.sectoresCroquis, dataCroquis]
+        })
+
+        setSectionsCroquis({
+            nameC:'',
+            limitC:'',
+            priceC:'',
+            filasC:'',
+            columnasC:'',
+        })
+    }
+
+    const handleChangeCroquis = (e) =>{
+        setSectionsCroquis({
+            ...sectionsCroquis,
+            [e.target.name]:e.target.value
+        })
+    }
+
+    const deleteSilla = (fila, silla)=>{
+        let nuevoArray = dataCroquis.filas;
+        nuevoArray[fila-1][silla-1].estado = 'deshabilitado';
+        console.log(nuevoArray)
+        setDataCroquis({
+            ...dataCroquis,
+            limit:parseInt(dataCroquis.limit)-1,
+            filas:nuevoArray
+        })
+    }
+    const mostrarSilla = (fila, silla)=>{
+        let nuevoArray = dataCroquis.filas;
+        nuevoArray[fila-1][silla-1].estado = 'disponible';
+        setDataCroquis({
+            ...dataCroquis,
+            limit:parseInt(dataCroquis.limit)+1,
+            filas:nuevoArray
+        })
+    }
+
+    useEffect(()=>{
+        let arrayCroquis = []
+        for(let i=1 ; i<=parseInt(sectionsCroquis.filasC); i++){
+            arrayCroquis=[...arrayCroquis,[]]
+            for(let j=1 ; j<=parseInt(sectionsCroquis.columnasC); j++){
+                arrayCroquis[i-1]=[...arrayCroquis[i-1],{silla:j,estado:'disponible'}]
+            }
+        }
+        setDataCroquis({
+            name:sectionsCroquis.nameC,
+            price:sectionsCroquis.priceC,
+            limit:parseInt(sectionsCroquis.filasC)*parseInt(sectionsCroquis.columnasC),
+            filas:arrayCroquis,
+        })
+    },[sectionsCroquis.filasC,sectionsCroquis.columnasC,sectionsCroquis.nameC,sectionsCroquis.priceC])
+    //Fin secciones
     const handleEdit = async(e)=>{
         
         e.preventDefault();
@@ -169,7 +276,7 @@ export function FormEvent(props) {
             try{
                 console.log(props.modalForm.data.id,'soy yooo')
                 
-                const res = await axios.put(`https://event-henryapp-backend.herokuapp.com/api/event/edit/${props.modalForm.data.id}`,{...event,locationId:props.modalForm.data.locationId,id:props.modalForm.data.id})
+                const res = await axios.put(`${API}/event/edit/${props.modalForm.data.id}`,{...event,locationId:props.modalForm.data.locationId,id:props.modalForm.data.id})
                 
                 console.log(res)
                 if(res.data.msg==='update'){
@@ -199,7 +306,7 @@ export function FormEvent(props) {
              props.changeModal('correct', `Revisa todos los campos`);
          } else {
              try{
-                 const res = await axios.post('https://event-henryapp-backend.herokuapp.com/api/event',event)
+                 const res = await axios.post(`${API}/event`,event)
                  console.log('respuesta del backkkkkkkkk',res.data)
                  if(res.data.msg){
                     props.changeModal('correct', `Intentalo de nuevo más tarde`) 
@@ -259,6 +366,17 @@ export function FormEvent(props) {
             setEvent(
                 {...event, isRecurrent:parseInt(e.target.value)
             }) 
+        }else if(e.target.name === 'sectorize'){
+            setEvent({
+                ...event,
+                [e.target.name] : e.target.value,
+                sectores:[],
+                sectoresCroquis:[],
+                price:'',
+                limit:'',
+            });  
+
+
         }
         else{
             setEvent({
@@ -364,7 +482,8 @@ export function FormEvent(props) {
                                 name='region'
                                 value={event.region}
                                 onChange={inputChange}
-                            >
+                            >   
+                                <option value='' disabled>seleccione</option>
                                 {regiones[event.divC].map((region,i)=>
                                     <option key={i} value={region}>{region}</option>
                                 )}                                
@@ -437,7 +556,7 @@ export function FormEvent(props) {
                             <span className={styles.tick}>{!errors.isRecurrent && '✓'}</span>
                         </div>
                     </div>
-                    {event.isRecurrent  &&
+                    {event.isRecurrent?
                         <div className={styles.row}>{/*FECHA FINAL*/}
                              <span>Fecha Final: </span>
                              <div className={styles.inputCheck}>
@@ -450,85 +569,82 @@ export function FormEvent(props) {
                                  />
                                 <span className={styles.tick}>{!errors.finish_date && '✓'}</span>
                             </div>
-                        </div>
+                        </div>:null
                     }
-                    {event.isRecurrent &&
-                    <>
-                        <div className={styles.row}>{/*HORARIOS*/}
-                            <span>Horarios: </span>
-                            <div className={styles.inputCheck}>                              
-                                <input 
-                                    id={styles.minWidth}
-                                    type="time"
-                                    format = 'HH:mm'
-                                    name='schedule'
-                                    value={event.schedule[event.schedule.length]}
-                                    onBlur={inputChange}                                   
-                                 />
-                                 {/* <button onClick={()=>addSchedule(hour)}>Add</button>  */}
-                                <span className={styles.tick}>{!errors.schedule && '✓'}</span>
-                            </div> 
-                        </div>  
-                        {event.schedule.length!==0 &&
-                            <div className={styles.imagenes}>
-                                {
-                                    event.schedule.map((hour,i)=>
-                                        <div key={i} className={styles.etq} >
-                                            <div className={styles.inf}>
-                                                {hour}
-                                            </div>
-                                            <div className={styles.x} onClick={()=>deleteHour(hour)}>
-                                            </div>
+                    {/* {event.isRecurrent && */}
+                    {/* <> */}
+                    <div className={styles.row}>{/*HORARIOS*/}
+                        <span>Horarios: </span>
+                        <div className={styles.inputCheck}>                              
+                            <input 
+                                id={styles.minWidth}
+                                type="time"
+                                format = 'HH:mm'
+                                name='schedule'
+                                value={event.schedule[event.schedule.length]}
+                                onBlur={inputChange}                                   
+                             />
+                             {/* <button onClick={()=>addSchedule(hour)}>Add</button>  */}
+                            <span className={styles.tick}>{!errors.schedule && '✓'}</span>
+                        </div> 
+                    </div>  
+                    {event.schedule.length!==0 &&
+                        <div className={styles.imagenes}>
+                            {
+                                event.schedule.map((hour,i)=>
+                                    <div key={i} className={styles.etq} >
+                                        <div className={styles.inf}>
+                                            {hour}
                                         </div>
-                                    )
-                                }
-                            </div>   
-                        }                                    
-                    </>
-                    }
-                    {event.isRecurrent  &&
-                    <>
-                        <div className={styles.row}>{/*HORARIOS DISPONIBLES*/}
-                            <span>Dias: </span>
-                            <div className={styles.inputCheck}>
-                                <select
-                                    name='weekdays'
-                                    value={event.weekdays}
-                                    onChange={inputChange}
-                                   
-                                >
-                                    <option selected='selected' disabled>seleccione</option>
-                                    <option value={'Lunes'}>Lunes</option>
-                                    <option value={'Martes'}>Martes</option>
-                                    <option value={'Miércoles'}>Miercoles</option>
-                                    <option value={'Jueves'}>Jueves</option>Martes
-                                    <option value={'Viernes'}>Viernes</option>
-                                    <option value={'Sábado'}>Sabado</option>
-                                    <option value={'Domingo'}>Domingo</option>
-                                </select>
-                                <span className={styles.tick}>{!errors.weekdays && '✓'}</span>
-                            </div> 
-                        </div>
-                        {event.weekdays.length!==0 &&
-                            <div className={styles.imagenes}>
-                                {
-                                    event.weekdays.map((day,i)=>
-                                        <div className={styles.etq} key={i} >
-                                            <div className={styles.inf}>
-                                                 {day}
-                                            </div>
-                                            <div  className={styles.x} key={i} onClick={()=>deleteDay(day)}>
-                                            </div>
+                                        <div className={styles.x} onClick={()=>deleteHour(hour)}>
                                         </div>
-                                    )
-                                }
-                            </div> 
-                        } 
-                    </>
+                                    </div>
+                                )
+                            }
+                        </div>   
+                    }                                    
+                    {/* </>
+                    } */}
+                    {event.isRecurrent?
+                    <>
+                    <div className={styles.row}>{/*HORARIOS DISPONIBLES*/}
+                        <span>Dias: </span>
+                        <div className={styles.inputCheck}>
+                            <select
+                                name='weekdays'
+                                value={event.weekdays}
+                                onChange={inputChange}
+                               
+                            >
+                                <option value='' disabled>seleccione</option>
+                                <option value={'Lunes'}>Lunes</option>
+                                <option value={'Martes'}>Martes</option>
+                                <option value={'Miércoles'}>Miercoles</option>
+                                <option value={'Jueves'}>Jueves</option>Martes
+                                <option value={'Viernes'}>Viernes</option>
+                                <option value={'Sábado'}>Sabado</option>
+                                <option value={'Domingo'}>Domingo</option>
+                            </select>
+                            <span className={styles.tick}>{!errors.weekdays && '✓'}</span>
+                        </div> 
+                    </div>
+                    {event.weekdays.length!==0 &&
+                        <div className={styles.imagenes}>
+                            {
+                                event.weekdays.map((day,i)=>
+                                    <div className={styles.etq} key={i} >
+                                        <div className={styles.inf}>
+                                             {day}
+                                        </div>
+                                        <div  className={styles.x} key={i} onClick={()=>deleteDay(day)}>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </div> 
+                    } 
+                    </>:null
                     }
-
-
-
                     <div className={styles.row}>{/*TIPO DE EVENTO*/}
                         <span>Tipo de Evento: </span>
                         <div className={styles.inputCheck}>
@@ -564,75 +680,167 @@ export function FormEvent(props) {
                             <span className={styles.tick}>{!errors.age_rating && '✓'}</span>
                         </div>                   
                     </div>
-                    {/* <div className={styles.row}>
+                    <div className={styles.row}>
                         <span>Sectorizar: </span>
-                        <div className={styles.inputCheck}>
-                            <input 
+                        <div className={styles.sectorizarQ}>
+                            <label>
+                            <input
+                                checked={event.sectorize === 'no sectorizar'}
                                 type="radio"
-                                name='isRecurrent'
-                                value='true'
+                                name='sectorize'
+                                value='no sectorizar'
                                 onChange={inputChange}
                                 className={styles.pais}
-                            />Si <br />  
-                            <input 
+                            />No sectorizar </label>
+                            <label>
+                            <input
+                                checked={event.sectorize === 'sectorizar sin croquis'}
                                 type="radio"
-                                name='isRecurrent'
-                                value='false'
+                                name='sectorize'
+                                value='sectorizar sin croquis'
                                 onChange={inputChange}
                                 className={styles.pais}
-                            />No <br /> 
+                            />Sectorizar sin croquis </label>
+                            <label>
+                            <input
+                                checked={event.sectorize === 'sectorizar con croquis'}
+                                type="radio"
+                                name='sectorize'
+                                value='sectorizar con croquis'
+                                onChange={inputChange}
+                                className={styles.pais}
+                            />Sectorizar con croquis </label>
                             <span className={styles.tick}></span>
                         </div>                   
-                    </div> */}
-                    {/* <div className={styles.row}>}
-                        <span>sectores y precios: </span>
-                        <div className={styles.inputCheck}>
-                            <input 
-                                type="text"
-                             />
-                            <span className={styles.tick}></span>
-                        </div>                   
-                    </div> */}
-                    <div className={styles.row}>{/*SI ANTESRIOR ES NO INGRESE PRECIO GENERAL*/}
-                        <span>Precio General: </span>
-                        <div className={styles.inputCheck}>
-                            <select
-                                name='moneda'
-                                value={event.moneda}
-                                onChange={inputChange}
-                                className={styles.pais}
-                            >
-                                <option value="" disabled>Seleccione Moneda</option>
-                                <option value="ARS">ARS</option>
-                                <option value="COP">COP</option>
-                                <option value="MXN">MXN</option>
-                                <option value="USD">USD</option>
-                            </select>
-                            <input 
-                                id={styles.minWidth}
-                                type="number"
-                                min='0'
-                                name='price'
-                                value={event.price}
-                                onChange={inputChange}
-                                placeholder='Precio'
-                             />
-                            <span className={styles.tick}>{!errors.moneda && !errors.price &&'✓'}</span>
-                        </div>                   
-                    </div>
-                    <div className={styles.row}>{/*LIMITE DE INGRESO*/}
-                        <span>Plazas Disponibles: </span>
-                        <div className={styles.inputCheck}>
-                            <input 
-                                type="number"
-                                min='0'
-                                name='ticket_limit'
-                                value={event.ticket_limit}
-                                onChange={inputChange}
-                             />
-                            <span className={styles.tick}>{!errors.ticket_limit && '✓'}</span>
-                        </div>                   
-                    </div>
+                    </div> 
+                    {/* SECCIONAR SIN CROQUIS */}
+                    {event.sectorize === 'sectorizar sin croquis' && 
+                    <>
+                        <div className={styles.row}>
+                            <div className={styles.contAddSection}>
+                                <input
+                                    type='text'
+                                    placeholder='Nombre sección'
+                                    value={sections.name}
+                                    onChange={handleChangeSection}
+                                    name='name'
+                                />
+                                <input
+                                    type='number'
+                                    placeholder='Limite de entradas'
+                                    value={sections.limit}
+                                    onChange={handleChangeSection}
+                                    name='limit'
+                                />
+                                <input
+                                    type='number'
+                                    placeholder='Precio Unitario'
+                                    value={sections.price}
+                                    onChange={handleChangeSection}
+                                    name='price'
+                                />
+                            </div>
+                            <button onClick={addSection}>Agregar Sección</button>
+                        </div>
+                        <div className={styles.sectionsCont}>
+                            <SectorsForm name='Sección' limit='Limite' price='Precio'/>
+                            {event.sectores.map(s=>(<SectorsForm key={s.name} name={s.name} limit={s.limit} price={s.price} onCloseSection={onCloseSection}/>))}
+                        </div>
+                    </>
+                    }
+
+                    {/* SELECCIONAR CON CROQUIS */}
+                    {event.sectorize === 'sectorizar con croquis' &&
+                    <>
+                        <div className={styles.rowCroquis}>
+                            <div className={styles.contAddSection}>
+                                <label>Sección:
+                                <input
+                                    type='text'
+                                    placeholder='Nombre sección'
+                                    value={sectionsCroquis.nameC}
+                                    onChange={handleChangeCroquis}
+                                    name='nameC'
+                                /></label>
+                                <label>Precio:
+                                <input
+                                    type='number'
+                                    placeholder='Precio Unitario'
+                                    value={sectionsCroquis.priceC}
+                                    onChange={handleChangeCroquis}
+                                    name='priceC'
+                                />USD</label>
+                            </div>
+                            <div className={styles.contAddCroquis}>
+                                <label>Columnas: 
+                                <input
+                                    type='number'
+                                    placeholder='#Columnas'
+                                    value={sectionsCroquis.columnasC}
+                                    onChange={handleChangeCroquis}
+                                    name='columnasC'
+                                />
+                                </label>
+                                <label>Filas: 
+                                <input
+                                    type='number'
+                                    placeholder='#Filas'
+                                    value={sectionsCroquis.filasC}
+                                    onChange={handleChangeCroquis}
+                                    name='filasC'
+                                />
+                                </label>
+                                <button onClick={addCroquis}>Agregar Sección</button>
+                            </div>
+                        </div>
+                        <div className={styles.contCroquis}>
+                            <Croquis 
+                                data={dataCroquis}
+                                deleteSilla={deleteSilla}
+                                mostrarSilla={mostrarSilla}
+                            />
+                        </div>
+                        <div className={styles.sectionsCont}>
+                            <SectorsForm name='Sección' limit='Limite' price='Precio'/>
+                            {event.sectoresCroquis.map(s=>(<SectorsForm key={s.name} name={s.name} limit={s.limit} price={s.price} onCloseSection={onCloseSection}/>))}
+                        </div>
+                    </>
+                    }
+
+                    {event.sectorize === 'no sectorizar' &&
+                    <>
+                        <div className={styles.row}>{/*SI ANTESRIOR ES NO INGRESE PRECIO GENERAL*/}
+                            <span>Precio General: </span>
+                            <div className={styles.inputCheck}>
+                                <label>
+                                <input 
+                                    id={styles.minWidth}
+                                    type="number"
+                                    min='0'
+                                    name='price'
+                                    value={event.price}
+                                    onChange={inputChange}
+                                    placeholder='Precio'
+                                 />
+                                 USD</label>
+                                <span className={styles.tick}>{!errors.moneda && !errors.price &&'✓'}</span>
+                            </div>                   
+                        </div>
+                        <div className={styles.row}>{/*LIMITE DE INGRESO*/}
+                            <span>Plazas Disponibles: </span>
+                            <div className={styles.inputCheck}>
+                                <input 
+                                    type="number"
+                                    min='0'
+                                    name='ticket_limit'
+                                    value={event.ticket_limit}
+                                    onChange={inputChange}
+                                 />
+                                <span className={styles.tick}>{!errors.ticket_limit && '✓'}</span>
+                            </div>                   
+                        </div>
+                    </>
+                    }
                 </div>
                 {props.modalForm.render?
                 <input type='submit' onClick={handleEdit} value='Editar'/>:

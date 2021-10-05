@@ -5,10 +5,29 @@ import { useHistory } from "react-router-dom";
 import paypal from "paypal-checkout";
 import { resetShopping } from "../../actions/actions";
 
-const PayPalCheckoutButton = ({ order, resetShopping }) => {
+const PayPalCheckoutButton = ({ order, resetShopping, tickets }) => {
+  const API = 'https://event-henryapp-backend.herokuapp.com/api/ticket/create'
   const history = useHistory();
   const redirec = (dir) => {
     history.push(dir);
+  };
+
+
+  //*funcion ticket post
+  const fetchPostTicket = async (e) => {
+      try {
+        let config = {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(e),
+        };
+        let res = await fetch(API, config);
+        let json = await res.json();
+        console.log(json);
+      } catch (err) {}
   };
 
 
@@ -45,7 +64,7 @@ const PayPalCheckoutButton = ({ order, resetShopping }) => {
           },
         },
       ],
-      note_to_payer: 'Contactacons para cualquier aclaración'
+      note_to_payer: 'Contactanos para cualquier aclaración'
     };
     return actions.payment.create({ payment });
   };
@@ -55,8 +74,14 @@ const PayPalCheckoutButton = ({ order, resetShopping }) => {
       .then(response => {
           console.log(response)
           alert(`el pago se realizo correctamente, ID: ${response.id}`)
-            redirec("/");
-          resetShopping()
+
+          redirec("/");
+          tickets.map( async ticket => (
+            await fetchPostTicket(ticket)
+          ))
+           resetShopping()
+             
+
       })
       .catch(error => {
         console.log(error)
@@ -86,4 +111,11 @@ const PayPalCheckoutButton = ({ order, resetShopping }) => {
 };
 
 
-export default connect(null, { resetShopping })(PayPalCheckoutButton);
+
+function mapStateToProps(state) {
+  return {
+    tickets: state.ticketItems
+  };
+}
+
+export default connect(mapStateToProps, { resetShopping })(PayPalCheckoutButton);

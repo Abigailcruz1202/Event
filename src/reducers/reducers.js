@@ -25,6 +25,10 @@ import {
   DELETE_CHECKOUT,
   SET_TOTAL_CHECKOUT,
   RESET_SHOPPING,
+  ADD_TICKET,
+  DELETE_TICKET,
+
+  CHANGE_MODAL_CONFIRM,
   } from "../actions/actions";
 
   // Pruebas para guardar usuario en el local storage
@@ -48,6 +52,13 @@ import {
       type:null,
       message:null,
     },
+    //modal confirm
+    modalConfirm:{
+      render:false,
+      type:null,
+      message:null,
+      response:null,
+    },
     //modL FORM 
     modalForm:{
       render:false,
@@ -62,6 +73,7 @@ import {
     cartState:[],
     checkoutItems:[],
     checkoutTotal:0,
+    ticketItems: [],
   };
 
  
@@ -184,6 +196,19 @@ import {
       }
     }
 
+    if(action.type === CHANGE_MODAL_CONFIRM){    
+      return{
+        ...state,
+        modalConfirm:{
+          ...state.modalConfirm,
+          render:!state.modalConfirm.render,
+          message: action.payload.message,
+          type: action.payload.type,
+          response: action.payload.response,
+        }
+      }
+    }
+
     
     if(action.type === EDIT_EVENT){    
       console.log('en el reducer',action.payload)
@@ -250,16 +275,28 @@ import {
       ...state,
       cartState: [],
       checkoutItems: [],
-      checkoutTotal: []
+      checkoutTotal: [],
+      ticketItems: []
+    }
+  }
+  if(action.type === ADD_TICKET){
+    const ticket =  state.ticketItems.filter(e => e.idEvent !== action.payload.idEvent)
+    return{
+      ...state,
+      ticketItems: ticket.concat(action.payload) 
+    }
+  }
+  if(action.type === DELETE_TICKET){
+    return{
+      ...state,
+      ticketItems: state.ticketItems.filter(e => e.idEvent !== action.payload) 
     }
   }
 
 
 
 
-
-
-
+  
 
 
 

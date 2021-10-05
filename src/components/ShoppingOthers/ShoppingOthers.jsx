@@ -19,9 +19,9 @@ const ShoppingOthers = ({ events, getEventsHome }) => {
  
  
   return (
-    <div classname={styles.container}>
+    <div className={styles.container}>
       <h3 >Mas Eventos En Tu Ciudad</h3>
-      {events.length !== 0? (
+      {moreEvents.length > 3? (
         <ul className={styles.ul}>
           {moreEvents.map(e => (
             <li key={e.id}> <ActivityCard 
@@ -30,7 +30,7 @@ const ShoppingOthers = ({ events, getEventsHome }) => {
           ))}
         </ul>
       ) : (
-        <h3>No hay eventos que mostrar</h3>
+        <h6>No hay eventos que mostrar</h6>
       )}
     </div>
   );
