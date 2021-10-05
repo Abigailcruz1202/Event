@@ -97,21 +97,24 @@ const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModal
         if (!userInfo.id) return
         const checkFavorite = async () => {
             const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
-            // cambiar comments por favoritos en la sig linea
-            let isFavoriteResult = req.data.favorite.includes(detailsEvent.consult?.name)
+            let isFavoriteResult = req.data.favorite[0]?.includes(detailsEvent.consult?.name)
             if (isFavoriteResult) {
                 setClick(true)
                 setFavorite(true)
-            }            
+            }          
         }
         checkFavorite()
     },[userInfo.id, detailsEvent])
 
     // Diego: Si el usuario favoritea, se hace el put. Si ya habia favoriteado anteriormente, no se hace.
+    // Si destilda el corazon, se elimina de favoritos.
     useEffect(() => {
         const addToFavorites = async () => {
             if (isClick && !isFavorite) {
-                console.log('hago mi put')
+                const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
+                let isFavoriteResult = req.data.favorite[0]?.includes(detailsEvent.consult?.name)
+                if (isFavoriteResult) return
+
                 await axios.put(`https://event-henryapp-backend.herokuapp.com/api/user/fav`,{
                     id_user: userInfo.id,
                     event: {
@@ -121,11 +124,20 @@ const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModal
                 })
                 setFavorite(true)
             }
-            else if (!isClick) setFavorite(false)
+            else if (!isClick && isFavorite) {
+                const removeFavorite = async () => {
+                    await axios.put(`https://event-henryapp-backend.herokuapp.com/api/user/fav`,{
+                    id_user: userInfo.id,
+                    event: id
+                })
+                }
+                removeFavorite()
+                setFavorite(false)
+            }
         }
         addToFavorites()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[isClick])
+    },[isClick, isFavorite])
     
     if(render){
         
