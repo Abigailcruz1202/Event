@@ -36,6 +36,9 @@ export const DELETE_CHECKOUT = 'DELETE_CHECKOUT';
 export const SET_TOTAL_CHECKOUT = 'SET_TOTAL_CHECKOUT';
 export const RESET_SHOPPING = 'RESET_SHOPPING'
 
+// Follow
+export const POST_FOLLOW = 'POST_FOLLOW';
+
 
 
 // const API = 'http://localhost:3001/api/'
@@ -78,10 +81,8 @@ export function getEventDetail(id){
       type: GET_DETAIL,
       payload: response.data
     })
-    
   }
 }
-
 
 //*__SWITCH_DE_NAVBAR____________________________________________________
 
@@ -135,7 +136,7 @@ export function postEvent(event){
   }
 }
 
-// * FILTER 
+// * FILTER
 export function filterTags(type){
   console.log(type,'action')
   return{
@@ -215,8 +216,6 @@ export function searchName(name){
     type: SEARCH_NAME,
     payload: name
   }
-
-
 }
 //daf
 export function getPromoterUser(id){
@@ -230,8 +229,6 @@ export function getPromoterUser(id){
   }
 
 }
-
-
 //*Shopping Cart
 export function addShopping(event){
   return{
@@ -267,4 +264,17 @@ export function resetShopping(){
   return{
     type: RESET_SHOPPING
   }
+}
+
+//* (Lucio) Seguir (POST Follow)
+export function postFollow(follow){
+  console.log('Acá va el follow: ', follow)
+  return async function(dispatch){
+    const response = await axios.post(`${API}follow`, follow)
+    console.log("ahí va el post_follow: ", response.data)
+      dispatch({
+        type: POST_FOLLOW,
+        payload: response.data
+      })
+    }
 }
