@@ -63,6 +63,7 @@ const UserPorfile = ({ userState }) => {
                     <SubCarousel />
             </div> */}
         </div>
+        </div>
     )
 };
 
