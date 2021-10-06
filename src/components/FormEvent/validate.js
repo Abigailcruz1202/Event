@@ -13,17 +13,24 @@ export default function validate(form) {
         /[' ']/.test(form.address)
         )) error.address = true
     if(!form.start_date) error.start_date = true;
-    //if(!form.isRecurrent)error.isRecurrent=true;
+    //SI ES RECURRENTE
     if(form.isRecurrent){   
         if(!form.finish_date) error.finish_date = true; 
         if(form.weekdays.length < 1) error.weekdays=true;  
     }
-    if(form.schedule.length < 1) error.schedule=true;
-    
+
+    if(form.sectorize === 'no sectorizar'){
+        if(!form.price) error.price=true;
+        if(!form.ticket_limit) error.ticket_limit=true;
+    }else if(form.sectorize === 'sectorizar sin croquis'){
+        if(form.sectores.length < 1) error.sectores=true
+    }else if(form.sectorize === 'sectorizar con croquis'){
+        if(form.sectoresCroquis.length < 1) error.sectoresCroquis=true
+    }
+    if(form.schedule.length < 1) error.schedule=true;   
     if(!form.tags) error.tags=true;
     if(!form.age_rating) error.age_rating=true;
-    if(!form.moneda) error.moneda=true;
-    if(!form.price) error.price=true;
-    if(!form.ticket_limit) error.ticket_limit=true;
+
+
     return error;
 };
