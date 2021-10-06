@@ -40,11 +40,11 @@ export const ADD_TICKET = 'ADD_TICKET';
 export const DELETE_TICKET = 'DELETE_TICKET';
 
 // Follow
-export const POST_FOLLOW = 'POST_FOLLOW';
+export const PUT_FOLLOW = 'PUT_FOLLOW';
 
 
-// export const API = 'http://localhost:3001/api/'
-export const API = 'https://event-henryapp-backend.herokuapp.com/api/'
+export const API = 'http://localhost:3001/api/'
+/* export const API = 'https://event-henryapp-backend.herokuapp.com/api/' */
 
 
 //*_get_activities_home______________________________________________
@@ -244,6 +244,19 @@ export function addShopping(event){
     payload: event
   }
 }
+
+export function addTicket(event){//Prueba Lucio
+  return{
+    type: ADD_TICKET,
+    payload: event
+  }
+}
+export function deleteTicket(event){ //TAMBIÉN Lucio
+  return {
+    type: DELETE_TICKET,
+    payload: event
+  }
+}
 export function deleteShopping(idEvent){
   return{
     type: DELETE_SHOPPING,
@@ -274,15 +287,15 @@ export function resetShopping(){
   }
 }
 
-//* (Lucio) Seguir (POST Follow)
-export function postFollow(follow){
-  console.log('Acá va el follow: ', follow)
-  return async function(dispatch){
-    const response = await axios.post(`${API}follow`, follow)
-    console.log("ahí va el post_follow: ", response.data)
-      dispatch({
-        type: POST_FOLLOW,
-        payload: response.data
-      })
-    }
-}
+// (Lucio) Seguir (PUT Follow)
+// export function putFollow(follow){
+//   console.log('Acá va el follow: ', follow)
+//   return async function(dispatch){
+//     const response = await axios.put(`${API}follow`, follow)
+//     console.log("ahí va el post_follow: ", response.data)
+//       dispatch({
+//         type: PUT_FOLLOW,
+//         payload: response.data
+//       })
+//     }
+// }
