@@ -75,8 +75,12 @@ export function getEventsHome(){
 export function getEventDetail(id){
   return async function (dispatch) {
     const response = await 
-    axios.get(`${API}${'event/'}${id}`);
-    response.data.consult.sections = JSON.parse(response.data.consult.sections)
+    axios.get(`${API}event/${id}`);
+    console.log(response)
+    if(response.data.consult.sectorize !== 'no sectorizar'){
+      response.data.consult.sections = JSON.parse(response.data.consult.sections)
+    }
+    console.log('paseee')
     dispatch({
       type: GET_DETAIL,
       payload: response.data

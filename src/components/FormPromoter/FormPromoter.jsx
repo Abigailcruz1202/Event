@@ -90,6 +90,7 @@ function FormPromoter({changeModal}) {
         if(Object.keys(obj).length !== 0) {
             changeModal('correct', `Revisa todos los campos`);
         } else {
+            console.log('entreeeeeeeeeeeeeeeeeeeeeeeeee')
             try{              
                 const res = await axios.post(`${API}promoter`,form)
                 console.log('respuesta del backkkkkkkkk',res.data)
