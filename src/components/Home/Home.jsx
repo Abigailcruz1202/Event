@@ -26,7 +26,7 @@ const Home = ({ switchSide, getEventsHome, events, filters, removeFilters }) => 
         {switchSide?<div className={styles.sideBar}>
         <SideBar />
         </div>: <div></div> }
-      <div>
+      <div className={styles.conC}>
         {/* <Carousel /> */}
         {filters === undefined ?
         <><h4 style={{marginLeft: '10px'}}>No se encontró lo que buscaba..</h4>

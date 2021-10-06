@@ -154,7 +154,7 @@ const LoginPromoter = ({setUser, setPromoter, user,  promoter, nameComponent, na
         },
         body: JSON.stringify(obj),
       };
-      let res = await fetch("https://event-henryapp-backend.herokuapp.com/api/promoter/login", config);
+      let res = await fetch(`${API}promoter/login`, config);
       let promoter = await res.json();
       setButton(true);
       setLoading(false)
