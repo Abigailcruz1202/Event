@@ -75,7 +75,8 @@ export function getEventsHome(){
 export function getEventDetail(id){
   return async function (dispatch) {
     const response = await 
-    axios.get(`${API}${'event/'}${id}`)
+    axios.get(`${API}${'event/'}${id}`);
+    response.data.consult.sections = JSON.parse(response.data.consult.sections)
     dispatch({
       type: GET_DETAIL,
       payload: response.data

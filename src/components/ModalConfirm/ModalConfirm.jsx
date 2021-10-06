@@ -2,14 +2,27 @@ import React from "react";
 import styles from './ModalConfirm.module.css';
 import correct from '../../Utilities/successGif.gif'
 import ReactDOM  from "react-dom";
-import { changeModalConfirm } from "../../actions/actions";
+import { API, changeModalConfirm } from "../../actions/actions";
 import { connect } from "react-redux";
+import { useHistory } from "react-router";
 
 
-const ModalConfirm = ({Type, message, changeModalConfirm})=>{
-   const closeModal = (response)=>{
-        changeModalConfirm(null, null,response)
-   }
+const ModalConfirm = ({Type, message, changeModalConfirm, detailsEvent})=>{
+    console.log(detailsEvent.consult.id,'ESTEEEEEEEEEE ESSSSSSSSSSSSSSSSSSSS')
+    const history = useHistory();
+    const closeModal = async (response)=>{
+        if(response === 'si'){
+            const res = await fetch(`${API}event/delete/${detailsEvent.consult.id}`,
+                {
+                    method:'DELETE'
+                }
+            )
+            await res.text();
+            history.push('/perfil');
+        }   
+        changeModalConfirm()       
+    }
+
     return ReactDOM.createPortal(
         <div className={styles.cont}>
             <div className={styles.modalCont}>
@@ -26,8 +39,13 @@ const ModalConfirm = ({Type, message, changeModalConfirm})=>{
             </div>
         </div>,
         document.getElementById("modal")
-    )
-
+    );
 }
 
-export default connect(null, {changeModalConfirm})(ModalConfirm);
+function mapStateToProps(state){
+    return{
+        detailsEvent:state.detailsEvent,
+    }
+}
+
+export default connect(mapStateToProps, {changeModalConfirm})(ModalConfirm);
