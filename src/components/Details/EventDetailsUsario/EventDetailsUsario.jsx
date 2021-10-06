@@ -83,14 +83,18 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
     
     // Diego: Permite saber si el usuario ya tiene este evento como Favorito para actualizarlo en el DOM
     useEffect(() => {
-        if (!userInfo.id) return
         const checkFavorite = async () => {
-            const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
-            let isFavoriteResult = req.data.favorite[0]?.includes(detailsEvent.consult?.name)
-            if (isFavoriteResult) {
-                setClick(true)
-                setFavorite(true)
-            }          
+            if (!userInfo.id) return
+            try {
+                const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
+                let isFavoriteResult = req?.data.favorite[0].includes(detailsEvent.consult?.name)
+                if (isFavoriteResult) {
+                    setClick(true)
+                    setFavorite(true)
+                }                          
+            } catch (error) {
+                console.log(error)
+            }
         }
         checkFavorite()
     },[userInfo.id, detailsEvent])
@@ -100,6 +104,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
     useEffect(() => {
         const addToFavorites = async () => {
             if (userInfo.type !== 'user') return // early return para cualquiera que no sea usuario
+
             if (isClick && !isFavorite) {
                 const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
                 let isFavoriteResult = req.data.favorite[0]?.includes(detailsEvent.consult?.name)
