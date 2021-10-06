@@ -8,6 +8,8 @@ import Loading from '../../Loading/Loading';
 import Heart from "react-animated-heart";
 import styles from './EventDetailsUsario.module.css';
 import axios from 'axios';
+import CroquisEvent from '../../CroquisEvent/CroquisEvent';
+import SelectSectorSin from './SelectSectorSin';
 
 
 const pushDta=(detailsEvent)=>{
@@ -22,7 +24,8 @@ const pushDta=(detailsEvent)=>{
     return data;
 }
 //Diego: Componente que muestra los detalles de un evento para el tipo Usuario.
-const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModalConfirm }) => {
+const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => {
+    
     const [render, setRender] = useState(false)
     const [data , setData] = useState()
     const [isClick, setClick] = useState(false); // Estado del corazon de favoritos
@@ -30,12 +33,13 @@ const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModal
 
     const dispatch = useDispatch()
     const params = useParams()
-    const history = useHistory();
-    
+
     const {id} = params
     const detailsEvent = useSelector(state => state.detailsEvent)
     const userInfo = useSelector(state => state.userState)
-
+    
+    
+    //console.log(JSON.parse(detailsEvent.consult.sectorize),'aquiiiiiiiiiiiiiiii mirameeeeeeeeeeee no te hagasssssssss')
     useEffect( () => {
         const fetchData = async () => {
             try{
@@ -46,29 +50,13 @@ const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModal
             }
         }
         fetchData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[id]);
 
     const editEvento =() =>{
         dispatch(editEvent(detailsEvent.consult));
     }
 
-    // Inicio Borrar evento boton unicamente disponoble para promotor
-    useEffect(()=>{
-        const deleteEvent2 = async()=>{  
-            if(modalConfirm.response === 'si'){
-                const res = await fetch(`${API}event/delete/${id}`,
-                    {
-                        method:'DELETE'
-                    }
-                )
-                await res.text();
-                history.push('/perfil');
-            }          
-        }
-        deleteEvent2();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[modalConfirm]);
     const deleteEvent = async()=>{  
         if(detailsEvent.consult.promoterId === userInfo.id){
             changeModalConfirm('correct', `Desea Eliminar el Evento ${detailsEvent.consult.name}`, null);
@@ -77,13 +65,14 @@ const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModal
         }        
     }
     //Fin Borrar evento boton unicamente disponoble para promotor
+
     const slideNumberStyle = {
         fontSize: '20px',
         fontWeight: 'bold',
     }
 
     useEffect(()=>{
-        setData(pushDta(detailsEvent))
+        setData(pushDta(detailsEvent))      
     },[detailsEvent])
     
     
@@ -94,14 +83,20 @@ const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModal
     
     // Diego: Permite saber si el usuario ya tiene este evento como Favorito para actualizarlo en el DOM
     useEffect(() => {
-        if (!userInfo.id) return
         const checkFavorite = async () => {
-            const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
-            let isFavoriteResult = req.data.favorite[0]?.includes(detailsEvent.consult?.name)
-            if (isFavoriteResult) {
-                setClick(true)
-                setFavorite(true)
-            }          
+            if (!userInfo.id) return
+            try {
+
+                const req = await axios.get(`${API}user/${userInfo.id}`)
+
+                let isFavoriteResult = req?.data.favorite[0].includes(detailsEvent.consult?.name)
+                if (isFavoriteResult) {
+                    setClick(true)
+                    setFavorite(true)
+                }                          
+            } catch (error) {
+                console.log(error)
+            }
         }
         checkFavorite()
     },[userInfo.id, detailsEvent])
@@ -110,12 +105,14 @@ const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModal
     // Si destilda el corazon, se elimina de favoritos.
     useEffect(() => {
         const addToFavorites = async () => {
+            if (userInfo.type !== 'user') return // early return para cualquiera que no sea usuario
+
             if (isClick && !isFavorite) {
-                const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
+                const req = await axios.get(`${API}user/${userInfo.id}`)
                 let isFavoriteResult = req.data.favorite[0]?.includes(detailsEvent.consult?.name)
                 if (isFavoriteResult) return
 
-                await axios.put(`https://event-henryapp-backend.herokuapp.com/api/user/fav`,{
+                await axios.put(`${API}user/fav`,{
                     id_user: userInfo.id,
                     event: {
                         name: detailsEvent.consult.name,
@@ -126,7 +123,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModal
             }
             else if (!isClick && isFavorite) {
                 const removeFavorite = async () => {
-                    await axios.put(`https://event-henryapp-backend.herokuapp.com/api/user/fav`,{
+                    await axios.put(`${API}user/fav`,{
                     id_user: userInfo.id,
                     event: id
                 })
@@ -241,14 +238,25 @@ const EventDetailsUsario = ({ addShopping, cart, user, modalConfirm, changeModal
                                 </div>                                
                             </div>
                         </div>
+                        
                         {user.type !== 'user'? <div></div>: 
                             <>
-                            {eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
-                                <button onClick={() => setShopping(detailsEvent.consult)}>
-                                <span className={styles.icon}>
-                                    <i className="fas fa-shopping-cart"></i>
-                                </span>
-                                </button>
+                            {detailsEvent.consult.sectorize==='sectorizar con croquis' ?                              
+                                <CroquisEvent idEvent={id} data={detailsEvent.consult.sections}/>
+                                :null
+                            }
+                            {detailsEvent.consult.sectorize==='sectorizar sin croquis' ?                              
+                                <SelectSectorSin idEvent={id} data={detailsEvent.consult.sections}/>
+                                :null
+                            }
+                            {detailsEvent.consult.sectorize==='no sectorizar' ? 
+                                eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
+                                    <button onClick={() => setShopping(detailsEvent.consult)}>
+                                        <span className={styles.icon}>
+                                            <i className="fas fa-shopping-cart"></i>
+                                        </span>
+                                    </button>
+                                :null
                             }
                             </>
                         }

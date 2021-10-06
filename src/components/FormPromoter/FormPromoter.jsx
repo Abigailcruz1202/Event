@@ -18,6 +18,7 @@ function FormPromoter({changeModal}) {
         phone:'',//leo:numero de telefono del Promoter//
         email:'',//leo:email del Promoter//
         password:'',//leo: contraseña//
+        repeat:'', //repetir contraseña//
         address:'',//dereccion del negocio//
         legal_name:'',//nombre legal//
         tax_id:'',//numero tributario//
@@ -90,28 +91,31 @@ function FormPromoter({changeModal}) {
         if(Object.keys(obj).length !== 0) {
             changeModal('correct', `Revisa todos los campos`);
         } else {
-            try{
-                const res = await axios.post(`${API}/promoter`,form)
+            console.log('entreeeeeeeeeeeeeeeeeeeeeeeeee')
+            try{              
+                const res = await axios.post(`${API}promoter`,form)
                 console.log('respuesta del backkkkkkkkk',res.data)
                 if(res.data.msg){
                     changeModal('correct', `Intentalo de nuevo más tarde`)
                 }
                 else if(res.data.created){
                     changeModal('correct', `Promoter creado con éxito. \n Espere 48hrs para su autorización. Bienvenido a eVent, ${form.promoter_name}!`)
-                    setForm({promoter_name:'',
-                    promoter_lastName:'',
-                    bio:'',
-                    phone:'',
-                    email:'',
-                    password:'',
-                    address:'',
-                    legal_name:'',
-                    tax_id:'',
-                    business_type:'',
-                    business_name:'',
-                    country:form.country,
-                    state:'',
-                    city:'',
+                    setForm({
+                        promoter_name:'',
+                        promoter_lastName:'',
+                        bio:'',
+                        phone:'',
+                        email:'',
+                        password:'',
+                        repeat:'',
+                        address:'',
+                        legal_name:'',
+                        tax_id:'',
+                        business_type:'',
+                        business_name:'',
+                        country: form.country,
+                        state:'',
+                        city:'',
                 });
                 }else if(!res.data.created){
                     console.log('eyyyyyyyy', res.data.created)
@@ -321,12 +325,25 @@ function FormPromoter({changeModal}) {
                                         <span className={styles.tick}>{!error.password && '✓'} </span>
                                     </div>
                                 </div>
-                            </div>
+                                <div className={styles.row}>
+                                    <span >Repetir contraseña: </span>
+                                    <div className={styles.inputCheck}>
+                                        <input
+                                            type="password"
+                                            name='repeat'
+                                            onChange={handleChange}
+                                            value={form.repeat}
+                                        />
+                                        <span className={styles.tick}>{!error.repeat && '✓'} </span>
+                                    </div>
+                                </div>
+                        </div>
+
                             <button className={styles.btn} type="submit">
                             ¡Registrarme!
                             </button>
                         </div>
-                </div>
+                    </div>
             </form>
        )
 }

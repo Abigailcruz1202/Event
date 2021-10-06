@@ -160,6 +160,9 @@ body {
 .detailsCard2User {
   margin-bottom: 40px;
 }
+.croquis{
+  text-align: center;
+}
 /* .heartButton {
   cursor: pointer;
   display: inline-block;

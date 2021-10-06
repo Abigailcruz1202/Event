@@ -39,9 +39,12 @@ export const RESET_SHOPPING = 'RESET_SHOPPING';
 export const ADD_TICKET = 'ADD_TICKET';
 export const DELETE_TICKET = 'DELETE_TICKET';
 
+// Follow
+export const PUT_FOLLOW = 'PUT_FOLLOW';
 
-// export const API = 'http://localhost:3001/api/'
-export const API = 'https://event-henryapp-backend.herokuapp.com/api/'
+
+export const API = 'http://localhost:3001/api/'
+/* export const API = 'https://event-henryapp-backend.herokuapp.com/api/' */
 
 
 //*_get_activities_home______________________________________________
@@ -75,15 +78,18 @@ export function getEventsHome(){
 export function getEventDetail(id){
   return async function (dispatch) {
     const response = await 
-    axios.get(`${API}${'event/'}${id}`)
+    axios.get(`${API}event/${id}`);
+    console.log(response)
+    if(response.data.consult.sectorize !== 'no sectorizar'){
+      response.data.consult.sections = JSON.parse(response.data.consult.sections)
+    }
+    console.log('paseee')
     dispatch({
       type: GET_DETAIL,
       payload: response.data
     })
-    
   }
 }
-
 
 //*__SWITCH_DE_NAVBAR____________________________________________________
 
@@ -136,7 +142,7 @@ export function postEvent(event){
   }
 }
 
-// * FILTER 
+// * FILTER
 export function filterTags(type){
   console.log(type,'action')
   return{
@@ -223,8 +229,6 @@ export function searchName(name){
     type: SEARCH_NAME,
     payload: name
   }
-
-
 }
 //daf
 export function getPromoterUser(id){
@@ -238,12 +242,23 @@ export function getPromoterUser(id){
   }
 
 }
-
-
 //*Shopping Cart
 export function addShopping(event){
   return{
     type: ADD_SHOPPING,
+    payload: event
+  }
+}
+
+export function addTicket(event){//Prueba Lucio
+  return{
+    type: ADD_TICKET,
+    payload: event
+  }
+}
+export function deleteTicket(event){ //TAMBIÉN Lucio
+  return {
+    type: DELETE_TICKET,
     payload: event
   }
 }
@@ -276,16 +291,16 @@ export function resetShopping(){
     type: RESET_SHOPPING
   }
 }
-export function addTicket(ticket){
-  return{
-    type: ADD_TICKET,
-    payload: ticket
-  }
-}
-export function deleteTicket(idEvent){
-  return{
-    type: DELETE_TICKET,
-    payload:idEvent
-  }
-}
 
+// (Lucio) Seguir (PUT Follow)
+// export function putFollow(follow){
+//   console.log('Acá va el follow: ', follow)
+//   return async function(dispatch){
+//     const response = await axios.put(`${API}follow`, follow)
+//     console.log("ahí va el post_follow: ", response.data)
+//       dispatch({
+//         type: PUT_FOLLOW,
+//         payload: response.data
+//       })
+//     }
+// }

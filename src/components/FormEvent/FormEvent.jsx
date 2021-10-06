@@ -39,27 +39,27 @@ export function FormEvent(props) {
         filas:[]
     })   
     const [event, setEvent] = useState({
-        name: '',
-        description: '',
-        starring: '',
-        pictures: [],
-        country: 'Argentina',
-        divC:'provincias',
-        region:'',
-        city:'',
-        address: '',
-        start_date: '',
-        finish_date: '',
-        isRecurrent:0,
-        schedule: [],
-        weekdays: [],
-        tags: '',
-        age_rating: '',
-        sectorize:'no sectorizar',
-        sectores:[],//nombre,precio,limite por sector
-        sectoresCroquis:[],//nombre,precio,limite y croquis por sector
-        price: '',// precio para eventos sin sectorización
-        ticket_limit: '',//limite para eventos sin secorización
+        name: '',//general
+        description: '',//general
+        starring: '',//general
+        pictures: [],//general
+        country: 'Argentina',//general
+        divC:'provincias',//general
+        region:'',//general
+        city:'',//general
+        address: '',//general
+        start_date: '',//general
+        finish_date: '',//si es recurrente
+        isRecurrent:0,//general
+        schedule: [],//general
+        weekdays: [],//si es recurrente
+        tags: '',//general
+        age_rating: '',//general
+        sectorize:'no sectorizar',//general
+        sectores:[],//nombre,precio,limite por sector//si sectorize es sectorizar sin croquis
+        sectoresCroquis:[],//nombre,precio,limite y croquis por sector//si sectorize es sectorizar con croquis
+        price: '',// precio para eventos sin sectorización//si no sectorizr
+        ticket_limit: '',//limite para eventos sin secorización//si no sectorizar
         promoter_id: props.promoterId,
     })
 
@@ -97,7 +97,6 @@ export function FormEvent(props) {
                 age_rating: props.modalForm.data.age_rating,
                 sectorize:'false',
                 sectorsPrice:{},
-                moneda:props.modalForm.data.moneda,
                 price: props.modalForm.data.price,
                 ticket_limit: props.modalForm.data.ticket_limit,
                 promoter_id: props.modalForm.data.promoter_id,
@@ -121,7 +120,6 @@ export function FormEvent(props) {
                 age_rating: props.modalForm.data.age_rating,
                 sectorize:'false',
                 sectorsPrice:{},
-                moneda:props.modalForm.data.moneda,
                 price: props.modalForm.data.price,
                 ticket_limit: props.modalForm.data.ticket_limit,
                 promoter_id: props.modalForm.data.promoter_id,
@@ -187,15 +185,23 @@ export function FormEvent(props) {
     
     const addSection = (e)=>{
         e.preventDefault()
-        setEvent({
-            ...event,
-            sectores:[...event.sectores,sections]
-        })
-        setSections({
-            name:'',
-            limit:'',
-            price:''
-        })
+        if(sections.name.length > 1 && sections.price.length > 1 && sections.limit.length > 1){
+            setEvent({
+                ...event,
+                sectores:[...event.sectores,sections]
+            })
+            setSections({
+                name:'',
+                limit:'',
+                price:''
+            })
+            setErrors(validate({
+                ...event,
+                sectores: [...event.sectores,sections]
+            }))
+        }else{
+            props.changeModal('correct', `Revisa todos los campos del sector`)
+        }
     }
 
     const onCloseSection = (e,name)=>{
@@ -204,22 +210,29 @@ export function FormEvent(props) {
             ...event,
             sectores:event.sectores.filter(s=>s.name!==name)
         })
+        setErrors(validate({
+            ...event,
+            sectores:event.sectores.filter(s=>s.name!==name)
+        }))
     }
 
     const addCroquis = (e)=>{
         e.preventDefault()
-        setEvent({
-            ...event,
-            sectoresCroquis:[...event.sectoresCroquis, dataCroquis]
-        })
-
-        setSectionsCroquis({
-            nameC:'',
-            limitC:'',
-            priceC:'',
-            filasC:'',
-            columnasC:'',
-        })
+        if(sectionsCroquis.nameC.length > 0 && sectionsCroquis.priceC.length > 0 && sectionsCroquis.filasC > 0 && sectionsCroquis.columnasC > 0){
+            setEvent({
+                ...event,
+                sectoresCroquis:[...event.sectoresCroquis, dataCroquis]
+            })
+            setSectionsCroquis({
+                nameC:'',
+                limitC:'',
+                priceC:'',
+                filasC:'',
+                columnasC:'',
+            })
+        }else{
+            props.changeModal('correct', `Revisa todos los campos del sector`)
+        }
     }
 
     const handleChangeCroquis = (e) =>{
@@ -332,7 +345,6 @@ export function FormEvent(props) {
                         age_rating: '',
                         sectorize:'false',
                         sectorsPrice:{},
-                        moneda:'',
                         price: '',
                         ticket_limit: '',
                     });
@@ -752,46 +764,38 @@ export function FormEvent(props) {
                     {/* SELECCIONAR CON CROQUIS */}
                     {event.sectorize === 'sectorizar con croquis' &&
                     <>
-                        <div className={styles.rowCroquis}>
-                            <div className={styles.contAddSection}>
-                                <label>Sección:
+                        <div className={styles.row}>
+                            <div className={styles.contAddSection}>                              
                                 <input
                                     type='text'
                                     placeholder='Nombre sección'
                                     value={sectionsCroquis.nameC}
                                     onChange={handleChangeCroquis}
                                     name='nameC'
-                                /></label>
-                                <label>Precio:
+                                />                               
                                 <input
                                     type='number'
-                                    placeholder='Precio Unitario'
+                                    placeholder='Precio Unitario USD'
                                     value={sectionsCroquis.priceC}
                                     onChange={handleChangeCroquis}
                                     name='priceC'
-                                />USD</label>
-                            </div>
-                            <div className={styles.contAddCroquis}>
-                                <label>Columnas: 
+                                />                                
                                 <input
                                     type='number'
                                     placeholder='#Columnas'
                                     value={sectionsCroquis.columnasC}
                                     onChange={handleChangeCroquis}
                                     name='columnasC'
-                                />
-                                </label>
-                                <label>Filas: 
+                                />                                                              
                                 <input
                                     type='number'
                                     placeholder='#Filas'
                                     value={sectionsCroquis.filasC}
                                     onChange={handleChangeCroquis}
                                     name='filasC'
-                                />
-                                </label>
-                                <button onClick={addCroquis}>Agregar Sección</button>
+                                />                                                             
                             </div>
+                            <button onClick={addCroquis}>Agregar Sección</button>
                         </div>
                         <div className={styles.contCroquis}>
                             <Croquis 
