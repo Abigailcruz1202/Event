@@ -5,7 +5,6 @@ import ActivityCards from "../ActivityCards/ActivityCards";
 import Carousel from "../Carousel/Carousel";
 import SideBar from "../SideBar/SideBar";
 import NavBarHome from "../NavBarHome/NavBarHome";
-import activitiesList from "../../FakeDB/FakeDB";
 import { getEventsHome,removeFilters } from "../../actions/actions";
 
 const Home = ({ switchSide, getEventsHome, events, filters, removeFilters }) => {
