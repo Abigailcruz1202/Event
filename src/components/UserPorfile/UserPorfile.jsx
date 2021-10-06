@@ -40,6 +40,14 @@ const UserPorfile = ({ userState }) => {
                 <h3>¡Bienvenido! {userState.username}</h3>
             </div>
 
+
+            <div className={styles.favorites}>
+                <h3>Siguiendo:</h3>
+                    <SubCarousel />
+                    { /* (Lucio) Cuanto antes quitarle el hardcodeo a todo esto */ }
+            </div>
+
+            <div className={styles.myEvents}>
                 {info?
             <div>
                 <Event props={info} />
@@ -54,6 +62,7 @@ const UserPorfile = ({ userState }) => {
                 <h3>Eventos Favoritos</h3>
                     <SubCarousel />
             </div> */}
+        </div>
         </div>
     )
 };

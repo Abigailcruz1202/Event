@@ -1,17 +1,18 @@
 export default function validate(form) {
     let pass = {};
-    console.log(form)
+    //console.log(form);
     if (!(/^\S+@\S+\.[a-z]+$/.test(form.email))) pass.email = true
-    console.log(form.country)
+    //console.log(form.country);
+
     if(form.country === 'Argentina') {
-        console.log('................',form.tax_id)
-        if(!(/^([0-9]{2}-[0-9]{8}-[0-9])$|^([0-9]{11})$/.test(form.tax_id)))  pass.tax_id = true
+        //console.log('................',form.tax_id);
+        if(!(/^([0-9]{2}-[0-9]{8}-[0-9])$|^([0-9]{11})$/.test(form.tax_id)))  pass.tax_id = true;
     }else if(form.country === 'Colombia') {
-        if(!(/^([0-9]{9}-[0-9]{1})$|^([0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{1})$/.test(form.tax_id))) pass.tax_id = true
+        if(!(/^([0-9]{9}-[0-9]{1})$|^([0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{1})$/.test(form.tax_id))) pass.tax_id = true;
     }else if(form.country === 'Mexico') {
-        if(!(/^[A-ZÑ&]{3,4}\d{6}(?:[A-Z\d]{3})?$/.test(form.tax_id))) pass.tax_id = true
+        if(!(/^[A-ZÑ&]{3,4}\d{6}(?:[A-Z\d]{3})?$/.test(form.tax_id))) pass.tax_id = true;
     }
-    
+
     if(form.country.length < 3) pass.country = true;
 
     if(form.state.length < 3) pass.state = true;
@@ -32,15 +33,16 @@ export default function validate(form) {
         /\d/.test(form.address) &&
         /[' ']/.test(form.address)
         )) pass.address = true
-    
 
     if (!(/['+']*[0-9]{7,}/.test(form.phone))) pass.phone = true;
-    
+
 
     if(!(/[A-Za-zÑñ.-]/.test(form.password) &&
         /\d/.test(form.password) &&
         form.password.length >= 6
         )) pass.password = true;
+
+    if(!(form.repeat.length >= 6 && form.repeat === form.password)) pass.repeat = true;
 
     return pass;
 };
