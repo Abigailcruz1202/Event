@@ -50,7 +50,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
             }
         }
         fetchData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[id]);
 
     const editEvento =() =>{
@@ -86,7 +86,9 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
         const checkFavorite = async () => {
             if (!userInfo.id) return
             try {
-                const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
+
+                const req = await axios.get(`${API}user/${userInfo.id}`)
+
                 let isFavoriteResult = req?.data.favorite[0].includes(detailsEvent.consult?.name)
                 if (isFavoriteResult) {
                     setClick(true)
@@ -106,11 +108,11 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
             if (userInfo.type !== 'user') return // early return para cualquiera que no sea usuario
 
             if (isClick && !isFavorite) {
-                const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
+                const req = await axios.get(`${API}user/${userInfo.id}`)
                 let isFavoriteResult = req.data.favorite[0]?.includes(detailsEvent.consult?.name)
                 if (isFavoriteResult) return
 
-                await axios.put(`https://event-henryapp-backend.herokuapp.com/api/user/fav`,{
+                await axios.put(`${API}user/fav`,{
                     id_user: userInfo.id,
                     event: {
                         name: detailsEvent.consult.name,
@@ -121,7 +123,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
             }
             else if (!isClick && isFavorite) {
                 const removeFavorite = async () => {
-                    await axios.put(`https://event-henryapp-backend.herokuapp.com/api/user/fav`,{
+                    await axios.put(`${API}user/fav`,{
                     id_user: userInfo.id,
                     event: id
                 })
@@ -247,13 +249,14 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                 <SelectSectorSin idEvent={id} data={detailsEvent.consult.sections}/>
                                 :null
                             }
-
-                            {eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
-                                <button onClick={() => setShopping(detailsEvent.consult)}>
-                                <span className={styles.icon}>
-                                    <i className="fas fa-shopping-cart"></i>
-                                </span>
-                                </button>
+                            {detailsEvent.consult.sectorize==='no sectorizar' ? 
+                                eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
+                                    <button onClick={() => setShopping(detailsEvent.consult)}>
+                                        <span className={styles.icon}>
+                                            <i className="fas fa-shopping-cart"></i>
+                                        </span>
+                                    </button>
+                                :null
                             }
                             </>
                         }
