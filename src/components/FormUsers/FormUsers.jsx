@@ -39,6 +39,9 @@ export function Validate(input) {
     // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/
     errors.password = "Contraseña invalida";
   }
+  if(!input.repeat || input.repeat !== input.password) {
+    errors.repeat = "Las contraseñas aún no coinciden";
+  }
   if (!input.phone) {
     errors.phone = "*";
   }
@@ -324,6 +327,20 @@ export function FormUsers() {
                 />
                 {errors.password && (
                   <span className="danger">{errors.password}</span>
+                )}
+              </div>
+            </div>
+            <div className={styles.row}>
+              <span >Repetir contraseña: </span>
+                <div className={styles.inputCheck}>
+                 <input
+                  type="password"
+                  name='repeat'
+                  onChange={handleInputChange}
+                  value={user.repeat}
+                 />
+                {errors.repeat && (
+                  <span className="danger">{errors.repeat}</span>
                 )}
               </div>
             </div>

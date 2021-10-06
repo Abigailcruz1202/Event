@@ -14,6 +14,11 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addT
       quantity: NumItem,
       currency: 'MXN'
   }
+
+  // const dateFormat = (ticket) => {
+  //       const date = ticket.split("-");
+  //       return  `${date[2]}/${date[1]}/${date[0]}`;
+  //     };
   const ticket = {
     idUser: user.id,
     nameUser: user.fullName,
