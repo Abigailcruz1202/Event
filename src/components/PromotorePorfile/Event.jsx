@@ -45,7 +45,7 @@ const Evento=({props})=>{
                 <div>{start_date}</div>               
             </div>
             <div className={styles.contQuali}>
-                {toStars(eventRating)}
+                {eventRating? toStars(eventRating):<span></span>}
             </div>
             <div className={styles.btn}>
                 <Link to ={`/eventDetailsUsuario/${id}`}>Detalle</Link>
