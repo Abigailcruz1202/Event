@@ -99,6 +99,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
     // Si destilda el corazon, se elimina de favoritos.
     useEffect(() => {
         const addToFavorites = async () => {
+            if (userInfo.type !== 'user') return // early return para cualquiera que no sea usuario
             if (isClick && !isFavorite) {
                 const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
                 let isFavoriteResult = req.data.favorite[0]?.includes(detailsEvent.consult?.name)
