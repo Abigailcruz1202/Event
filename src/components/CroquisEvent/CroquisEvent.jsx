@@ -45,19 +45,22 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
             promoterId:detailsEvent.promoterId,           
             type:true,//no croquis
             price:tickets.price,
+            quantity: tickets.tickets.length,
             nameSection:tickets.sectionName,
-            direction:detailsEvent.addres,
+            address:detailsEvent.address,
             locationCountry:detailsEvent.location.country,
             locationProvince:detailsEvent.location.province,
             locationCity:detailsEvent.location.city,
-            date:detailsEvent.start_date,
+            start_date:detailsEvent.start_date,
             schedule:detailsEvent.schedule,
             tags:detailsEvent.tags,
             pictures:detailsEvent.pictures,
-            seating:tickets.tickets,
+            seating:tickets.tickets.map(e => (
+                `F${e.fila}/S${e.silla} `
+            )),
             idEvent,
         }
-        dispatch(addShopping(detailsEvent))
+        dispatch(addShopping(obj))
         // setTickets({
         //     sectionName:croquis.name,
         //     price:croquis.price,

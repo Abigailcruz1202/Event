@@ -118,7 +118,7 @@ function FormPromoter({changeModal}) {
                         city:'',
                 });
                 }else if(!res.data.created){
-                    console.log('eyyyyyyyy', res.data.created)
+                    // console.log('eyyyyyyyy', res.data.created)
                     changeModal('correct', `Revisa los datos 'Nombre del negocio', 'Telefono', 'Correo' o '${condition.idNumber}' ya se encuentran registrados.`)
                 }
             }catch(error){

@@ -302,7 +302,7 @@ export function FormEvent(props) {
                 }
                               
                 else if(res.data.created){
-                    console.log('eyyyyyyyy', res.data.created)
+                    // console.log('eyyyyyyyy', res.data.created)
                     props.changeModal('correct', `El Nombre del evento ya se encuentra registrado`)
                 }
                 props.editEvent(null)
@@ -354,7 +354,7 @@ export function FormEvent(props) {
                     });
                     history.push('/perfil')
                  }else if(!res.data.created){
-                     console.log('eyyyyyyyy', res.data.created)
+                    //  console.log('eyyyyyyyy', res.data.created)
                      props.changeModal('correct', `El Nombre del evento ya se encuentra registrado`)
                  }
              }catch(error){
