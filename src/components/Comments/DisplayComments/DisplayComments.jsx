@@ -7,6 +7,7 @@ import style from './DisplayComments.module.css'
 export default function DisplayComments(id) {
     const [data, setData] = useState([]) // Backup intocable
     const [tempDisplay, setTempDisplay] = useState([]) // Solo se muestra mientras que no haya click en estrellas izq
+    const [filtering, setFiltering] = useState(false) // Ayuda a mostrar msj: "no hay reviews en esta categoria"
     const [display, setDisplay] = useState([]) // Solo se muestra cuando click en las estrellas de la izq
     const [eventRating, setEventRating] = useState(0) // Calificacion general
     const [totalComments, setTotalComments] = useState(0) // Cuenta todos los comentarios recopilados de este evento
@@ -76,23 +77,41 @@ export default function DisplayComments(id) {
                                     <p className={style.generalRating}>
                                     Rating General: <span className={style.generalStars}>{toStars(eventRating)}</span>
                                     </p>
-                                    <p className={style.allRatings} onClick={e => setDisplay(tempDisplay)}>
+                                    <p className={style.allRatings} onClick={e => {
+                                        setDisplay(tempDisplay)
+                                        setFiltering(false)
+                                    }}>
                                         {totalComments} {totalComments > 1? 'calificaciones' : 'calificación'} para este evento.
                                     </p>
                                     <div className={style.starContainer}>
-                                        <p className={style.individualStars} onClick={e => setDisplay(data[4].star5)}>
+                                        <p className={style.individualStars} onClick={e => {
+                                            setDisplay(data[4].star5)
+                                            setFiltering(true)
+                                            }}>
                                             <span className={style.stars}>★★★★★</span>  {Math.floor(data[4].star5.length / totalComments * 100)}%
                                         </p>
-                                        <p className={style.individualStars} onClick={e => setDisplay(data[3].star4)}>
+                                        <p className={style.individualStars} onClick={e => {
+                                            setDisplay(data[3].star4)
+                                            setFiltering(true)
+                                            }}>
                                             <span className={style.stars}>★★★★☆</span> {Math.floor(data[3].star4.length / totalComments * 100)}%
                                         </p>
-                                        <p className={style.individualStars} onClick={e => setDisplay(data[2].star3)}>
+                                        <p className={style.individualStars} onClick={e => {
+                                            setDisplay(data[2].star3)
+                                            setFiltering(true)
+                                            }}>
                                             <span className={style.stars}>★★★☆☆</span> {Math.floor(data[2].star3.length / totalComments * 100)}%
                                         </p>
-                                        <p className={style.individualStars} onClick={e => setDisplay(data[1].star2)}>
+                                        <p className={style.individualStars} onClick={e => {
+                                            setDisplay(data[1].star2)
+                                            setFiltering(true)
+                                            }}>
                                             <span className={style.stars}>★★☆☆☆</span> {Math.floor(data[1].star2.length / totalComments * 100)}%
                                         </p>
-                                        <p className={style.individualStars} onClick={e => setDisplay(data[0].star1)}>
+                                        <p className={style.individualStars} onClick={e => {
+                                            setDisplay(data[0].star1)
+                                            setFiltering(true)
+                                            }}>
                                             <span className={style.stars}>★☆☆☆☆</span> {Math.floor(data[0].star1.length / totalComments * 100)}%
                                         </p>
                                     </div>
@@ -107,7 +126,9 @@ export default function DisplayComments(id) {
                         <div className={style.rightContainer}>
                         {
                             !display.length ? (
-                                
+                                filtering ? (
+                                    <p className={style.noComments}>No hay comentarios en esta categoria.</p>
+                                ) : (
                                     tempDisplay.map(comment => (
                                     <Card
                                         key={keyGenerator++}
@@ -117,8 +138,9 @@ export default function DisplayComments(id) {
                                         review={comment.review}
                                     />)
                                     )
+                                )
                                 
-                            ) : (
+                            ) : (                                
                                     display.map(comment => (
                                         <Card
                                             key={keyGenerator++}

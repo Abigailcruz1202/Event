@@ -84,3 +84,6 @@
 ::-webkit-scrollbar-track-piece {
   background-color: var(--Primary) !important;
 }
+.noComments {
+  width: 645px;
+}
