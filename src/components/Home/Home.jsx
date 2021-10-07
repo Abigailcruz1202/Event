@@ -72,6 +72,7 @@ const pgUpFiltered = (e) => {
         <h5 style={{ marginBlockEnd: '0', marginLeft: '10px', cursor: 'pointer', textDecoration: 'underline', color: '#f5af00' }} onClick={all}>Regresar</h5>
         </>
         :filters.length > 0 ?
+
         <>
         {stateTypesFilters.length ?
                       <><p style={{ marginLeft: '10px' }}>Filtros activos:</p>
@@ -83,14 +84,14 @@ const pgUpFiltered = (e) => {
                       </>
                       : null}
         <h5 style={{ marginBlockEnd: '0', marginLeft: '10px', cursor: 'pointer', textDecoration: 'underline', color: '#f5af00' }} onClick={all}>Eliminar Filtros</h5>
-        {/* PAGINATION BUTTONS WITHOUTFILTERS */}
+        {/* PAGINATION BUTTONS WITH FILTERS */}
         <div align="center">
-          <input type="button" onClick={pgDn} disabled={pages <= 0} value="<" />
+          <input className="regularBtn" type="button" onClick={pgDn} disabled={pages <= 0} value="<" />
           <span>
             Página {Math.ceil((pages + pageSize) / pageSize)}
             (resultados {pages + 1}-{pages + thisPage.length})
           </span>
-          <input type="button" onClick={pgUpFiltered}
+          <input className="regularBtn" type="button" onClick={pgUpFiltered}
             disabled={pages + pageSize >= filters.length} value=">"/>
             </div>
         <ActivityCards events={filteredPage}/>
@@ -109,12 +110,12 @@ const pgUpFiltered = (e) => {
                       </>
                       : null}
                   <div align="center">
-          <input type="button" onClick={pgDn} disabled={pages <= 0} value="<" />
+          <input className="regularBtn" type="button" onClick={pgDn} disabled={pages <= 0} value="<" />
           <span>
             Página {Math.ceil((pages + pageSize) / pageSize)}
             (resultados {pages + 1}-{pages + thisPage.length})
           </span>
-          <input type="button" onClick={pgUpNoFilter}
+          <input className="regularBtn" type="button" onClick={pgUpNoFilter}
             disabled={pages + pageSize >= events.length} value=">"/>
             </div>
           <ActivityCards events={thisPage} /></div>}

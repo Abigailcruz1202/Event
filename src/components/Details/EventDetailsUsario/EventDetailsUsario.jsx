@@ -145,13 +145,15 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
         // detailsEvent.consult?
         eventCart = cart.filter(e =>  e.id === detailsEvent.consult.id)
         // :eventCart = []
-            return(   
+
+        console.log(detailsEvent.consult)
+            return(
             <div className={styles.detailsAllUser}>
                 <div className='detailsCardUser'> 
                     <div className={styles.detailsCard2User}>
                         <h1 className={styles.titleCard}>{detailsEvent.consult.name}</h1>
                         <div className={styles.carouselImages}>                               
-                            <Carousel   
+                            <Carousel
                                 data={data}
                                 time={5000}
                                 width="650px"
@@ -259,7 +261,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                             }
                             {detailsEvent.consult.sectorize==='no sectorizar' ? 
                                 eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
-                                    <button onClick={() => setShopping(detailsEvent.consult)}>
+                                    <button className="regularBtn"onClick={() => setShopping(detailsEvent.consult)}>
                                         <span className={styles.icon}>
                                             <i className="fas fa-shopping-cart"></i>
                                         </span>
@@ -301,11 +303,11 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                             ) : (
                                 userInfo.type === 'promoter' ? (
                                 <>
-                                    <button className={styles.button} onClick={editEvento}>Editar</button>
-                                    <button className={styles.button} onClick={deleteEvent}>Eliminar</button>
+                                    <button className="regularBtn" onClick={editEvento}>Editar</button>
+                                    <button className="regularBtn" onClick={deleteEvent}>Eliminar</button>
                                 </>
                                 ) : (
-                                    <button className={styles.button}>Reservar</button>
+                                    <button className="regularBtn">Reservar</button>
                                 )
                             )
                         
@@ -319,7 +321,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                     !userInfo.type ? (
                                         <button 
                                         onClick={e => alert('Solo usuarios logeados pueden dejar comentarios')}
-                                        className={styles.button}>    
+                                        className="regularBtn">    
                                                 Reseña
                                         </button>
                                     ) : (
@@ -331,7 +333,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                                 eventName: detailsEvent.consult.name
                                             }
                                         }}>
-                                            <button className={styles.button}>Reseña</button>
+                                            <button className="regularBtn">Reseña</button>
                                         </Link>
                                         
                                         ) : (

@@ -1,6 +1,6 @@
 .subNav{
     /* background-color: var(--Button); */
-    background-color: var(--Secondary);
+    background-color: var(--Primary);
     height: 32px;
     display: flex;
     align-items: center;

@@ -32,7 +32,7 @@ export function Search(props){
         <from>
             <div>
             <input type='search' name='name' value={input.name} onChange={handleChange} placeholder='Buscar..' />
-            <button type='submit' onClick={handleClick} >BUSCAR</button>
+            <button className="regularBtn" type='submit' onClick={handleClick} >BUSCAR</button>
             </div>
         </from>
     )
