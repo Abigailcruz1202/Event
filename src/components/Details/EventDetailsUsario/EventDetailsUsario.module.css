@@ -81,9 +81,8 @@ body {
 .description {
   display: block;
   margin: auto;
-  text-align: justify;
+  text-align: center;
   max-width: 600px;
-  /* justify-content: center; */
 }
 
 .rightColumn {
@@ -161,7 +160,7 @@ body {
 .detailsCard2User {
   margin-bottom: 40px;
 }
-.croquis{
+.croquis {
   text-align: center;
 }
 /* .heartButton {
