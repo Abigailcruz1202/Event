@@ -42,9 +42,12 @@ export const DELETE_TICKET = 'DELETE_TICKET';
 // Follow
 export const PUT_FOLLOW = 'PUT_FOLLOW';
 
+// grafica 
+export const  GET_TICKETS = 'GET_TICKETS'
 
-export const API = 'http://localhost:3001/api/'
-/* export const API = 'https://event-henryapp-backend.herokuapp.com/api/' */
+
+ export const API = 'http://localhost:3001/api/'
+//export const API = 'https://event-henryapp-backend.herokuapp.com/api/' 
 
 
 //*_get_activities_home______________________________________________
@@ -287,6 +290,20 @@ export function resetShopping(){
     type: RESET_SHOPPING
   }
 }
+
+export function getTickets(id){
+  return async function (dispatch){
+    const response = await
+    axios.get(`${API}${'ticket/promoter/'}${id} `)
+    dispatch({
+      type:GET_TICKETS,
+      payload: response.data
+    })
+  }
+}
+
+
+
 
 // (Lucio) Seguir (PUT Follow)
 // export function putFollow(follow){
