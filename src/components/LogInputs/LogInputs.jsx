@@ -51,7 +51,7 @@ const LogInputs = ({
       )}
       <div className="margTop40 ">
         <GoogleLogin
-          clientId="376627127490-bk5ds8a9vkmkv2ar8te87qteg0gpivuk.apps.googleusercontent.com"
+          clientId="327106027037-3kc6htgt6l0goeueh2nhmtktm7t6mnb6.apps.googleusercontent.com"
           buttonText="Ingresa con Google"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}

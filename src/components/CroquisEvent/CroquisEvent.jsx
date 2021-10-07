@@ -56,7 +56,7 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
             tags:detailsEvent.tags,
             pictures:detailsEvent.pictures,
             seating:tickets.tickets.map(e => (
-                `F${e.fila}/S${e.silla} `
+                ` F${e.fila}/S${e.silla} `
             )),
             idEvent,
         }
