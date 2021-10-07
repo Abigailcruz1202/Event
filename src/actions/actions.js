@@ -327,8 +327,7 @@ export function tiketsSections(info) {
 
 export function getTickets(id){
   return async function (dispatch){
-    const response = await
-    axios.get(`${API}${'ticket/promoter/'}${id} `)
+    const response = await axios.get(`${API}${'ticket/promoter/'}${id} `)
     dispatch({
       type:GET_TICKETS,
       payload: response.data

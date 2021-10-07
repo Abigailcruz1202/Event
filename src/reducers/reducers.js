@@ -251,6 +251,7 @@ function rootReducer(state = initialState, action) {
       filters: []
 
     }
+  }
   if(action.type === TIKETS_SECTIONS){
     return{
       ...state,
@@ -264,8 +265,7 @@ function rootReducer(state = initialState, action) {
       grafica: action.payload
     }
   }
-     return state;
-  }
+   
   if(action.type=== PROMOTER_USER){
     return {
       ...state,
