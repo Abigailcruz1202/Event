@@ -32,7 +32,6 @@ export const PROMOTER_USER =' PROMOTER_USER'//daf
 export const ADD_TYPES = 'ADD_TYPES'; //Abi
 export const REMOVE_TYPES = 'REMOVE_TYPES'; //Abi
 
-
 //*shopping Cart
 export const ADD_SHOPPING = 'ADD_SHOPPING';
 export const DELETE_SHOPPING = 'DELETE_SHOPPING';
