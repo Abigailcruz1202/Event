@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import styles from "./Home.module.css";
 import ActivityCards from "../ActivityCards/ActivityCards";
 import Carousel from "../Carousel/Carousel";
 import SideBar from "../SideBar/SideBar";
 import NavBarHome from "../NavBarHome/NavBarHome";
-import { getEventsHome,removeFilters } from "../../actions/actions";
+import { getEventsHome, removeFilters, removeTypes, clearSearch } from "../../actions/actions";
 
-const Home = ({ switchSide, getEventsHome, events, filters, removeFilters }) => {
+const Home = ({ switchSide, getEventsHome, events, filters, removeFilters, removeTypes, clearSearch }) => {
   //* La informacion de las actividades esta en el archivo FakeDB
+
+
+  const stateTypesFilters = useSelector(state => state.typesFilters)
 
   //(Lucio) PAGINATION LOCAL STATES:
   const pageSize = 3;
@@ -21,7 +24,10 @@ const Home = ({ switchSide, getEventsHome, events, filters, removeFilters }) => 
 
   const all = (e) => {
     removeFilters()
-}
+    removeTypes()
+    clearSearch()
+  }
+
 // (Lucio) PAGINATION REDUCERS
 let thisPage = events && events.slice(pages, pages + pageSize);
 let filteredPage = filters && filters.slice(pages, pages + pageSize);
@@ -93,9 +99,8 @@ const pgUpFiltered = (e) => {
             </div>
           <ActivityCards events={thisPage} /></div>}
         
+          </div>
       </div>
-    
-    </div>
     </>
   );
 };
@@ -108,4 +113,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getEventsHome, removeFilters })(Home);
+export default connect(mapStateToProps, { getEventsHome, removeFilters, removeTypes, clearSearch })(Home);
