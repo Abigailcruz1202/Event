@@ -31,7 +31,7 @@ const LogInputs = ({
         </span>
       </div>
       <div className={styles.subContainer}>
-        <label className={styles.label}>Password</label>
+        <label className={styles.label}>Contraseña</label>
         <input
           type="password"
           onChange={upgradePass}
@@ -43,13 +43,13 @@ const LogInputs = ({
         </span>
       </div>
       {true ? (
-        <button className="btnForm margTop20" type="Submit">
-          Log
+        <button className="regularBtn" type="Submit">
+          Ingresar
         </button>
       ) : (
-        <button className={styles.null}>Log</button>
+        <button className="regularBtn">Ingresar</button>
       )}
-      <div className="margTop40 ">
+      <div className="margTop10">
         <GoogleLogin
           clientId="376627127490-bk5ds8a9vkmkv2ar8te87qteg0gpivuk.apps.googleusercontent.com"
           buttonText="Ingresa con Google"
@@ -60,10 +60,12 @@ const LogInputs = ({
           //   <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Google</button>
           // )}
         />
+              </div>
+        <p>o bien...</p>
         <Link to="/registration">
-          <h4 className="txColorWht txAligneCntr margTop40">Crea tu cuenta</h4>
+          <button className="regularBtn">Crea tu cuenta</button>
         </Link>
-      </div>
+
 
       {/* 
 <div className={styles.subContainerTwo}>

@@ -44,7 +44,7 @@
   --InnerShadowOne: -3px -3px 3px rgba(0, 0, 0, 1);
   --ShadowOneInv: -3px -3px 3px rgba(0, 0, 0, 1);
   --ShadowTwo: 2px 2px 2px rgba(0, 0, 0, 1);
-  --ShadowBtn:  1px 1px 1px rgba(0, 0, 0, 1);
+  --ShadowBtn:  0 0 10px rgba(0, 0, 0, 1);
   --BigShadow: 0 0 20px 30px var(--Black);
   --Transition: .4s;
   --CustomBezier: cubic-bezier(0.1, 0.9, 1, 1); /* Transición animada personalizada */
@@ -171,31 +171,6 @@ filter: brightness(60%);
       font-size: 1rem;
       }
     }
-
-/** Buttons */
-.EbtnCard{
-  background-color: var(--Button);
-  border-radius: var(--RadiusOne);
-  width: 70px;
-  cursor: pointer;
-}
-.EbtnCard:hover{
-  background-color: var(--Other);
-  color: var(--White);
-}
-
-.btnForm{
-  background-color: var(--Button);
-  border-radius: var(--RadiusOne);
-  width: 90px;
-  padding: 5px 0 5px 0;
-  cursor: pointer;
-}
-.btnForm:hover{
-  background-color: var(--Other);
-  color: var(--White);
-}
-
 
 /** MARGIN_____________________________________________________ */
 .margin0{

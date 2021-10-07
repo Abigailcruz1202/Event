@@ -8,6 +8,10 @@ import styles from './FormEvent.module.css'
 import SectorsForm from './SectorsForm.jsx';
 import validate from './validate.js';
 
+////////////////
+// NO SE PUEDEN EDITAR LOS ESTILOS DE ESTE FORM.
+////////////////
+
 const regiones = {
     estados:['Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche', 'Coahuila', 'Colima', 'Chiapas', 'Chihuahua', 'Durango', 'Distrito Federal', 'Guanajuato', 'Guerrero', 'Hidalgo', 'Jalisco', 'México', 'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca', 'Puebla', 'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa', 'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán', 'Zacatecas'],
     departamentos:['Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bolívar', 'Boyacá', 'Caldas', 'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía', 'Guaviare', 'Huila', 'La Guajira', 'Magdalena', 'Meta', 'Nariño', 'Norte de Santander', 'Putumayo', 'Quindío', 'Risaralda', 'San Andrés y Providencia', 'Santander', 'Sucre', 'Tolima', 'Valle del Cauca', 'Vaupés', 'Vichada'],
@@ -443,10 +447,10 @@ export function FormEvent(props) {
                             <span className={styles.tick}>{!errors.starring && '✓'}</span>
                         </div>
                     </div>
-                    <div className={styles.row}>{/*IMAGENES DEL EVENTO*/}                   
-                        <span>Imagenes del Evento prueba: </span>                    
+                    <div className={styles.row}>{/*IMAGENES DEL EVENTO*/}
+                        <span>Imagenes del Evento prueba: </span>
                         <div className={styles.inputCheck}>
-                            <input 
+                            <input
                                 onChange={click}
                                 type="file"
                                 />
@@ -458,7 +462,7 @@ export function FormEvent(props) {
                     <div className={styles.imagenes}>
                         {event.pictures && event.pictures.map((i) => 
                             <div className={styles.images}>
-                                <button  key={INDEX++} value={i} onClick={deletePictures}>
+                                 <button className="regularBtn"  className="regularBtn" key={INDEX++} value={i} onClick={deletePictures}>
                                     X
                                 </button>
                                 <img key={INDEX++} src={i} alt='foto' width='150px' height='100px' />
@@ -468,7 +472,7 @@ export function FormEvent(props) {
                         <span>cargando..</span>
                         : null}
                     </div> 
-                    }                      
+                    } 
                 </div>
                 {/*SECCION UBICACION*/}
                 <div className={styles.section}>
@@ -596,7 +600,7 @@ export function FormEvent(props) {
                                 value={event.schedule[event.schedule.length]}
                                 onBlur={inputChange}                                   
                              />
-                             {/* <button onClick={()=>addSchedule(hour)}>Add</button>  */}
+                             {/*  <button className="regularBtn"  className="regularBtn"  onClick={()=>addSchedule(hour)}>Add</button>  */}
                             <span className={styles.tick}>{!errors.schedule && '✓'}</span>
                         </div> 
                     </div>  
@@ -752,7 +756,7 @@ export function FormEvent(props) {
                                     name='price'
                                 />
                             </div>
-                            <button onClick={addSection}>Agregar Sección</button>
+                             <button className="regularBtn"  className="regularBtn"  onClick={addSection}>Agregar Sección</button>
                         </div>
                         <div className={styles.sectionsCont}>
                             <SectorsForm name='Sección' limit='Limite' price='Precio'/>
@@ -795,7 +799,7 @@ export function FormEvent(props) {
                                     name='filasC'
                                 />                                                             
                             </div>
-                            <button onClick={addCroquis}>Agregar Sección</button>
+                             <button className="regularBtn"  className="regularBtn"  onClick={addCroquis}>Agregar Sección</button>
                         </div>
                         <div className={styles.contCroquis}>
                             <Croquis 
@@ -841,14 +845,14 @@ export function FormEvent(props) {
                                     onChange={inputChange}
                                  />
                                 <span className={styles.tick}>{!errors.ticket_limit && '✓'}</span>
-                            </div>                   
+                            </div>
                         </div>
                     </>
                     }
                 </div>
                 {props.modalForm.render?
-                <input type='submit' onClick={handleEdit} value='Editar'/>:
-                <input type='submit' onClick={handleSubmit} value='Crear'/> 
+                <input className="bigBtn" type='submit' onClick={handleEdit} value='Editar'/>:
+                <input className="bigBtn" type='submit' onClick={handleSubmit} value='Crear'/>
                  }
                 
             </form>

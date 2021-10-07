@@ -1,25 +1,4 @@
 /* CLASES POR ORDEN ALFABÉTICO */
-.btn {
-    background-color: var(--Secondary);
-    color: var(--Black);
-    padding: 10px;
-    font-size: 1.5rem;
-    font-weight: 600;
-    border-radius: 10px;
-    border-width: 0;
-    align-self: center;
-    transform: scale(1);
-    transition-duration: var(--Transition);
-    transition-timing-function: var(--CustomBezier);
-}
-
-.btn:hover {
-    transform: scale(1.2);
-    background-color: var(--Button);
-    transition-duration: var(--Transition);
-    transition-timing-function: var(--CustomBezier);
-}
-
 .category {
     margin-bottom: 20px;
 }
