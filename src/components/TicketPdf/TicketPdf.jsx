@@ -6,7 +6,7 @@ import jsPDF from "jspdf";
 import logo from "../../Utilities/logoProvi.png";
 
 const TicketPdf = () => {
-   const API = 'https://event-henryapp-backend.herokuapp.com/api/'
+  const API = "https://event-henryapp-backend.herokuapp.com/api/";
   // const API = "http://localhost:3001/api/";
   // const ID = 'd123cf7a-e1f7-4e21-b425-7f905ade9954'
   const props = useRouteMatch();
@@ -31,53 +31,64 @@ const TicketPdf = () => {
     let doc = new jsPDF("p", "pt", "a4");
     doc.addImage(logo, "PNG", 0, 0, 600, 200);
     //  doc.addPage()
+
     doc.setFont("Courier New", "bold");
-    doc.setFontSize(30);
-    doc.text(50, 230, Ticket.nameEvent);
+    doc.setFontSize(40);
+    doc.text(Ticket.nameEvent, 300, 270, "center" );
     doc.setFont("Courier", "normal");
     doc.setFontSize(20);
-    doc.text(50, 270, `Dirección: ${Ticket.direction}`);
-    doc.text(50, 310, `Total: ${Ticket.total}`);
-    doc.text(50, 350, `Asientos: ${Ticket.seating.map((e) => (
-      e
-    ))}`);
-    doc.save(`Ticket para: ${Ticket.nameEvent}/Event.pdf`);
+    doc.text(`${date[2]}/${date[1]}/${date[0]}`, 300, 330, "center");
+    doc.text(`${Ticket.schedule.map((e) => e)}Hrs`, 300, 360, "center");
+    doc.text(`${Ticket.direction}`, 300, 390, "center");
+    doc.text( `${Ticket.nameUser}`, 300, 440, "center");
+    doc.text(`Entradas: ${Ticket.quantity}`, 300, 470, "center");
+    doc.text(`Precio: ${Ticket.price}`, 300, 510, "center");
+    doc.text(`Total: ${Ticket.total}`, 300, 550, "center");
+    doc.text(`${Ticket.seating.map((e) => e)}`, 300, 590, "center");
+    doc.setFont("Courier New", "bold");
+    doc.setFontSize(15);
+    doc.text(300, 810, Ticket.id);
+    doc.save(`Event-${Ticket.nameEvent}-${date[2]}/${date[1]}/${date[0]}.pdf`);
   };
 
   return (
-    <div id="content">
+    <div className={styles.container}>
       <div className={styles.subContainer}>
-        <h3 className={styles.title}>{Ticket.nameEvent}</h3>
-        <p>{`${date[2]}/${date[1]}/${date[0]}`}</p>
-        {!Ticket.schedule ? (
-          <h4>Sin Horario</h4>
-        ) : (
-          <ul>
-            {Ticket.schedule.map((e) => (
-              <li key={e}>{e} hrs</li>
-            ))}
-          </ul>
-        )}
-        <p>{Ticket.direction}</p>
-      </div>
-      <p>Propietario(a): {Ticket.nameUser}</p>
-      <div className={styles.subContainerTwo}>
-        <p className={styles.p}>Entradas:</p>
-        <p className={styles.p}>{Ticket.quantity}</p>
-        <p className={styles.p}>Precio unitario:</p>
-        <p className={styles.p}>{Ticket.price}</p>
-        <p className={styles.p}>Total: {Ticket.total}</p>
-      </div>
-      <div>
-        {!Ticket.seating ? (
-          <h4>Sin Asientos</h4>
-        ) : (
-          <ul className={styles.ul}>
-            {Ticket.seating.map((e) => (
-              <li key={e}>{e}</li>
-            ))}
-          </ul>
-        )}
+        <img src={logo} alt="" className={styles.img} />
+        <div className={styles.containerData}>
+          <h3 className={styles.title}>{Ticket.nameEvent}</h3>
+          <p>{`${date[2]}/${date[1]}/${date[0]}`}</p>
+          {!Ticket.schedule ? (
+            <h4>Sin Horario</h4>
+          ) : (
+            <ul>
+              {Ticket.schedule.map((e) => (
+                <li key={e}>{e} hrs</li>
+              ))}
+            </ul>
+          )}
+          <p>{Ticket.direction}</p>
+
+          <p>Propietario(a): {Ticket.nameUser}</p>
+          <p className={styles.p}>Entradas:</p>
+          <p className={styles.p}>{Ticket.quantity}</p>
+          <p className={styles.p}>Precio unitario:</p>
+          <p className={styles.p}>{Ticket.price}</p>
+          <p className={styles.p}>Total: {Ticket.total}</p>
+          <div>
+            {!Ticket.seating ? (
+              <h4>Sin Asientos</h4>
+            ) : (
+              <ul className={styles.ul}>
+                {Ticket.seating.map((e) => (
+                  <li key={e}>{e}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+
+        <p className={styles.id}>{Ticket.id}</p>
       </div>
       <button onClick={createPdf} type="primary">
         PDF
