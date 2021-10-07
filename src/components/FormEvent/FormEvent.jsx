@@ -449,7 +449,7 @@ export function FormEvent(props) {
                     </div>
                     <div className={styles.row}>{/*IMAGENES DEL EVENTO*/}
                         <span>Imagenes del Evento prueba: </span>
-                        <div className={styles.inputCheck}>
+                        <div className="file">
                             <input
                                 onChange={click}
                                 type="file"
@@ -462,7 +462,7 @@ export function FormEvent(props) {
                     <div className={styles.imagenes}>
                         {event.pictures && event.pictures.map((i) => 
                             <div className={styles.images}>
-                                 <button className="regularBtn"  className="regularBtn" key={INDEX++} value={i} onClick={deletePictures}>
+                                 <button className="regularBtn" key={INDEX++} value={i} onClick={deletePictures}>
                                     X
                                 </button>
                                 <img key={INDEX++} src={i} alt='foto' width='150px' height='100px' />

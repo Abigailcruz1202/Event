@@ -124,12 +124,12 @@ export default function EventDetailsUsario() {
                             </div>
                         </div>
                         <div className={styles.buttonContainer}>
-                            <button className={styles.button}>Reservar</button>
+                            <button className="regularBtn">Reservar</button>
                             <Link to={{
                                 pathname:'/nuevoComentario',
                                 state: id
                             }}>
-                            <button className={styles.button}>Reseña</button>
+                            <button className="regularBtn">Reseña</button>
                             </Link>
                          </div>
                     </div>   
