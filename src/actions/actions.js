@@ -27,7 +27,10 @@ export const REMOVE_FILTERS = 'REMOVE_FILTERS';
 export const CHANGE_MODAL = 'CHANGE_MODAL';//leo
 export const CHANGE_MODAL_CONFIRM = 'CHANGE_MODAL_CONFIRM';//leo
 export const SEARCH_NAME = 'SEARCH_NAME'; //Abi
-export const  PROMOTER_USER =' PROMOTER_USER'//daf
+export const REMOVE_NAME = 'REMOVE_NAME'; //Abi
+export const PROMOTER_USER =' PROMOTER_USER'//daf
+export const ADD_TYPES = 'ADD_TYPES'; //Abi
+export const REMOVE_TYPES = 'REMOVE_TYPES'; //Abi
 
 //*shopping Cart
 export const ADD_SHOPPING = 'ADD_SHOPPING';
@@ -196,6 +199,18 @@ export function orderDescPrice(type){
     payload: type
   }
 }
+export function addTypes(types){
+  // console.log('ACTION!TYPES: ',types)
+  return{
+    type:ADD_TYPES,
+    payload:types
+  }
+}
+export function removeTypes(){
+  return{
+    type:REMOVE_TYPES
+  }
+}
 export function removeFilters(){
   return{
     type: REMOVE_FILTERS
@@ -228,6 +243,11 @@ export function searchName(name){
   return{
     type: SEARCH_NAME,
     payload: name
+  }
+}
+export function clearSearch(){
+  return{
+    type:REMOVE_NAME
   }
 }
 //daf
