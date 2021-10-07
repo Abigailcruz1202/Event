@@ -367,8 +367,8 @@ export function FormEvent(props) {
             e.target.value === 'Colombia' && 
             setEvent({...event,divC:'departamentos',country:'Colombia'});
 
-            e.target.value === 'Mexico' && 
-            setEvent({...event,divC:'estados',country:'Mexico'});
+            e.target.value === 'México' && 
+            setEvent({...event,divC:'estados',country:'México'});
         }else if(e.target.name === 'weekdays' ||e.target.name === 'schedule'){
             console.log(e)
             setEvent(

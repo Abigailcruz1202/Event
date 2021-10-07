@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styles from "../FormPromoter/Forms.module.css";
+import {API} from '../../actions/actions'
+
 
 export function Validate(input) {
   let errors = {};
@@ -100,7 +102,7 @@ export function FormUsers() {
     ) {
       console.log(user, "user");
       try {
-        const res = await axios.post("https://event-henryapp-backend.herokuapp.com/api/user/", user);
+        const res = await axios.post(`${API}user/`, user);
         alert(res.data.msg);
       } catch (error) {
         console.log("error", error);

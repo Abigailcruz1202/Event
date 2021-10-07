@@ -1,84 +1,88 @@
 import {
-  GET_DETAIL, 
- SWITCH_SIDE_BAR,
- POST_EVENT,
- SET_USER,
- SET_PROMOTER,
- GET_EVENTS_HOME,
- FILTER_TAGS,
- FILTER_AGE_RATING,
- FILTER_WEEKDAYS,
- FILTER_COUNTRY,
- FILTER_PROVINCE,
- ORDER_PRICE_ASC,
- ORDER_PRICE_DESC,
- ADD_TYPES,
- REMOVE_TYPES,
- REMOVE_FILTERS,
- CHANGE_MODAL,
- SEARCH_NAME,
+    GET_DETAIL, 
+   SWITCH_SIDE_BAR,
+   POST_EVENT,
+   SET_USER,
+   SET_PROMOTER,
+   GET_EVENTS_HOME,
+   FILTER_TAGS,
+   FILTER_AGE_RATING,
+   FILTER_WEEKDAYS,
+   FILTER_COUNTRY,
+   FILTER_PROVINCE,
+   ORDER_PRICE_ASC,
+   ORDER_PRICE_DESC,
+   REMOVE_FILTERS,
+   CHANGE_MODAL,
+   SEARCH_NAME,
  REMOVE_NAME,
- GET_EVENTS,
- GET_EVENTS_PROMOTER,
- EDIT_EVENT,
- PROMOTER_USER,
- ADD_SHOPPING,
-DELETE_SHOPPING,
-ADD_CHECKOUT,
-DELETE_CHECKOUT,
-SET_TOTAL_CHECKOUT,
-RESET_SHOPPING,
-ADD_TICKET,
-DELETE_TICKET,
+   GET_EVENTS,
+   GET_EVENTS_PROMOTER,
+   EDIT_EVENT,
+   PROMOTER_USER,
+   ADD_SHOPPING,
+  DELETE_SHOPPING,
+  ADD_CHECKOUT,
+  DELETE_CHECKOUT,
+  SET_TOTAL_CHECKOUT,
+  RESET_SHOPPING,
+  ADD_TICKET,
+  DELETE_TICKET,
+  TIKETS_SECTIONS,
+  CHANGE_MODAL_CONFIRM,
+  GET_TICKETS,
+  } from "../actions/actions";
 
-CHANGE_MODAL_CONFIRM,
-} from "../actions/actions";
-
-// Pruebas para guardar usuario en el local storage
-// let loginUser = JSON.parse(localStorage.getItem( user )) 
-const initialState = {
-  eventsHome: [],
-  //*detalles de evento
-  detailsEvent:{},
-  //*switch de nav-bar
-  sideBarSwitch: false,
-  //*post //Abi
-  posts:[],
-  //*user
-  userState:{},
-  //*promoter
-  promoterState:{},
-  promoterEvents:[],
- //modal
-  modal:{
-    render:false,
-    type:null,
-    message:null,
-  },
-  //modal confirm
-  modalConfirm:{
-    render:false,
-    type:null,
-    message:null,
-    response:null,
-  },
-  //modL FORM 
-  modalForm:{
-    render:false,
-    data:{},
-  },
-  //*filter //Abi
-  filters:[],
-  home:[],
+  // Pruebas para guardar usuario en el local storage
+  // let loginUser = JSON.parse(localStorage.getItem( user )) 
+  const initialState = {
+    eventsHome: [],
+    //*detalles de evento
+    detailsEvent:{},
+    //*switch de nav-bar
+    sideBarSwitch: false,
+    //*post //Abi
+    posts:[],
+    //*user
+    userState:{},
+    //*promoter
+    promoterState:{},
+    promoterEvents:[],
+   //modal
+    modal:{
+      render:false,
+      type:null,
+      message:null,
+    },
+    //modal confirm
+    modalConfirm:{
+      render:false,
+      type:null,
+      message:null,
+      response:null,
+    },
+    //modL FORM 
+    modalForm:{
+      render:false,
+      data:{},
+    },
+    //*filter //Abi
+    filters:[],
+    home:[],
   typesFilters:[],
-  //promoter user 
-  promoterUser:[],
- //*shopping cart
-  cartState:[],
-  checkoutItems:[],
-  checkoutTotal:0,
-  ticketItems: [],
-};
+    //promoter user 
+    promoterUser:[],
+   //*shopping cart
+    cartState:[],
+    checkoutItems:[],
+    checkoutTotal:0,
+    ticketItems: [],
+
+    // grafica 
+    grafica:[],
+    ticketsSections:[],
+
+  };
 
 
 
@@ -245,6 +249,20 @@ function rootReducer(state = initialState, action) {
       filters: []
 
     }
+  if(action.type === TIKETS_SECTIONS){
+    return{
+      ...state,
+      ticketsSections:[...state.ticketsSections,action.payload],
+    }
+  }
+
+  if(action.type === GET_TICKETS){
+    return{
+      ...state,
+      grafica: action.payload
+    }
+  }
+     return state;
   }
   if(action.type=== PROMOTER_USER){
     return {

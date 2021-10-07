@@ -44,7 +44,7 @@ function CardPromoter ({props}){
         <>
         <div>
         <div className={styles.card}>
-            <Link to ={`/eventDetailsUsuario/${id}`} className={styles.link}>
+            <Link to ={`/eventDetailsUsuario/${id}`} className={styles.links}>
            <img src={foto} className={styles .imgCard} />
             <h5 className={styles .titleCard}>{name}</h5>
              <div>{
