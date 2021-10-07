@@ -24,6 +24,7 @@ import EditForm from './components/Details/EventDetailsUsario/EditForm';
 import ShoppingCheckout from './components/ShoppingCheckout/ShoppingCheckout';
 import ModalConfirm from './components/ModalConfirm/ModalConfirm';
 import TicketsContainer from './components/TicketsContainer/TicketsContainer';
+import TicketPdf from './components/TicketPdf/TicketPdf';
 
 
 function App({ setUser, user, modal, modalForm, cart, addShopping, modalConfirm }) {
@@ -107,6 +108,10 @@ function App({ setUser, user, modal, modalForm, cart, addShopping, modalConfirm 
 
        <Route path='/tickets/:id'>
         <TicketsContainer />
+      </Route>
+
+      <Route path='/ticketpdf/:id'>
+        <TicketPdf />
       </Route>
 
       <Route path='/PromoterPorfileUser/:id'>

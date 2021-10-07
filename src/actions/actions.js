@@ -38,7 +38,7 @@ export const SET_TOTAL_CHECKOUT = 'SET_TOTAL_CHECKOUT';
 export const RESET_SHOPPING = 'RESET_SHOPPING';
 export const ADD_TICKET = 'ADD_TICKET';
 export const DELETE_TICKET = 'DELETE_TICKET';
-
+export const TIKETS_SECTIONS = 'TIKETS_SECTIONS'
 // Follow
 export const PUT_FOLLOW = 'PUT_FOLLOW';
 
@@ -46,8 +46,9 @@ export const PUT_FOLLOW = 'PUT_FOLLOW';
 export const  GET_TICKETS = 'GET_TICKETS'
 
 
- export const API = 'http://localhost:3001/api/'
-//export const API = 'https://event-henryapp-backend.herokuapp.com/api/' 
+ 
+// export const API = 'http://localhost:3001/api/'
+ export const API = 'https://event-henryapp-backend.herokuapp.com/api/' 
 
 
 //*_get_activities_home______________________________________________
@@ -81,8 +82,12 @@ export function getEventsHome(){
 export function getEventDetail(id){
   return async function (dispatch) {
     const response = await 
-    axios.get(`${API}${'event/'}${id}`);
-    response.data.consult.sections = JSON.parse(response.data.consult.sections)
+    axios.get(`${API}event/${id}`);
+    console.log(response)
+    if(response.data.consult.sectorize !== 'no sectorizar'){
+      response.data.consult.sections = JSON.parse(response.data.consult.sections)
+    }
+    console.log('paseee')
     dispatch({
       type: GET_DETAIL,
       payload: response.data
@@ -288,6 +293,11 @@ export function setTotalCheckout(total){
 export function resetShopping(){
   return{
     type: RESET_SHOPPING
+  }
+}
+export function tiketsSections(info){
+  return{
+    type: TIKETS_SECTIONS, payload:info
   }
 }
 

@@ -38,7 +38,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
     const detailsEvent = useSelector(state => state.detailsEvent)
     const userInfo = useSelector(state => state.userState)
     
-    
+    console.log(detailsEvent.sections)
     //console.log(JSON.parse(detailsEvent.consult.sectorize),'aquiiiiiiiiiiiiiiii mirameeeeeeeeeeee no te hagasssssssss')
     useEffect( () => {
         const fetchData = async () => {
@@ -50,7 +50,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
             }
         }
         fetchData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[id]);
 
     const editEvento =() =>{
@@ -80,13 +80,17 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
     const setShopping = (event) => {
         addShopping(event)
     }
+  
+    
     
     // Diego: Permite saber si el usuario ya tiene este evento como Favorito para actualizarlo en el DOM
     useEffect(() => {
         const checkFavorite = async () => {
             if (!userInfo.id) return
             try {
-                const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
+
+                const req = await axios.get(`${API}user/${userInfo.id}`)
+
                 let isFavoriteResult = req?.data.favorite[0].includes(detailsEvent.consult?.name)
                 if (isFavoriteResult) {
                     setClick(true)
@@ -106,11 +110,11 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
             if (userInfo.type !== 'user') return // early return para cualquiera que no sea usuario
 
             if (isClick && !isFavorite) {
-                const req = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${userInfo.id}`)
+                const req = await axios.get(`${API}user/${userInfo.id}`)
                 let isFavoriteResult = req.data.favorite[0]?.includes(detailsEvent.consult?.name)
                 if (isFavoriteResult) return
 
-                await axios.put(`https://event-henryapp-backend.herokuapp.com/api/user/fav`,{
+                await axios.put(`${API}user/fav`,{
                     id_user: userInfo.id,
                     event: {
                         name: detailsEvent.consult.name,
@@ -121,7 +125,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
             }
             else if (!isClick && isFavorite) {
                 const removeFavorite = async () => {
-                    await axios.put(`https://event-henryapp-backend.herokuapp.com/api/user/fav`,{
+                    await axios.put(`${API}user/fav`,{
                     id_user: userInfo.id,
                     event: id
                 })
@@ -231,8 +235,17 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                     <p>{` ${detailsEvent.consult.tags}`}</p>
                                     <h4>Clasificación:</h4>                            
                                     <p>{` ${detailsEvent.consult.age_rating}`}</p>
-                                    <h4>Precio:</h4>
-                                    <p>{` $${detailsEvent.consult.price}`}</p>
+                                    {detailsEvent.consult.sectorize==='no sectorizar'?
+                                    <>
+                                        <h4>Precio:</h4>                                    
+                                        <p>{` $${detailsEvent.consult.price}`}</p>
+                                    </>:detailsEvent.consult.sectorize==='sectorizar sin croquis'?
+                                    <>
+                                        <h4>Precio:</h4> 
+                                        {detailsEvent.consult.sections?.map(p=><p>{p.name}: ${p.price}</p>)}
+                                    </>:null
+                                    }
+                                    
                                 </div>                                
                             </div>
                         </div>
@@ -240,20 +253,21 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                         {user.type !== 'user'? <div></div>: 
                             <>
                             {detailsEvent.consult.sectorize==='sectorizar con croquis' ?                              
-                                <CroquisEvent idEvent={id} data={detailsEvent.consult.sections}/>
+                                <CroquisEvent idEvent={id} data={detailsEvent.consult.sections} />
                                 :null
                             }
                             {detailsEvent.consult.sectorize==='sectorizar sin croquis' ?                              
-                                <SelectSectorSin idEvent={id} data={detailsEvent.consult.sections}/>
+                                <SelectSectorSin idEvent={id} data={detailsEvent.consult.sections} detailsEvent={detailsEvent.consult}/>
                                 :null
                             }
-
-                            {eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
-                                <button onClick={() => setShopping(detailsEvent.consult)}>
-                                <span className={styles.icon}>
-                                    <i className="fas fa-shopping-cart"></i>
-                                </span>
-                                </button>
+                            {detailsEvent.consult.sectorize==='no sectorizar' ? 
+                                eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
+                                    <button onClick={() => setShopping(detailsEvent.consult)}>
+                                        <span className={styles.icon}>
+                                            <i className="fas fa-shopping-cart"></i>
+                                        </span>
+                                    </button>
+                                :null
                             }
                             </>
                         }
@@ -347,6 +361,7 @@ function mapStateToProps(state) {
         cart: state.cartState,
         user: state.userState,
         modalConfirm: state.modalConfirm,
+ 
     };
 }
 

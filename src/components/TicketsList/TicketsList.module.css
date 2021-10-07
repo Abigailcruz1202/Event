@@ -1,8 +1,16 @@
 .li{
-    width: 900px;
+    width: 270px;
+    height: 500px;
     background-color: var(--White);
     color: var(--Black);
     margin: 20px;
     display: flex;
-
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 35px;
+    box-shadow: var(--Shadow);
 }
+
+/* .li:hover{
+  
+} */

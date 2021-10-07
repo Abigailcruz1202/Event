@@ -27,7 +27,7 @@ import {
   RESET_SHOPPING,
   ADD_TICKET,
   DELETE_TICKET,
-
+  TIKETS_SECTIONS,
   CHANGE_MODAL_CONFIRM,
   GET_TICKETS,
   } from "../actions/actions";
@@ -75,8 +75,11 @@ import {
     checkoutItems:[],
     checkoutTotal:0,
     ticketItems: [],
+
     // grafica 
     grafica:[],
+    ticketsSections:[],
+
   };
 
  
@@ -293,6 +296,12 @@ import {
     return{
       ...state,
       ticketItems: state.ticketItems.filter(e => e.idEvent !== action.payload) 
+    }
+  }
+  if(action.type === TIKETS_SECTIONS){
+    return{
+      ...state,
+      ticketsSections:[...state.ticketsSections,action.payload],
     }
   }
 

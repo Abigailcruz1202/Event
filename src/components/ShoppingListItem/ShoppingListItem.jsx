@@ -14,6 +14,8 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addT
       quantity: NumItem,
       currency: 'MXN'
   }
+
+ 
   const ticket = {
     idUser: user.id,
     nameUser: user.fullName,
