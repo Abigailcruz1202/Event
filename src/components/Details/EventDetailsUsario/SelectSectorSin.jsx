@@ -48,12 +48,9 @@ const SelectSectorSin = ({data,idEvent,detailsEvent, user}) =>{
             idEvent,
         }
         dispatch(addShopping(obj))
-        //setEventCart(cart.filter(e =>  e.id === detailsEvent.id))
+
     }
-    //  //* funcion agregar al carrito...Gerardo
-    //  let eventCart = []
-    //  // detailsEvent.consult?
-    //  eventCart = cart.filter(e =>  e.id === detailsEvent.id)
+
     
     return(
         eventCart.length >= 1? <h3>Este evento ya se agrego al carrito</h3>: 

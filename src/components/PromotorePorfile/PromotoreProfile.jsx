@@ -1,19 +1,22 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import ListEvent from "./ListEvent";
-import {Bar} from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import Grafica from  './GraphPromoter'
 import styles from './PromotorePorfile.module.css';
-import {Link} from 'react-router-dom'
-import { getEventPromoter,getTickets } from "../../actions/actions";
-import { connect, useDispatch} from 'react-redux';
-import Loading from '../Loading/Loading'
+import { Link, useParams } from 'react-router-dom';
+import { getEventPromoter, getPromoterUser } from "../../actions/actions";
+import { connect, useSelector, useDispatch } from 'react-redux';
+import Loading from "../Loading/Loading";
 
 const PromotorePorfile = ({userData, getEventPromoter, promoterEvents,getTickets,grafica}) =>{
-const dispatch=useDispatch()
-   //const [render, setRender] = useState(false)
+ // STATES:
+    const [render, setRender] = useState(false);
+    const dispatch =useDispatch();
+    const promoterUser=useSelector(state=>state.promoterUser);
+    const userInfo = useSelector(state => state.userState);
+
 
     useEffect(()=>{
-         
 
         const getEvents = async()=>{
             try{
@@ -26,64 +29,15 @@ const dispatch=useDispatch()
         }
         const eventos = getEvents()
     },[])
-   
-    // useEffect( () => {
-    //     const fetchData = async () => {
-    //         try{
-    //             await dispatch(getTickets(userData.id))
-    //             //setRender(true)
-                
-    //         }catch(error){
-    //             alert('Algo salio mal al cargar este evento.')
-    //         }
-    //     }
-    //     fetchData()
-    
-        
-    // },[userData]);
-    // console.log('holis soy graf ',grafica)
 
-
-
-//if(render){
-//     console.log('hola soy la grafica',grafica)
-//   let datoss= grafica.map((e)=>e.totalVenta)
-//   console.log('somo el total', datoss )
-//   let numeroPrecio =[];
-//   if(datoss.length>0){
-//     for (let index = 0; index < datoss.length; index++) {
-//       numeroPrecio.push(parseFloat(datoss[index]))
-      
-//     }
-//   }
-//   console.log('ya me transforme',numeroPrecio)
-//   let etiquetas =grafica.map((e)=>e.nameEvent)
-//   console.log('somos etiquetas',etiquetas)
-//   let datas1 = numeroPrecio.reduce((a) => a);
-//   console.log('somo los dtos',datas1)
-// //  console.log('hola soy la suma',datas1)
- 
-
-//   const datas = {
-//     labels: [etiquetas],
-//     datasets: [
-//       {
-//         legend: {
-//       display: false},
-//      label:'Ventas ',
-//         backgroundColor: '#194358',
-//         borderColor: '#00171f',
-//         borderWidth: 1,
-//         hoverBackgroundColor: '#00b4d8',
-//         hoverBorderColor: '#f1f1f1',
-//         data: [numeroPrecio],
-//          maintainAspectRatio: false,
-//           fontColor:'#00b4d8',
-//       }
-//     ]
-//   };
-
-
+    useEffect( async ()=>{
+        await dispatch(getPromoterUser(userData.id))
+        setRender(true)
+    },[userData.id])
+    console.log("ID: ", userData.id);
+    console.log("A VER PROMOTER USER: ", promoterUser);
+    if(render) {
+    const followCount = promoterUser.eventPromotor.followed_by.length;
     return(
         <div className={styles.contPrin}>
             <div className={styles.contProfile}>
@@ -93,9 +47,10 @@ const dispatch=useDispatch()
             </div>
             <div className={styles.contInfo} >
                 <h3>{userData.business_type} {userData.business_name}</h3>
+                <span>Tienes {followCount} seguidores</span>
             </div>
             <hr/>
-            
+
             <div className={styles.contEvents}>
                 <div className={styles.barEvent}>  
                     <h4>Mis Eventos</h4>
@@ -136,12 +91,10 @@ const dispatch=useDispatch()
 
         </div>
     );
+} else {
+    return (<Loading/>)
+  }
 }
-
-// else{
-//     return (<Loading/>)
-//   }
-// }
 function mapStateToProps(state){
     return {
         promoterEvents:state.promoterEvents,
