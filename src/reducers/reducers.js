@@ -29,6 +29,7 @@ import {
   DELETE_TICKET,
   TIKETS_SECTIONS,
   CHANGE_MODAL_CONFIRM,
+  GET_TICKETS,
   } from "../actions/actions";
 
   // Pruebas para guardar usuario en el local storage
@@ -74,7 +75,11 @@ import {
     checkoutItems:[],
     checkoutTotal:0,
     ticketItems: [],
+
+    // grafica 
+    grafica:[],
     ticketsSections:[],
+
   };
 
  
@@ -300,7 +305,12 @@ import {
     }
   }
 
-
+  if(action.type === GET_TICKETS){
+    return{
+      ...state,
+      grafica: action.payload
+    }
+  }
 
 
   
