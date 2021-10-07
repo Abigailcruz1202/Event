@@ -13,9 +13,9 @@
     color: var(--Black);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     box-shadow: var(--Shadow);
-   
+   text-align: center;
 }
 
 .containerData{
