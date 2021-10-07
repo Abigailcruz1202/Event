@@ -4,25 +4,29 @@ import { addShopping, tiketsSections } from '../../../actions/actions';
 import { useDispatch, useSelector } from "react-redux";
 
 const SelectSectorSin = ({data,idEvent,detailsEvent, user}) =>{
-
     const dispatch = useDispatch()
-    const ticketsSections = useSelector(state => state.ticketsSections)
+    const cart = useSelector(state=>state.cartState,)
+    const [eventCart, setEventCart] = useState([])
     const [secciones, setSecciones]=useState([])
     const [comprar, setComprar] = useState({
         name:'',
         limit:'',
         price:'',
     })
+
     useEffect(()=>{
          setSecciones(data.map((d)=>d.name))
     },[data])
+
+    useEffect(()=>{
+        setEventCart(cart.filter(e =>  e.id === detailsEvent.id))
+    },[cart])
+
     const changeSection=(e)=>{
         setComprar(data.find(s=>s.name === e.target.value))
     }
-    const addCar = ()=>{
-        console.log(detailsEvent,'jjjjjjjjjjjjjjjjjjjj')
-        console.log(user,'userrrrrrrrrrrrrrr')
 
+    const addCar = ()=>{
         const obj={
             id:detailsEvent.id,
             name:detailsEvent.name,
@@ -44,12 +48,17 @@ const SelectSectorSin = ({data,idEvent,detailsEvent, user}) =>{
             idEvent,
         }
         dispatch(addShopping(obj))
-        // detailsEvent.obj = obj
-        // dispatch(tiketsSections(obj))
+        //setEventCart(cart.filter(e =>  e.id === detailsEvent.id))
     }
-    //console.log(ticketsSections,'eyyyyuuuuuuuuuuuuuuuuuuuuu')
+    //  //* funcion agregar al carrito...Gerardo
+    //  let eventCart = []
+    //  // detailsEvent.consult?
+    //  eventCart = cart.filter(e =>  e.id === detailsEvent.id)
+    
     return(
+        eventCart.length >= 1? <h3>Este evento ya se agrego al carrito</h3>: 
         <>
+            
             <select className={styles.selectSections} onChange={changeSection}>
                 <option value="" >Seleccione Sector</option>
                 {secciones.map(seccion=>
