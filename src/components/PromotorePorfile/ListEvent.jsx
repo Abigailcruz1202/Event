@@ -21,12 +21,12 @@ import Evento from './Event';
 //     }
 //   })()}
 
-const ListEvent = ({events})=>{
+const ListEvent = ({events,user})=>{
     
     return(
         <div className={styles.containerList}>
             {(()=>{
-                if(events.length===0){
+                if(events.length===0 && !user){
                     return(<Bienvenido/>)
                 }else{
                     return( events?.map((event,id)=>

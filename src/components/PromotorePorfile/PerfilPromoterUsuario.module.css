@@ -78,14 +78,14 @@
     flex-direction: column;
     align-items: center;
     background-color: var(--Primary);
-    width: 280px;
-    height: 220px;
+    width: 200px;
+    height:220px;
     margin:30px;
     margin-bottom: 50px;
     padding: 30px;
     border-radius: var(--RadiusOne);
     box-shadow: var(--ShadowOne) ;
-    position: relative;
+ 
   }
   @media (max-width: 768px) { 
   .card{
@@ -107,10 +107,11 @@
   
   }  
   .titleCard {
-    color: var(--White);
-    z-index: 10;
-    font-size: var(--TitleCard);
-    font-size: 20px;
+    font-size: 3vh;
+        color: var(--White);
+        text-decoration: none;
+        width: 100%;
+        height: 10%
     }
     @media (max-width: 420px) { 
         .titleCard{
@@ -131,17 +132,57 @@
 
       .cards{
         display: flex;
-        z-index: 300;
+        z-index: 100;
       }
       .generalRating {
         color: var(--White);
-        font-size: x-large;
+        font-size: 15px;
         text-shadow: 2px 2px 3px black;
       }
       .generalStars {
-        font-size: x-large;
+        font-size: 15px;
         color: var(--Button);
       }
-      .no-rating {
+      .norating {
+        font-size: 1vh;
         color: var(--White);
+        text-decoration: none;
+        width: 100%;
+        height: 10%;
+      }
+      .links{
+        text-decoration: none;
+        color: var(--White);
+      }
+      .pag-completa{
+        align-items: center;
+        margin-left: 600px;
+    
+    }
+    .pag{
+       
+      align-items: center;
+      
+    
+    }
+    .page{
+        display:inline-block;
+        direction: column;
+        flex-direction: column;
+        width: 45px;
+    }
+    .paglink{
+     text-decoration: none;
+     border-radius: 15px;
+     background-color: transparent;
+     color:var(--White);
+    
+    }
+    .paglink:hover{
+        background-color:var(--Black);
+    }
+    .paglink:focus {
+        z-index: 2;
+        outline: 0;
+        box-shadow: 0 0 0 .2rem  var(--Button)
       }

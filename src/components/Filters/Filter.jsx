@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux';
-import { orderAscPrice, orderDescPrice, filterCountry, filterProvince, filterTags, filterAgeRating, filterWeekdays, getEvents, removeFilters } from '../../actions/actions';
+import { removeTypes, addTypes, orderAscPrice, orderDescPrice, filterCountry, filterProvince, filterTags, filterAgeRating, filterWeekdays, getEvents, removeFilters } from '../../actions/actions';
 import styles from './Filter.module.css';
 
 //tags -- age_rating
 
 export function Filters(props) {
     // console.log(props)
-    const stateFilters = useSelector(state => state.filters)
+    const stateFilters = useSelector(state => state.eventsHome)
     const stateHome = useSelector(state => state.home)
+    const stateTypesFilters = useSelector(state => state.typesFilters)
 
     const tags = ["Exteriores", "Interiores", "En vivo", "Recital", "Teatro", "Película", "Disco", "Deportes"]
     const age_rating = ["0+", "7+", "13+", "18+"]
@@ -18,6 +19,7 @@ export function Filters(props) {
     const DEPARTAMENTOS = ['Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bolívar', 'Boyacá', 'Caldas', 'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía', 'Guaviare', 'Huila', 'La Guajira', 'Magdalena', 'Meta', 'Nariño', 'Norte de Santander', 'Putumayo', 'Quindío', 'Risaralda', 'San Andrés y Providencia', 'Santander', 'Sucre', 'Tolima', 'Valle del Cauca', 'Vaupés', 'Vichada']
     const PROVINCIAS = ['Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba', 'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa', 'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro', 'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe', 'Santiago del Estero', 'Tierra del Fuego', 'Tucumán']
 
+    const [typesFilters, setTypesFilter] = useState([])
     const [state, setState] = useState()
     const [type, setType] = useState('')
     const [country, setCountry] = useState()
@@ -26,6 +28,10 @@ export function Filters(props) {
     useEffect(() => {
         props.getEvents()
     }, [get])
+
+    useEffect(() => {
+        if(typesFilters)props.addTypes(typesFilters)
+    }, [typesFilters])
 
     useEffect(()=>{
         if(type === 'DESC'){
@@ -38,67 +44,77 @@ export function Filters(props) {
     },[type,props.orderAscPrice, props.orderDescPrice])
 
     const handleChange = (e) => {
-        console.log('TIPO:', e.target.name)
         let val = e.target.value;
         if (e.target.name === 'tags') {
             if (stateFilters.length === 0) {
                 result = stateHome.filter((e) => e.tags === val)
-                console.log(val, '....¿IF', result)
                 props.filterTags(result)
             } else {
                 result = stateFilters.filter((e) => e.tags === val)
-                console.log(result, 'stateELSE', val)
                 props.filterTags(result)
             }
+            if(typesFilters.length === 0){
+                setTypesFilter(['Tipos de eventos'])
+                }else if(!typesFilters.includes('Tipos de eventos')){
+                 setTypesFilter([...typesFilters,'Tipos de eventos'])
+                }
         }
         if (e.target.name === 'age_rating') {
             if (stateFilters.length === 0) {
                 result = stateHome.filter((e) => e.age_rating === val)
-                console.log(val, '....¿IF', result)
                 props.filterAgeRating(result)
             } else {
                 result = stateFilters.filter((e) => e.age_rating === val)
-                console.log(result, 'state ELSE', val)
                 props.filterAgeRating(result)
             }
-            // props.filterAgeRating(val)
+            if(typesFilters.length === 0){
+                setTypesFilter(['Clasificación'])
+                }else if(!typesFilters.includes('Clasificación')){
+                 setTypesFilter([...typesFilters,'Clasificación'])
+                }
         }
         if (e.target.name === 'weekdays') {
             if (stateFilters.length === 0) {
                 result = stateHome.filter((e) => e.weekdays.find((day) => day === val))
-                console.log(val, '....¿IF', result)
                 props.filterWeekdays(result)
             } else {
                 result = stateFilters.filter((e) => e.weekdays.find((day) => day === val))
-                console.log(result, 'state ELSE', val)
                 props.filterWeekdays(result)
             }
-            // props.filterWeekdays(val)
+            if(typesFilters.length === 0){
+                setTypesFilter(['Días'])
+                }else if(!typesFilters.includes('Días')){
+                 setTypesFilter([...typesFilters,'Días'])
+                }
         }
         if (e.target.name === 'country') {
             setCountry(val)
             if (stateFilters.length === 0) {
                 result = stateHome.filter((e) => e.location.country === val)
-                console.log(val, '....¿IF', result)
                 props.filterCountry(result)
             } else {
                 result = stateFilters.filter((e) => e.location.country === val)
-                console.log(result, 'state ELSE', val)
                 props.filterCountry(result)
             }
-            // props.filterCountry(val)
+            if(typesFilters.length === 0){
+                setTypesFilter(['País'])
+                }else if(!typesFilters.includes('País')){
+                 setTypesFilter([...typesFilters,'País'])
+                }
         }
         if (e.target.name === 'province') {
             if (stateFilters.length === 0) {
                 result = stateHome.filter((e) => e.location.province === val)
-                console.log(val, '....¿IF', result)
                 props.filterProvince(result)
             } else {
                 result = stateFilters.filter((e) => e.location.province === val)
-                console.log(result, 'state ELSE', val)
                 props.filterProvince(result)
             }
-            // props.filterProvince(e.target.value)
+            if(typesFilters.length === 0){
+                setTypesFilter(['Región'])
+                }else if(!typesFilters.includes('Región')){
+                 setTypesFilter([...typesFilters,'Región'])
+                }
         }
     }
     const orderChange = (e) => {
@@ -109,12 +125,10 @@ export function Filters(props) {
                 result = stateHome.sort((a, b) => b.price - a.price)
                 setState(result)
                 console.log('if,"DESC"')
-                // props.orderDescPrice(result)
             }else {
                 result = stateFilters.sort((a, b) => b.price - a.price)
                 setState(result)
                 console.log('else,"DESC"')
-                // props.orderDescPrice(result)
             }
         }
         if (e.target.name === 'ASC') {
@@ -123,18 +137,16 @@ export function Filters(props) {
             if(stateFilters.length === 0 || stateFilters === undefined){
             result = stateHome.sort((a, b) => a.price - b.price)
             setState(result)
-            console.log('if,"ASC"')
-            // props.orderAscPrice(result)
             }else{
                 result = stateFilters.sort((a, b) => a.price - b.price)
                 setState(result)
-                console.log('else,"ASC"')
-                // props.orderAscPrice(result)
             }
         }
     }
     const all = (e) => {
         props.removeFilters()
+        props.removeTypes()
+        setTypesFilter([])
     }
     return (
         <div className={styles.divFilters}>
@@ -183,8 +195,7 @@ export function Filters(props) {
                             })}</>
                         : null
             }
-
         </div>
     )
 }
-export default connect(null, { orderAscPrice, orderDescPrice, filterCountry, filterProvince, filterTags, filterAgeRating, getEvents, filterWeekdays, removeFilters })(Filters)
+export default connect(null, { removeTypes, addTypes, orderAscPrice, orderDescPrice, filterCountry, filterProvince, filterTags, filterAgeRating, getEvents, filterWeekdays, removeFilters })(Filters)
