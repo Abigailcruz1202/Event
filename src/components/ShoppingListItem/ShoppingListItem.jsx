@@ -21,7 +21,7 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addT
     nameUser: user.fullName,
     idEvent: event.id,
     nameEvent: event.name,
-    idPromoter: event.promoter.id,
+    idPromoter: event.idPromoter,
     price: event.price,
     total: Number(event.price) * NumItem,
     quantity: NumItem,
