@@ -27,7 +27,12 @@ export const REMOVE_FILTERS = 'REMOVE_FILTERS';
 export const CHANGE_MODAL = 'CHANGE_MODAL';//leo
 export const CHANGE_MODAL_CONFIRM = 'CHANGE_MODAL_CONFIRM';//leo
 export const SEARCH_NAME = 'SEARCH_NAME'; //Abi
-export const PROMOTER_USER = ' PROMOTER_USER'//daf
+
+export const REMOVE_NAME = 'REMOVE_NAME'; //Abi
+export const PROMOTER_USER =' PROMOTER_USER'//daf
+export const ADD_TYPES = 'ADD_TYPES'; //Abi
+export const REMOVE_TYPES = 'REMOVE_TYPES'; //Abi
+
 
 //*shopping Cart
 export const ADD_SHOPPING = 'ADD_SHOPPING';
@@ -42,7 +47,11 @@ export const TIKETS_SECTIONS = 'TIKETS_SECTIONS'
 // Follow
 export const PUT_FOLLOW = 'PUT_FOLLOW';
 
+// grafica 
+export const  GET_TICKETS = 'GET_TICKETS'
 
+
+ 
 // export const API = 'http://localhost:3001/api/'
 export const API = 'https://event-henryapp-backend.herokuapp.com/api/'
 
@@ -196,8 +205,22 @@ export function orderDescPrice(type) {
     payload: type
   }
 }
-export function removeFilters() {
-  return {
+
+export function addTypes(types){
+  // console.log('ACTION!TYPES: ',types)
+  return{
+    type:ADD_TYPES,
+    payload:types
+  }
+}
+export function removeTypes(){
+  return{
+    type:REMOVE_TYPES
+  }
+}
+export function removeFilters(){
+  return{
+
     type: REMOVE_FILTERS
   }
 }
@@ -228,6 +251,11 @@ export function searchName(name) {
   return {
     type: SEARCH_NAME,
     payload: name
+  }
+}
+export function clearSearch(){
+  return{
+    type:REMOVE_NAME
   }
 }
 //daf
@@ -296,6 +324,20 @@ export function tiketsSections(info) {
     type: TIKETS_SECTIONS, payload: info
   }
 }
+
+export function getTickets(id){
+  return async function (dispatch){
+    const response = await
+    axios.get(`${API}${'ticket/promoter/'}${id} `)
+    dispatch({
+      type:GET_TICKETS,
+      payload: response.data
+    })
+  }
+}
+
+
+
 
 // (Lucio) Seguir (PUT Follow)
 // export function putFollow(follow){

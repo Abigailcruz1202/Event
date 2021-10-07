@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styles from "./ShoppingListItem.module.css";
-import { addCheckout, deleteCheckout, addTicket, deleteTicket, setTotalCheckout } from "../../actions/actions";
+import { addCheckout, deleteCheckout, addTicket, deleteTicket } from "../../actions/actions";
 
-const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addTicket, user, deleteTicket }) => {
+const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addTicket, user, deleteTicket, sections }) => {
   
   const [NumItem, setNumItem] = useState(1);
   const [NewPrice, setNewPrice] = useState(event.price)
@@ -15,16 +15,13 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addT
       currency: 'MXN'
   }
 
-  // const dateFormat = (ticket) => {
-  //       const date = ticket.split("-");
-  //       return  `${date[2]}/${date[1]}/${date[0]}`;
-  //     };
+ 
   const ticket = {
     idUser: user.id,
     nameUser: user.fullName,
     idEvent: event.id,
     nameEvent: event.name,
-    idPromoter: event.promoter.id,
+    idPromoter: event.idPromoter,
     price: event.price,
     total: Number(event.price) * NumItem,
     quantity: NumItem,
@@ -35,6 +32,7 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addT
   }
 
   useEffect(() => {
+
     addCheckout(eventCheck)
     addTicket(ticket)
   }, [NumItem])
@@ -88,6 +86,7 @@ function mapStateToProps(state) {
   return {
     checkOut: state.checkoutItems,
     user: state.userState,
+    sections: state.ticketsSections
   };
 }
 
