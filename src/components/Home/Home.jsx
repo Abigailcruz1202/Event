@@ -105,6 +105,7 @@ const pgUpFiltered = (e) => {
                             <span style={{ marginLeft: '10px' }}>{`"${e}"`}</span>
                           )
                         })}
+                       <h5 style={{ marginBlockEnd: '0', marginLeft: '10px', cursor: 'pointer', textDecoration: 'underline', color: '#f5af00' }} onClick={all}>Eliminar Filtros</h5>
                       </>
                       : null}
                   <div align="center">
