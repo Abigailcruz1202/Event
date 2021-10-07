@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { getEventDetail } from "../../actions/actions";
+import {useDispatch, useSelector } from "react-redux";
+import { getEventDetail, tiketsSections } from "../../actions/actions";
 import SelectSector from "../Details/EventDetailsUsario/SelectSector";
 import styles from './CroquisEvent.module.css'
 import FilaEvent from "./FilaEvent";
 
 const CroquisEvent = ({data, modPut, idEvent})=>{
     const dispatch = useDispatch()
+    //const ticketsSections = useSelector(state => state.ticketsSections)
     const [dataUpdate, setDataUpdate] = useState([...data])
     const [croquis, setCroquis] = useState({
         name:'',
@@ -20,17 +21,32 @@ const CroquisEvent = ({data, modPut, idEvent})=>{
         price:croquis.price,
         tickets:[]
     });//tikets selecionados
-    useEffect( () => {
-        const fetchData = async () => {
-            try{
-                dispatch(getEventDetail(idEvent))
-            }catch(error){
-               console.log(error)
-            }
+    // useEffect( () => {
+    //     const fetchData = async () => {
+    //         try{
+    //             dispatch(getEventDetail(idEvent))
+    //         }catch(error){
+    //            console.log(error)
+    //         }
+    //     }
+    //     fetchData()        
+    // },[croquis]);
+    
+    const addCar = ()=>{
+        const obj={
+            type:true,//croquis?
+            dataUpdate,
+            info:tickets,
+            idEvent,
         }
-        fetchData()        
-    },[croquis]);
- 
+        dispatch(tiketsSections(obj))
+        setTickets({
+            sectionName:croquis.name,
+            updateLimit:croquis.limit,
+            price:croquis.price,
+            tickets:[]
+        })
+    }
     const changeSection = (e)=>{
         let act = data.find(sec => sec.name === e.target.value)
         setCroquis(act)
@@ -59,10 +75,8 @@ const CroquisEvent = ({data, modPut, idEvent})=>{
         const index = dataUpdate.findIndex(sec=>sec.name === croquis.name)
         const newData = dataUpdate
         newData[index].filas[puesto.fila-1][puesto.silla-1].estado='no disponible'
-        console.log(dataUpdate,'dataaaaaaaaaaaaaaaa')
         setDataUpdate(newData)
     }
-
     return (
     <div className={styles.contTable}>
             <SelectSector data={data} changeSection={changeSection}/>
@@ -76,6 +90,11 @@ const CroquisEvent = ({data, modPut, idEvent})=>{
                                             />)}
             </tbody>   
             </table>
+            {tickets.tickets.length? 
+                <button onClick={addCar}>Agregar al carrito</button>:
+                null   
+            }
+            
                
     </div>
     )
