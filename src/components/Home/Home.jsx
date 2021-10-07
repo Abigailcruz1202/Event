@@ -72,7 +72,17 @@ const pgUpFiltered = (e) => {
         <h5 style={{ marginBlockEnd: '0', marginLeft: '10px', cursor: 'pointer', textDecoration: 'underline', color: '#f5af00' }} onClick={all}>Regresar</h5>
         </>
         :filters.length > 0 ?
-        <><h5 style={{ marginBlockEnd: '0', marginLeft: '10px', cursor: 'pointer', textDecoration: 'underline', color: '#f5af00' }} onClick={all}>Eliminar Filtros</h5>
+        <>
+        {stateTypesFilters.length ?
+                      <><p style={{ marginLeft: '10px' }}>Filtros activos:</p>
+                        {stateTypesFilters.map((e) => {
+                          return (
+                            <span style={{ marginLeft: '10px' }}>{`"${e}"`}</span>
+                          )
+                        })}
+                      </>
+                      : null}
+        <h5 style={{ marginBlockEnd: '0', marginLeft: '10px', cursor: 'pointer', textDecoration: 'underline', color: '#f5af00' }} onClick={all}>Eliminar Filtros</h5>
         {/* PAGINATION BUTTONS WITHOUTFILTERS */}
         <div align="center">
           <input type="button" onClick={pgDn} disabled={pages <= 0} value="<" />
@@ -88,6 +98,15 @@ const pgUpFiltered = (e) => {
         :<div>
         <Carousel />
                   {/* PAGINATION BUTTONS WITHOUTFILTERS */}
+                  {stateTypesFilters.length ?
+                      <><p style={{ marginLeft: '10px' }}>Filtros activos:</p>
+                        {stateTypesFilters.map((e) => {
+                          return (
+                            <span style={{ marginLeft: '10px' }}>{`"${e}"`}</span>
+                          )
+                        })}
+                      </>
+                      : null}
                   <div align="center">
           <input type="button" onClick={pgDn} disabled={pages <= 0} value="<" />
           <span>
