@@ -8,6 +8,7 @@ import right from '../../Utilities/right.svg'
 import Slide from "./Slide";
 import { API } from "../../actions/actions";
 import axios from "axios";
+import spinner from '../../Utilities/spinner.gif'
 import {Link} from 'react-router-dom'
 //import { useDispatch, useSelector } from "react-redux";
 
@@ -85,12 +86,15 @@ const Carousel = ()=>{
  
         <div className={styles.contMain}>
             <div className={styles.contSlideShow} ref={slideShow}>
-                {/* Diego: Agregue la propiedad key y cambie las imagenes de la FakeDB para evitar errores en consola*/}
-                {data.map(e=>
-                   // <Link to={`/eventDetailsUsuario/${e.id}`}>
+                
+                {
+                    data.length? (data.map(e=>
                         <Slide key={e.id} img={e.pictures[0]} name={e.name} id={e.id} />
-                    //</Link>
-                )}
+                    )
+                ) : (
+                        <img className={styles.spinner} src={spinner} alt="Loading..." />
+                )
+                }
             </div>
             <div className={styles.control}>
                 <button className={styles.left} onClick={previous}>
