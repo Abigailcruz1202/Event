@@ -47,10 +47,8 @@ const UserPorfile = ({ userState }) => {
                 </Link>
             </div>
 
-            <div className={styles.favorites}>
                 <h3>Siguiendo:</h3>
                 { /* (Lucio) Cuanto antes quitarle el hardcodeo a todo esto */}
-            </div>
         </div>
     )
 };
