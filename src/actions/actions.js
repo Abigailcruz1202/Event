@@ -31,6 +31,7 @@ export const REMOVE_NAME = 'REMOVE_NAME'; //Abi
 export const PROMOTER_USER =' PROMOTER_USER'//daf
 export const ADD_TYPES = 'ADD_TYPES'; //Abi
 export const REMOVE_TYPES = 'REMOVE_TYPES'; //Abi
+export const PROMOTER_USER =' PROMOTER_USER'//daf
 
 //*shopping Cart
 export const ADD_SHOPPING = 'ADD_SHOPPING';
