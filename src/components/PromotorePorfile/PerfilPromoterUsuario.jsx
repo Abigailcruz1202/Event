@@ -31,8 +31,6 @@ const PromotorePorfile = () =>{
     console.log('soy user: ', userInfo);
     PONER LOS LOGS QUE SE QUIERAN PROBAR ABAJO: */
 
-   
-
     useEffect( async ()=>{
         await dispatch(getPromoterUser(id))
         setRender(true)
@@ -46,7 +44,7 @@ const PromotorePorfile = () =>{
         const eventos = promoterUser.eventPromotor.events?.slice(indexOfFirstEvents,indexOfLastEvents)
         const  p = np =>setPage(np)
         const whats ={url:`https://api.whatsapp.com/send?phone=${promoterUser.eventPromotor.phone}`}
-
+        const followCount = promoterUser.eventPromotor.followed_by.length;
         return(
 
         <div className={styles.contPrin}>
@@ -59,7 +57,7 @@ const PromotorePorfile = () =>{
             </div>
             <h3>{promoterUser.eventPromotor.business_name}</h3>
             <h3>{promoterUser.eventPromotor.business_type} </h3>
-            <span>0 seguidores</span>
+            <span>{followCount} seguidores</span>
            { /* Convertir en link y derivar a view que liste los seguidores */ }
             { userInfo?.type === 'user' ?
                 <FollowButton /> :
@@ -84,12 +82,10 @@ const PromotorePorfile = () =>{
                         <Loading/>
                     }
                 </div>
-              
                 <Pagination epp={epp} totalEvents={promoterUser.eventPromotor.events?.length} p={p} />
                 {console.log('naaa', promoterUser.eventPromotor.events?.length)
                 }
-                
-            
+
             </div>
         </div>
         );
