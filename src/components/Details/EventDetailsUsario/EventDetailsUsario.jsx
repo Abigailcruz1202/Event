@@ -38,7 +38,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
     const detailsEvent = useSelector(state => state.detailsEvent)
     const userInfo = useSelector(state => state.userState)
     
-    
+    console.log(detailsEvent.sections)
     //console.log(JSON.parse(detailsEvent.consult.sectorize),'aquiiiiiiiiiiiiiiii mirameeeeeeeeeeee no te hagasssssssss')
     useEffect( () => {
         const fetchData = async () => {
@@ -80,6 +80,8 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
     const setShopping = (event) => {
         addShopping(event)
     }
+  
+    
     
     // Diego: Permite saber si el usuario ya tiene este evento como Favorito para actualizarlo en el DOM
     useEffect(() => {
@@ -233,8 +235,17 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                     <p>{` ${detailsEvent.consult.tags}`}</p>
                                     <h4>Clasificación:</h4>                            
                                     <p>{` ${detailsEvent.consult.age_rating}`}</p>
-                                    <h4>Precio:</h4>
-                                    <p>{` $${detailsEvent.consult.price}`}</p>
+                                    {detailsEvent.consult.sectorize==='no sectorizar'?
+                                    <>
+                                        <h4>Precio:</h4>                                    
+                                        <p>{` $${detailsEvent.consult.price}`}</p>
+                                    </>:detailsEvent.consult.sectorize==='sectorizar sin croquis'?
+                                    <>
+                                        <h4>Precio:</h4> 
+                                        {detailsEvent.consult.sections?.map(p=><p>{p.name}: ${p.price}</p>)}
+                                    </>:null
+                                    }
+                                    
                                 </div>                                
                             </div>
                         </div>
@@ -350,6 +361,7 @@ function mapStateToProps(state) {
         cart: state.cartState,
         user: state.userState,
         modalConfirm: state.modalConfirm,
+ 
     };
 }
 

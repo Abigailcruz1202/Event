@@ -38,7 +38,7 @@ export const SET_TOTAL_CHECKOUT = 'SET_TOTAL_CHECKOUT';
 export const RESET_SHOPPING = 'RESET_SHOPPING';
 export const ADD_TICKET = 'ADD_TICKET';
 export const DELETE_TICKET = 'DELETE_TICKET';
-
+export const TIKETS_SECTIONS = 'TIKETS_SECTIONS'
 // Follow
 export const PUT_FOLLOW = 'PUT_FOLLOW';
 
@@ -289,6 +289,11 @@ export function setTotalCheckout(total){
 export function resetShopping(){
   return{
     type: RESET_SHOPPING
+  }
+}
+export function tiketsSections(info){
+  return{
+    type: TIKETS_SECTIONS, payload:info
   }
 }
 
