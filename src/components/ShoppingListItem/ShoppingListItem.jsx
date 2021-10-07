@@ -28,7 +28,11 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addT
     direction: event.address,
     date: event.start_date,
     schedule: event.schedule,
-    seating: ['a1','a2']
+    seating: ['a1','a2'],
+    nameSection: null,
+    // locationCountry: cos.location.country,
+    // locationProvince: cos.location.province,
+    // locationCity: cos.location.city
   }
 
   useEffect(() => {
