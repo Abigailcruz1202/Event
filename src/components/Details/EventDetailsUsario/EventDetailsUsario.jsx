@@ -257,7 +257,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                 :null
                             }
                             {detailsEvent.consult.sectorize==='sectorizar sin croquis' ?                              
-                                <SelectSectorSin idEvent={id} data={detailsEvent.consult.sections} detailsEvent={detailsEvent.consult}/>
+                                <SelectSectorSin idEvent={id} data={detailsEvent.consult.sections} detailsEvent={detailsEvent.consult} user={user}/>
                                 :null
                             }
                             {detailsEvent.consult.sectorize==='no sectorizar' ? 

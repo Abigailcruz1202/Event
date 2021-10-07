@@ -15,15 +15,15 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent})=>{
         filas:[],
     });//croquis que renderizo
 
-    useEffect(()=>{
-        if(ticketsSections.length){
-            let eventsAddCroquis = ticketsSections.filter(t=>t.type === true)
-            console.log(eventsAddCroquis[eventsAddCroquis.length-1].dataUpdate)
-            data=eventsAddCroquis[eventsAddCroquis.length-1].dataUpdate
-            console.log(ticketsSections,'ticketsSections')
-            console.log(data)
-        }
-    },[croquis])//actualiza la data
+    // useEffect(()=>{
+    //     if(ticketsSections.length){
+    //         let eventsAddCroquis = ticketsSections.filter(t=>t.type === true)
+    //         console.log(eventsAddCroquis[eventsAddCroquis.length-1].dataUpdate)
+    //         data=eventsAddCroquis[eventsAddCroquis.length-1].dataUpdate
+    //         console.log(ticketsSections,'ticketsSections')
+    //         console.log(data)
+    //     }
+    // },[croquis])//actualiza la data
 
     const [dataUpdate, setDataUpdate] = useState([...data])
     const [tickets, setTickets] = useState({
