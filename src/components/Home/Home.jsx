@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import styles from "./Home.module.css";
 import ActivityCards from "../ActivityCards/ActivityCards";
 import Carousel from "../Carousel/Carousel";
@@ -28,59 +28,6 @@ const Home = ({ switchSide, getEventsHome, events, filters, removeFilters, remov
     clearSearch()
   }
 
-  return (
-    <>
-      <NavBarHome />
-      <div className={styles.container}>
-        {switchSide ? <div className={styles.sideBar}>
-          <SideBar />
-        </div> : <div></div>}
-        <div className={styles.conC}>
-          {/* <Carousel /> */}
-          {/* {stateTypesFilters.map((e)=>{
-          return(
-            <p>{e}</p>
-          )
-        })} */}
-          {
-            filters === undefined ?
-              <><h4 style={{ marginLeft: '10px' }}>No se encontró lo que buscaba..</h4>
-                <h5 style={{ marginBlockEnd: '0', marginLeft: '10px', cursor: 'pointer', textDecoration: 'underline', color: '#f5af00' }} onClick={all}>Regregsar</h5>
-              </>
-              : filters.length > 0 ?
-                <><h5 style={{ marginBlockEnd: '0', marginLeft: '10px', cursor: 'pointer', textDecoration: 'underline', color: '#f5af00' }} onClick={all}>Eliminar Filtros</h5>
-                  <ActivityCards events={filters} />
-                </>
-                : events.length !== 0 ?
-                  <div>
-                    <Carousel />
-                    {stateTypesFilters.length ?
-                      <><p style={{ marginLeft: '10px' }}>Filtros activos:</p>
-                        {stateTypesFilters.map((e) => {
-                          return (
-                            <span style={{ marginLeft: '10px' }}>{`"${e}"`}</span>
-                          )
-                        })}
-                      </>
-                      : null}
-                    <ActivityCards events={events} />
-                  </div>
-                  : <>
-                    <p style={{ marginLeft: '10px' }}>Filtros activos:</p>
-                    {stateTypesFilters.map((e) => {
-                      return (
-                        <span style={{ marginLeft: '10px' }}>{`"${e}"`}</span>
-                      )
-                    })}
-                    <h4 style={{ marginLeft: '10px' }}>No se encontró lo que buscaba..</h4>
-                    <h5 style={{ marginBlockEnd: '0', marginLeft: '10px', cursor: 'pointer', textDecoration: 'underline', color: '#f5af00' }} onClick={all}>Regregsar</h5>
-                  </>
-          }
-
-        </div>
-
-
-}
 // (Lucio) PAGINATION REDUCERS
 let thisPage = events && events.slice(pages, pages + pageSize);
 let filteredPage = filters && filters.slice(pages, pages + pageSize);
@@ -152,7 +99,7 @@ const pgUpFiltered = (e) => {
             </div>
           <ActivityCards events={thisPage} /></div>}
         
-
+          </div>
       </div>
     </>
   );

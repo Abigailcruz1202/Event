@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import styles from './UserPorfile.module.css'
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
+// import SubCarousel from '../SubCarousel/SubCarousel' 
 import axios from 'axios';
 import ListEvent from "../PromotorePorfile/ListEvent";
 
@@ -13,8 +14,8 @@ const UserPorfile = ({ userState }) => {
             let data;
             try {
                 data = await axios.get(`https://event-henryapp-backend.herokuapp.com/api/user/${id}`)
-                    setInfo(data.data.favorite.map((e)=> JSON.parse(e)))
-                    console.log(info,'info')
+                setInfo(data.data.favorite.map((e) => JSON.parse(e)))
+                console.log(info, 'info')
             } catch (error) {
                 console.log(error)
             }
@@ -29,30 +30,26 @@ const UserPorfile = ({ userState }) => {
                 </div>
                 {/* <h4 className={styles.ciudad}>Bogotá, Colombia</h4> */}
             </div>
-
             <div className={styles.contInfo} >
                 <h3>¡Bienvenido! {userState.username}</h3>
             </div>
 
-                <div className={styles.myEvents}>
-                    <h3>Favoritos:</h3>
-                    { info ? <ListEvent events={info} user={true}/> : <span></span> }
-                </div>
+            <div className={styles.myEvents}>
+                <h3>Favoritos:</h3>
+                {info ? <ListEvent events={info} user={true} /> : <span></span>}
+            </div>
 
-            <div className={styles.favorites}>
-                <h3>Siguiendo:</h3>
-                { /* (Lucio) Cuanto antes quitarle el hardcodeo a todo esto */}
             <div className={styles.buttonContainer}>
                 <Link to={`/tickets/${id}`}>
                     <button>
                         Mis Compras
                     </button>
-                </Link> 
+                </Link>
             </div>
-            <div className={styles.myEvents}>
-                {info?
-            <div>
-                <Event props={info} />
+
+            <div className={styles.favorites}>
+                <h3>Siguiendo:</h3>
+                { /* (Lucio) Cuanto antes quitarle el hardcodeo a todo esto */}
             </div>
         </div>
     )
