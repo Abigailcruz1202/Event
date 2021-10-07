@@ -47,13 +47,13 @@ export default function CreateComment() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[userInfo])
 
-    useEffect(() => {
-        if (performance.navigation.type == performance.navigation.TYPE_RELOAD) return (
-            alert('Algo salio mal.'),
-            window.location = `/eventDetailsUsuario/${input.event_id}`
-        )
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    // useEffect(() => {
+    //     if (performance.navigation.type == performance.navigation.TYPE_RELOAD) return (
+    //         alert('Algo salio mal.'),
+    //         window.location = `/eventDetailsUsuario/${input.event_id}`
+    //     )
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[])
 
     useEffect(() => {
         if (commentedBefore === true) setCanComment(false)
