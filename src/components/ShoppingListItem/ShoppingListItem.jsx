@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styles from "./ShoppingListItem.module.css";
-import { addCheckout, deleteCheckout, addTicket, deleteTicket, setTotalCheckout } from "../../actions/actions";
+import { addCheckout, deleteCheckout, addTicket, deleteTicket } from "../../actions/actions";
 
-const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addTicket, user, deleteTicket }) => {
+const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addTicket, user, deleteTicket, sections }) => {
   
   const [NumItem, setNumItem] = useState(1);
   const [NewPrice, setNewPrice] = useState(event.price)
@@ -32,6 +32,7 @@ const ShoppingListItem = ({ event, setDelCart, addCheckout, deleteCheckout, addT
   }
 
   useEffect(() => {
+
     addCheckout(eventCheck)
     addTicket(ticket)
   }, [NumItem])
@@ -85,6 +86,7 @@ function mapStateToProps(state) {
   return {
     checkOut: state.checkoutItems,
     user: state.userState,
+    sections: state.ticketsSections
   };
 }
 
