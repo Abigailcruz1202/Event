@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import paypal from "paypal-checkout";
 import { resetShopping } from "../../actions/actions";
 
-const PayPalCheckoutButton = ({ order, resetShopping, tickets }) => {
+const PayPalCheckoutButton = ({ order, resetShopping, tickets, user }) => {
   const API = 'https://event-henryapp-backend.herokuapp.com/api/ticket/create'
   const history = useHistory();
   const redirec = (dir) => {
@@ -75,7 +75,7 @@ const PayPalCheckoutButton = ({ order, resetShopping, tickets }) => {
           console.log(response)
           alert(`el pago se realizo correctamente, ID: ${response.id}`)
 
-          redirec("/");
+          redirec(`/tickets/${user.id}`);
           tickets.map( async ticket => (
             await fetchPostTicket(ticket)
           ))
@@ -114,7 +114,8 @@ const PayPalCheckoutButton = ({ order, resetShopping, tickets }) => {
 
 function mapStateToProps(state) {
   return {
-    tickets: state.ticketItems
+    tickets: state.ticketItems,
+    user: state.userState
   };
 }
 

@@ -346,7 +346,7 @@ export function FormUsers() {
             </div>
 
           </div>
-          <button className={styles.btn} type="submit">
+          <button className="bigBtn" type="submit">
             ¡Registrarme!
           </button>
         </div>

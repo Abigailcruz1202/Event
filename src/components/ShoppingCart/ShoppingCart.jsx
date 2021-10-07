@@ -7,10 +7,16 @@ import ShoppingData from "../ShoppingData/ShoppingData";
 import ShoppingOthers from "../ShoppingOthers/ShoppingOthers";
 import { getEventsHome } from "../../actions/actions";
 
-const ShoppingCart = ({ cart, getEventsHome }) => {
+const ShoppingCart = ({ cart, getEventsHome, home }) => {
   //*p___________________________________________________________
   const [OffSetY, setOffSetY] = useState(0);
   const handleScroll = () => setOffSetY(window.pageYOffset);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    getEventsHome();
+  }, []);
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -71,10 +77,11 @@ const ShoppingCart = ({ cart, getEventsHome }) => {
                 Checkout
                 </button>
               </Link>
-
+                {home.length === 0? <h3>No hay eventos para mostrar</h3>: 
               <div>
                 <ShoppingOthers />
               </div>
+              }
             </>
           )}
         </div>
@@ -86,6 +93,7 @@ const ShoppingCart = ({ cart, getEventsHome }) => {
 function mapStateToProps(state) {
   return {
     cart: state.cartState,
+    home: state.eventsHome
   };
 }
 

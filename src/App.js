@@ -1,4 +1,5 @@
-import './App.css';
+import './css/App.css';
+import './css/Buttons.css';
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { setUser, addShopping } from "./actions/actions";
@@ -49,16 +50,13 @@ function App({ setUser, user, modal, modalForm, cart, addShopping, modalConfirm 
 
       <NavBar />
 
-
-
-
-
       <Route exact path='/'>
         <Home />
       </Route>
 
       <Route exact path='/login'>
-        <LoginContainer />
+        {user.msg? <Redirect to='/perfil'/>:  <LoginContainer />}
+       
       </Route>
 
       <Route exact path='/registration'>
@@ -122,8 +120,6 @@ function App({ setUser, user, modal, modalForm, cart, addShopping, modalConfirm 
         <Croquis/>
       </Route> */}
 
-
-
       <Footer />
       {modal.render ? <Modal message={modal.message} type={modal.type} /> : null}
       {modalConfirm.render && <ModalConfirm message={modalConfirm.message} type={modalConfirm.type}/>}
@@ -131,7 +127,6 @@ function App({ setUser, user, modal, modalForm, cart, addShopping, modalConfirm 
     </>
   );
 }
-
 
 function mapStateToProps(state) {
   return {

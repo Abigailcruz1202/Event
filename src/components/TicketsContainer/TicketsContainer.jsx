@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+/* import React, { useEffect, useState } from 'react';
 import { useRouteMatch } from "react-router-dom"; 
 import axios from 'axios';
 import styles from './TicketsContainer.module.css';
@@ -10,7 +10,7 @@ import "moment/locale/es";
 const TicketsContainer = () => {
      const API = 'https://event-henryapp-backend.herokuapp.com/api/'
     // const API = 'http://localhost:3001/api/'
-    // const ID = 'd123cf7a-e1f7-4e21-b425-7f905ade9954'
+    // const ID = 'fb3a7e28-67cf-434f-855e-2b83acab361f'
     const props = useRouteMatch();
     const ID = props.params.id;
     
@@ -88,3 +88,4 @@ const setSwitchProx = () => {
 }
 
 export default TicketsContainer
+ */
