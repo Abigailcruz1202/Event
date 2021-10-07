@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from './SelectSector.module.css'
-import { tiketsSections } from '../../../actions/actions';
+import { addShopping, tiketsSections } from '../../../actions/actions';
 import { useDispatch, useSelector } from "react-redux";
 
-const SelectSectorSin = ({data,idEvent}) =>{
+const SelectSectorSin = ({data,idEvent,detailsEvent}) =>{
 
     const dispatch = useDispatch()
     const ticketsSections = useSelector(state => state.ticketsSections)
@@ -16,6 +16,7 @@ const SelectSectorSin = ({data,idEvent}) =>{
         setComprar(data.find(s=>s.name === e.target.value))
     }
     const addCar = ()=>{
+        dispatch(addShopping(detailsEvent))
         const obj={
             type:false,//croquis?
             info:comprar,

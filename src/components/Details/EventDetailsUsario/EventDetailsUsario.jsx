@@ -253,11 +253,11 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                         {user.type !== 'user'? <div></div>: 
                             <>
                             {detailsEvent.consult.sectorize==='sectorizar con croquis' ?                              
-                                <CroquisEvent idEvent={id} data={detailsEvent.consult.sections}/>
+                                <CroquisEvent idEvent={id} data={detailsEvent.consult.sections} />
                                 :null
                             }
                             {detailsEvent.consult.sectorize==='sectorizar sin croquis' ?                              
-                                <SelectSectorSin idEvent={id} data={detailsEvent.consult.sections}/>
+                                <SelectSectorSin idEvent={id} data={detailsEvent.consult.sections} detailsEvent={detailsEvent.consult}/>
                                 :null
                             }
                             {detailsEvent.consult.sectorize==='no sectorizar' ? 
