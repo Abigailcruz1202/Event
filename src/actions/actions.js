@@ -27,7 +27,7 @@ export const REMOVE_FILTERS = 'REMOVE_FILTERS';
 export const CHANGE_MODAL = 'CHANGE_MODAL';//leo
 export const CHANGE_MODAL_CONFIRM = 'CHANGE_MODAL_CONFIRM';//leo
 export const SEARCH_NAME = 'SEARCH_NAME'; //Abi
-export const  PROMOTER_USER =' PROMOTER_USER'//daf
+export const PROMOTER_USER =' PROMOTER_USER'//daf
 
 //*shopping Cart
 export const ADD_SHOPPING = 'ADD_SHOPPING';

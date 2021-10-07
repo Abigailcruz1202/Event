@@ -1,6 +1,6 @@
 
 import React, { useState,useEffect } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from './PerfilPromoterUsuario.module.css';
 import {Link, useParams} from 'react-router-dom';
 import {getPromoterUser} from '../../actions/actions';
