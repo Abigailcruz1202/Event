@@ -1,14 +1,12 @@
 import React from "react";
 import styles from './Modal.module.css';
 import correct from '../../Utilities/successGif.gif'
-import incorrect from '../../Utilities/error.png'
-import warning from '../../Utilities/spinner.gif'
 import ReactDOM  from "react-dom";
 import { changeModal } from "../../actions/actions";
 import { connect } from "react-redux";
 
 
-const Modal = ({type, message, changeModal})=>{
+const Modal = ({Type, message, changeModal})=>{
    const closeModal = ()=>{
         changeModal(null, null)
    }
@@ -16,11 +14,7 @@ const Modal = ({type, message, changeModal})=>{
         <div className={styles.cont}>
             <div className={styles.modalCont}>
                 <div className={styles.img}>
-                    {type==='correct'?
-                    <img src={correct} alt="" />:
-                    type === 'incorrect'?
-                    <img src={incorrect} alt="" />:
-                    <img src={warning} alt="" />    } 
+                    <img src={correct} alt="" />
                 </div>
                 <div className={styles.text}>
                     <p>
