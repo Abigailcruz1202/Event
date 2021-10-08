@@ -8,7 +8,7 @@ import { getEventPromoter, getPromoterUser } from "../../actions/actions";
 import { connect, useSelector, useDispatch } from 'react-redux';
 import Loading from "../Loading/Loading";
 
-const PromotorePorfile = ({userData, getEventPromoter, promoterEvents,getTickets,grafica}) =>{
+const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
  // STATES:
     const [render, setRender] = useState(false);
     const dispatch =useDispatch();
@@ -34,9 +34,7 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents,getTickets
         await dispatch(getPromoterUser(userData.id))
         setRender(true)
     },[userData.id])
-    console.log("ID: ", userData.id);
-    console.log("A VER PROMOTER USER: ", promoterUser);
-    if(render) {
+if(render) {
     const followCount = promoterUser.eventPromotor.followed_by.length;
     return(
         <div className={styles.contPrin}>
@@ -45,6 +43,7 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents,getTickets
                     <img src={userData.picture} alt="" />
                 </div>
             </div>
+
             <div className={styles.contInfo} >
                 <h3>{userData.business_type} {userData.business_name}</h3>
                 <span>Tienes {followCount} seguidores</span>
@@ -52,43 +51,17 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents,getTickets
             <hr/>
 
             <div className={styles.contEvents}>
-                <div className={styles.barEvent}>  
+                <div className={styles.barEvent}>
                     <h4>Mis Eventos</h4>
-                    <Link to='/FormEvent' className={styles.link}>              
-                        <button className={styles.btnAddEvent}>
-                            Nuevo Evento 
-                        </button>     
-                    </Link>           
+                    <Link to='/FormEvent' className={styles.link}>
+                        <button className="regularBtn">Nuevo Evento</button>
+                    </Link>
                 </div>
-            
+
                 <ListEvent events={promoterEvents}/>
                 <Grafica events ={userData}/>
-                
 
             </div>
-
-            {/* <div className='graphpromoter'>
-                
-        <h2 className='prueba'>Ventas</h2>
-        <Bar
-          data={datas}
-         
-         
-        />
-    </div> */}
-    {/* <div>
-            {(()=>{
-                if(grafica===0){
-                return(<h1>No hay ventas </h1>)
-            }else if(grafica>0){
-                return(
-                    console.log('entre'),
-                <Grafica events ={userData}/>)
-            }
-            
-            })()}
-            </div> */}
-
         </div>
     );
 } else {
@@ -98,7 +71,6 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents,getTickets
 function mapStateToProps(state){
     return {
         promoterEvents:state.promoterEvents,
-        //grafica:state.grafica
     }
 }
 

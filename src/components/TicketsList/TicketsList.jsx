@@ -6,10 +6,10 @@ const TicketsList = ( { ArrTickets } ) => {
     return (
         <>
         {ArrTickets.map(ticket => (
-             <li key={ticket.id} className={styles.li}>
-             <Ticket 
-               ticket={ticket}
-             />
+              <li key={ticket.id} className={styles.li}>
+                <Ticket 
+                  ticket={ticket}
+                />
               </li>
 
             ))}

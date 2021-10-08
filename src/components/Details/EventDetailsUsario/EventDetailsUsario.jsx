@@ -99,7 +99,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                     setFavorite(true)
                     return
                 }
-                // Si el corazon esta marcado, agregar
+                // Si el corazon esta marcado, y el evento no esta incluido, agregar
                 else if (heart && !favorite){
                     if (!checkIfFavorite.data.favorite.filter(e => e.includes(eventName)).length){
                         await axios.put(`${API}user/fav`,{
@@ -124,15 +124,21 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                 }
             
         } catch (error) {
-            console.log('entre al catch', error)
+            console.log(error)
         }
     }
     useEffect(() => {                
             if (userInfo.id && detailsEvent.consult) {
-                addOrRemoveFavorite(userInfo.id, detailsEvent.consult.name, detailsEvent.consult.id, isClick, isFavorite)
+                addOrRemoveFavorite(
+                    userInfo.id,
+                    detailsEvent.consult.name,
+                    detailsEvent.consult.id,
+                    isClick,
+                    isFavorite
+                )
             }
-            else console.log('me faltan datos')
-
+            else return
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[userInfo.id, detailsEvent.consult, isClick, isFavorite])
 
     
@@ -224,10 +230,6 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                 <div className={styles.rightColumn}>
                                     <h4>Fecha Finalización:</h4>
                                     <p>{` ${detailsEvent.consult.finish_date}`}</p>
-                                    <h4>Dias:</h4>
-                                    <p>{` ${detailsEvent.consult.weekdays.map((e)=>(e))}`}</p>
-                                    <h4>Horarios:</h4>
-                                    <p>{` ${detailsEvent.consult.schedule.map((e)=>(e))}`}</p>
                                     <h4>Tipo de Evento:</h4>
                                     <p>{` ${detailsEvent.consult.tags}`}</p>
                                     <h4>Clasificación:</h4>                            
@@ -280,7 +282,6 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                     alt=''
                                 />
                                 
-                           
                             <span className={styles.promoterName}>
                                     {`${detailsEvent.consult.promoter.business_name}`}
                                 </span>
