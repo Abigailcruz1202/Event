@@ -97,6 +97,25 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
         setDataUpdate(newData)
     }
 
+    const removeTicket = (puesto)=>{
+        let newTickets = tickets.tickets.filter(t=>!(t.fila===puesto.fila && t.silla===puesto.silla))
+        setTickets({
+            sectionName:croquis.name,
+            price:croquis.price,
+            tickets:newTickets,
+        });
+        const newArray = croquis.filas
+        newArray[puesto.fila-1][puesto.silla-1].estado = 'disponible'
+        setCroquis({
+            ...croquis,
+            filas:newArray
+        })
+        const index = dataUpdate.findIndex(sec=>sec.name === croquis.name)
+        const newData = dataUpdate
+        newData[index].filas[puesto.fila-1][puesto.silla-1].estado='disponible'
+        setDataUpdate(newData)
+    }
+
     return (
     eventCart.length >= 1? <h3>Este evento ya se agrego al carrito</h3>:
     <div className={styles.contTable}>
@@ -108,6 +127,7 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
                                                 data={fila}
                                                 addTicket={addTicket}
                                                 fila={i+1}
+                                                removeTicket={removeTicket}
                                             />)}
             </tbody>   
             </table>
