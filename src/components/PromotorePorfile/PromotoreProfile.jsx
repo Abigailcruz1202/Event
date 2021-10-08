@@ -14,7 +14,7 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
     const dispatch =useDispatch();
     const promoterUser=useSelector(state=>state.promoterUser);
     const userInfo = useSelector(state => state.userState);
-    console.log("PROMOTER USER: ", promoterUser)
+
 
     useEffect(()=>{
 
@@ -34,7 +34,7 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
         await dispatch(getPromoterUser(userData.id))
         setRender(true)
     },[userData.id])
-    if(render) {
+if(render) {
     const followCount = promoterUser.eventPromotor.followed_by.length;
     return(
         <div className={styles.contPrin}>
@@ -51,16 +51,16 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
             <hr/>
 
             <div className={styles.contEvents}>
-                <div className={styles.barEvent}>  
+                <div className={styles.barEvent}>
                     <h4>Mis Eventos</h4>
-                    <Link to='/FormEvent' className={styles.link}>              
+                    <Link to='/FormEvent' className={styles.link}>
                         <button className="regularBtn">Nuevo Evento</button>
                     </Link>
                 </div>
-            
+
                 <ListEvent events={promoterEvents}/>
                 <Grafica events ={userData}/>
-                
+
             </div>
         </div>
     );

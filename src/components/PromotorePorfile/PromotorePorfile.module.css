@@ -32,12 +32,12 @@
         border-bottom-right-radius: 0px;
     }
 }
-    /* @media (max-width: 420px) { 
+     @media (max-width: 420px) { 
       .card{
        width: 50vw;
        height: max-content;
       }
-    } */
+    } 
 
 .imgProfile{
     background: gray;
@@ -66,11 +66,11 @@
 .contEvents{
     width: 80%;
 }
-/* @media (max-width: 768px) { 
+@media (max-width: 768px) { 
     .contEvents{
         width: 100%;
     }
-} */
+} 
 
 .contEvents h4 {
     color:white;
@@ -82,7 +82,7 @@
     width: 150px;
     border-radius: 10px;
     background-color: var(--Button);
-    font-weight: 600;   
+    font-weight: 600;
 }
 .barEvent{
     display: flex;
