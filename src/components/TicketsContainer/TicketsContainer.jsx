@@ -1,4 +1,4 @@
-/* import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouteMatch } from "react-router-dom"; 
 import axios from 'axios';
 import styles from './TicketsContainer.module.css';
@@ -20,7 +20,6 @@ const TicketsContainer = () => {
      useEffect(() => {
     const fetchTickets = async () =>{
       const tickets = await axios.get(`${API}ticket/user/${ID}`)
-      console.log('tickets--------------',tickets)
       setArrTickets(tickets.data);
     }
     fetchTickets();
@@ -88,4 +87,3 @@ const setSwitchProx = () => {
 }
 
 export default TicketsContainer
- */
