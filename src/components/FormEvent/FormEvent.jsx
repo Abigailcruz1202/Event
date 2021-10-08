@@ -220,6 +220,18 @@ export function FormEvent(props) {
         }))
     }
 
+    const onCloseSectionCroquis = (e,name)=>{
+        e.preventDefault()
+        setEvent({
+            ...event,
+            sectoresCroquis:event.sectores.filter(s=>s.name!==name)
+        })
+        setErrors(validate({
+            ...event,
+            sectoresCroquis:event.sectores.filter(s=>s.name!==name)
+        }))
+    }
+
     const addCroquis = (e)=>{
         e.preventDefault()
         if(sectionsCroquis.nameC.length > 0 && sectionsCroquis.priceC.length > 0 && sectionsCroquis.filasC > 0 && sectionsCroquis.columnasC > 0){
@@ -806,7 +818,7 @@ export function FormEvent(props) {
                         </div>
                         <div className={styles.sectionsCont}>
                             <SectorsForm name='Sección' limit='Limite' price='Precio'/>
-                            {event.sectoresCroquis.map(s=>(<SectorsForm key={s.name} name={s.name} limit={s.limit} price={s.price} onCloseSection={onCloseSection}/>))}
+                            {event.sectoresCroquis.map(s=>(<SectorsForm key={s.name} name={s.name} limit={s.limit} price={s.price} onCloseSection={onCloseSectionCroquis}/>))}
                         </div>
                     </>
                     }
