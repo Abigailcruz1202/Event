@@ -45,7 +45,7 @@ const handleFollow = (e) => {
 
 
     return (
-        <button onClick={handleFollow} value={buttonStatus}>{buttonStatus}</button>
+        <button className="regularBtn" onClick={handleFollow} value={buttonStatus}>{buttonStatus}</button>
     )
 }
 

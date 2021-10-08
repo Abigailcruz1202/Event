@@ -47,13 +47,13 @@ export default function CreateComment() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[userInfo])
 
-    useEffect(() => {
-        if (performance.navigation.type == performance.navigation.TYPE_RELOAD) return (
-            alert('Algo salio mal.'),
-            window.location = `/eventDetailsUsuario/${input.event_id}`
-        )
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    // useEffect(() => {
+    //     if (performance.navigation.type == performance.navigation.TYPE_RELOAD) return (
+    //         alert('Algo salio mal.'),
+    //         window.location = `/eventDetailsUsuario/${input.event_id}`
+    //     )
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[])
 
     useEffect(() => {
         if (commentedBefore === true) setCanComment(false)
@@ -106,7 +106,7 @@ export default function CreateComment() {
                         <img className={style.newCommentSuccessImg}src={error} alt="Error." />
                         <p>No puedes comentar dos veces en el mismo evento.</p> 
                         <Link to={`/eventDetailsUsuario/${input.event_id}`}>
-                            <button className={style.newCommentButton}>Listo</button>
+                            <button className="regularBtn">Listo</button>
                         </Link>
                     </div>
                 ) : (
@@ -143,7 +143,7 @@ export default function CreateComment() {
                                     </label>
                                 </div>
                                 <br />
-                                <button type='submit' className={style.newCommentButton}>Enviar</button>                            
+                                <button type='submit' className="bigBtn">Enviar</button>                            
                             </form>
                         </div>
                     ) : (
@@ -151,7 +151,7 @@ export default function CreateComment() {
                             <img className={style.newCommentSuccessImg}src={success} alt="Fue un éxito." />
                             <p>Gracias por compartir tu opinión!</p> 
                             <Link to={`/eventDetailsUsuario/${input.event_id}`}>
-                                <button className={style.newCommentButton}>Listo</button>
+                                <button className="regularBtn">Listo</button>
                             </Link>
                         </div>
                     )

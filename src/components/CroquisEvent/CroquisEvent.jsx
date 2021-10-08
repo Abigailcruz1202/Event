@@ -49,19 +49,22 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
             promoterId:detailsEvent.promoterId,           
             type:true,//no croquis
             price:tickets.price,
+            quantity: tickets.tickets.length,
             nameSection:tickets.sectionName,
-            direction:detailsEvent.addres,
+            address:detailsEvent.address,
             locationCountry:detailsEvent.location.country,
             locationProvince:detailsEvent.location.province,
             locationCity:detailsEvent.location.city,
-            date:detailsEvent.start_date,
+            start_date:detailsEvent.start_date,
             schedule:detailsEvent.schedule,
             tags:detailsEvent.tags,
             pictures:detailsEvent.pictures,
-            seating:tickets.tickets,
+            seating:tickets.tickets.map(e => (
+                ` F${e.fila}/S${e.silla} `
+            )),
             idEvent,
         }
-        dispatch(addShopping(detailsEvent))
+        dispatch(addShopping(obj))
     }
         
     const changeSection = (e)=>{//cuando cambia la seccion se setea el plano del croquis
@@ -109,7 +112,7 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
             </tbody>   
             </table>
             {tickets.tickets.length? 
-                <button onClick={addCar}>Agregar al carrito</button>:
+                <button className="regularBtn" onClick={addCar}>Agregar al carrito</button>:
                 null   
             }
             

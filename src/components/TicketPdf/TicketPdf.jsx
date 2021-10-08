@@ -90,7 +90,7 @@ const TicketPdf = () => {
 
         <p className={styles.id}>{Ticket.id}</p>
       </div>
-      <button onClick={createPdf} type="primary">
+      <button className="bigBtn" onClick={createPdf} type="primary">
         PDF
       </button>
     </div>

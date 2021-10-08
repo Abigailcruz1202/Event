@@ -14,7 +14,7 @@ const SectorsForm = ({name, limit, price, onCloseSection})=>{
             </div>
             {
                 name==='Sección'&&limit==='Limite'&&price==='Precio'||
-                <button onClick={(e)=>onCloseSection(e,name)}>X</button>
+                <button className="regularBtn" onClick={(e)=>onCloseSection(e,name)}>X</button>
             }
             
         </div>

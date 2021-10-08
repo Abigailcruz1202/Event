@@ -12,8 +12,8 @@
 .btnUser{
     background-color: var(--Secondary);
     border-radius: var(--RadiusOne);
-  width: 90px;
-  padding: 5px 0 5px 0;
+  width: auto;
+  padding: 5px;
   cursor: pointer;
 }
 .btnUser:hover{
@@ -24,8 +24,8 @@
 .btnPromoter{
     background-color: var(--Button);
     border-radius: var(--RadiusOne);
-  width: 90px;
-  padding: 5px 0 5px 0;
+  width: auto;
+  padding: 5px;
   cursor: pointer;
 }
 .btnPromoter:hover{

@@ -1,4 +1,5 @@
-import './App.css';
+import './css/App.css';
+import './css/Buttons.css';
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { setUser, addShopping } from "./actions/actions";

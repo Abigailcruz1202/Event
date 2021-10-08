@@ -38,7 +38,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
     const detailsEvent = useSelector(state => state.detailsEvent)
     const userInfo = useSelector(state => state.userState)
     
-    console.log(detailsEvent.sections)
+    // console.log(detailsEvent.sections)
     //console.log(JSON.parse(detailsEvent.consult.sectorize),'aquiiiiiiiiiiiiiiii mirameeeeeeeeeeee no te hagasssssssss')
     useEffect( () => {
         const fetchData = async () => {
@@ -72,7 +72,12 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
     }
 
     useEffect(()=>{
-        setData(pushDta(detailsEvent))      
+        setData(pushDta(detailsEvent))  
+        return () => {
+            setData()  
+            setClick(false)
+            setFavorite(false)
+        }
     },[detailsEvent])
     
     
@@ -80,61 +85,57 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
     const setShopping = (event) => {
         addShopping(event)
     }
-  
-    
-    
-    // Diego: Permite saber si el usuario ya tiene este evento como Favorito para actualizarlo en el DOM
-    useEffect(() => {
-        const checkFavorite = async () => {
-            if (!userInfo.id) return
-            try {
-                const req = await axios.get(`${API}user/${userInfo.id}`)
-                let isFavoriteResult = req?.data.favorite[0].includes(detailsEvent.consult?.name)
-                if (isFavoriteResult) {
+
+    const addOrRemoveFavorite = async (userId, eventName, eventId, heart, favorite) =>{
+        try {
+                // Checa si usuario ya lo tenia agregado para cambiar corazon
+                const checkIfFavorite = await axios.get(`${API}user/${userId}`)
+                if (
+                    checkIfFavorite.data.favorite.filter(e => e.includes(eventName) && e.includes(id)).length
+                    && !heart
+                    && !favorite
+                ){
+
                     setClick(true)
                     setFavorite(true)
-                }                          
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        checkFavorite()
-    },[userInfo.id, detailsEvent])
-
-    // Diego: Si el usuario favoritea, se hace el put. Si ya habia favoriteado anteriormente, no se hace.
-    // Si destilda el corazon, se elimina de favoritos.
-    useEffect(() => {
-        const addToFavorites = async () => {
-            if (userInfo.type !== 'user') return // early return para cualquiera que no sea usuario
-
-            if (isClick && !isFavorite) {
-                const req = await axios.get(`${API}user/${userInfo.id}`)
-                let isFavoriteResult = req.data.favorite[0]?.includes(detailsEvent.consult?.name)
-                if (isFavoriteResult) return
-
-                await axios.put(`${API}user/fav`,{
-                    id_user: userInfo.id,
-                    event: {
-                        name: detailsEvent.consult.name,
-                        id: id
-                    },
-                })
-                setFavorite(true)
-            }
-            else if (!isClick && isFavorite) {
-                const removeFavorite = async () => {
-                    await axios.put(`${API}user/fav`,{
-                    id_user: userInfo.id,
-                    event: id
-                })
+                    return
                 }
-                removeFavorite()
-                setFavorite(false)
-            }
+                // Si el corazon esta marcado, agregar
+                else if (heart && !favorite){
+                    if (!checkIfFavorite.data.favorite.filter(e => e.includes(eventName)).length){
+                        await axios.put(`${API}user/fav`,{
+                            id_user: userId,
+                            event: {
+                                name: eventName,
+                                id: eventId
+                            },
+                        })
+                        setFavorite(true)
+                    }
+                    return
+                }
+                // Si el corazon esta desmarcado, eliminar
+                else if (!heart && favorite){
+                    await axios.put(`${API}user/fav`,{
+                        id_user: userId,
+                        event: eventId
+                    })
+                    setFavorite(false)
+                    return
+                }
+            
+        } catch (error) {
+            console.log('entre al catch', error)
         }
-        addToFavorites()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[isClick, isFavorite])
+    }
+    useEffect(() => {                
+            if (userInfo.id && detailsEvent.consult) {
+                addOrRemoveFavorite(userInfo.id, detailsEvent.consult.name, detailsEvent.consult.id, isClick, isFavorite)
+            }
+            else console.log('me faltan datos')
+
+    },[userInfo.id, detailsEvent.consult, isClick, isFavorite])
+
     
     if(render){
         
@@ -145,14 +146,15 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
         // detailsEvent.consult?
         eventCart = cart.filter(e =>  e.id === detailsEvent.consult.id)
         // :eventCart = []
+
         console.log(detailsEvent.consult)
-            return(   
+            return(
             <div className={styles.detailsAllUser}>
                 <div className='detailsCardUser'> 
                     <div className={styles.detailsCard2User}>
                         <h1 className={styles.titleCard}>{detailsEvent.consult.name}</h1>
                         <div className={styles.carouselImages}>                               
-                            <Carousel   
+                            <Carousel
                                 data={data}
                                 time={5000}
                                 width="650px"
@@ -259,8 +261,8 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                 :null
                             }
                             {detailsEvent.consult.sectorize==='no sectorizar' ? 
-                                eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
-                                    <button onClick={() => setShopping(detailsEvent.consult)}>
+                                eventCart.length === 1? <h3>Este evento ya se agregó al carrito</h3>: 
+                                    <button className="regularBtn" onClick={() => setShopping(detailsEvent.consult)}>
                                         <span className={styles.icon}>
                                             <i className="fas fa-shopping-cart"></i>
                                         </span>
@@ -302,13 +304,14 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                             ) : (
                                 userInfo.type === 'promoter' && detailsEvent.consult.promoterId === userInfo.id ? (
                                 <>
-                                    <button className={styles.button} onClick={editEvento}>Editar</button>
-                                    <button className={styles.button} onClick={deleteEvent}>Eliminar</button>
+                                    <button className="regularBtn" onClick={editEvento}>Editar</button>
+                                    <button className="regularBtn" onClick={deleteEvent}>Eliminar</button>
                                 </>
+
                                 ) : null
+
                             )
-                        
-                        } 
+                        }
                         </div>
 
                         <div className='comments-container'>
@@ -316,9 +319,9 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                             <div>
                                 {
                                     !userInfo.type ? (
-                                        <button 
-                                        onClick={e => alert('Solo usuarios logeados pueden dejar comentarios')}
-                                        className={styles.button}>    
+                                        <button
+                                        onClick={e => alert('Solo usuarios logueados pueden dejar comentarios')}
+                                        className="regularBtn">    
                                                 Reseña
                                         </button>
                                     ) : (
@@ -330,7 +333,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                                 eventName: detailsEvent.consult.name
                                             }
                                         }}>
-                                            <button className={styles.button}>Reseña</button>
+                                            <button className="regularBtn">Reseña</button>
                                         </Link>
                                         
                                         ) : (
