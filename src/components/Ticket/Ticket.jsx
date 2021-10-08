@@ -1,4 +1,4 @@
-import React from "react";
+ import React from "react";
 import {Link} from 'react-router-dom';
 import styles from "./Ticket.module.css";
 import moment from "moment";
@@ -15,19 +15,19 @@ const Ticket = ({ ticket }) => {
     <>
       {today.format("L") === day.format("L") ? (
         <div className={styles.today}>
-          <h4>Hoy</h4>
+          <h4 className={styles.titles}>Hoy</h4>
           <h5>El gran dia</h5>
         </div>
       ) : (
         <>
           {today < day ? (
             <div className={styles.prox}>
-              <h4>Proximamente</h4>
+              <h4 className={styles.titles}>Proximamente</h4>
               <h5>{moment(day).endOf('hour').fromNow()}</h5>
             </div>
           ) : (
             <div className={styles.ocur}>
-              <h4>Ocurrido</h4>
+              <h4 className={styles.titles}>Ocurrido</h4>
               <h5>{moment(day).endOf('hour').fromNow()}</h5>
             </div>
           )}
@@ -51,7 +51,9 @@ const Ticket = ({ ticket }) => {
         <p className={styles.p}>{ticket.price}</p>
         <p className={styles.p}>Total: {ticket.total}</p>
       </div>
+      
       <div>
+      <p className={styles.p}>Asientos</p>
         <ul className={styles.ul}>
           {ticket.seating.map((e) => (
             <li key={e}>{e}</li>
