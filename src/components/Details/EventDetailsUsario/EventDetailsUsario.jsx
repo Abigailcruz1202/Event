@@ -300,13 +300,13 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                             !userInfo.type ? (
                                 <span>&nbsp;</span>
                             ) : (
-                                userInfo.type === 'promoter' ? (
+                                userInfo.type === 'promoter'&& detailsEvent.consult.promoterId === userInfo.id ? (
                                 <>
                                     <button className={styles.button} onClick={editEvento}>Editar</button>
                                     <button className={styles.button} onClick={deleteEvent}>Eliminar</button>
                                 </>
                                 ) : (
-                                    <button className={styles.button}>Reservar</button>
+                                    null
                                 )
                             )
                         
