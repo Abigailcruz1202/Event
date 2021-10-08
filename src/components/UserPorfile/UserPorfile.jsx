@@ -41,14 +41,11 @@ const UserPorfile = ({ userState }) => {
 
             <div className={styles.buttonContainer}>
                 <Link to={`/tickets/${id}`}>
-                    <button>
-                        Mis Compras
-                    </button>
+                    <button className="regularBtn">Mis Compras</button>
                 </Link>
             </div>
 
                 <h3>Siguiendo:</h3>
-                { /* (Lucio) Cuanto antes quitarle el hardcodeo a todo esto */}
         </div>
     )
 };

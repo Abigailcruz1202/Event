@@ -2,7 +2,7 @@ import React from "react";
 import styles from './FilaEvent.module.css'
 import SillaEvent from "./SillaEvent";
 
-const FilaEvent = ({data, addTicket,fila})=>{
+const FilaEvent = ({data, addTicket,fila,removeTicket})=>{
     return (
             <tr>
                 {data.map((silla,i)=><SillaEvent 
@@ -10,6 +10,7 @@ const FilaEvent = ({data, addTicket,fila})=>{
                                         data={silla}
                                         addTicket={addTicket}
                                         fila={fila}
+                                        removeTicket={removeTicket}
                                     />)}
             </tr>       
     )

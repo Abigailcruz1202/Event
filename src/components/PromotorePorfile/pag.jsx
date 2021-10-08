@@ -9,13 +9,13 @@ function Pagination({ epp, totalEvents, p }) {
     for (let i = 1; i <= Math.ceil(totalEvents / epp); i++) {
         pageNumbers.push(i)
     }
-    console.log('spy page number', pageNumbers)
+    console.log('soy page number', pageNumbers)
     return (
         <nav className={styles.pagcompleta}>
             <ul className={styles.pag}>
                 {pageNumbers.map(n => (
                     <li key={n} className={styles.page}>
-                        <button onClick={() => p(n)} className={styles.paglink}>
+                        <button className="regularBtn" onClick={() => p(n)}>
                             {n}
                         </button>
                     </li>

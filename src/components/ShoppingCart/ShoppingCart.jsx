@@ -73,8 +73,8 @@ const ShoppingCart = ({ cart, getEventsHome, home }) => {
                 )}
               </div>
               <Link to="/checkout" >
-                <button className={styles.checkout}>
-                Checkout
+                <button className="bigBtn">
+                Comprar
                 </button>
               </Link>
                 {home.length === 0? <h3>No hay eventos para mostrar</h3>: 

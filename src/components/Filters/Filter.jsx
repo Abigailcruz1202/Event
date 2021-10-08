@@ -154,44 +154,44 @@ export function Filters(props) {
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Tipos de eventos:</h5>
 
             {tags.map((e, i) => {
-                return <button className={styles.butt} key={i} name='tags' value={e} onClick={handleChange}>{e}</button>
+                return  <button className="regularBtn"  key={i} name='tags' value={e} onClick={handleChange}>{e}</button>
             })}
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Clasificación:</h5>
 
             {age_rating.map((e, i) => {
-                return <button className={styles.butt} key={i} name='age_rating' value={e} onClick={handleChange}>{e}</button>
+                return  <button className="regularBtn"  key={i} name='age_rating' value={e} onClick={handleChange}>{e}</button>
             })}
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Días:</h5>
 
             {weekdays.map((e, i) => {
-                return <button className={styles.butt} key={i} name='weekdays' value={e} onClick={handleChange}>{e}</button>
+                return  <button className="regularBtn"  key={i} name='weekdays' value={e} onClick={handleChange}>{e}</button>
             })}
 
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Ordenar precios:</h5>
-            <button className={styles.butt} name='DESC' onClick={orderChange}>DESC</button>
-            <button className={styles.butt} name='ASC' onClick={orderChange}>ASC</button>
+             <button className="regularBtn"  name='DESC' onClick={orderChange}>DESC</button>
+             <button className="regularBtn"  name='ASC' onClick={orderChange}>ASC</button>
 
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>País:</h5>
 
             {countrys.map((e, i) => {
-                return <button className={styles.butt} key={i} name='country' value={e} onClick={handleChange}>{e}</button>
+                return  <button className="regularBtn"  key={i} name='country' value={e} onClick={handleChange}>{e}</button>
             })}
             {country === 'Argentina' ?
                 <><h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Provincia:</h5>
 
                     {PROVINCIAS.map((e, i) => {
-                        return <button className={styles.butt} key={i} name='province' value={e} onClick={handleChange}>{e}</button>
+                        return  <button className="regularBtn"  key={i} name='province' value={e} onClick={handleChange}>{e}</button>
                     })}</>
                 : country === 'México' ?
                     <><h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Estado:</h5>
 
                         {ESTADOS.map((e, i) => {
-                            return <button className={styles.butt} key={i} name='province' value={e} onClick={handleChange}>{e}</button>
+                            return  <button className="regularBtn"  key={i} name='province' value={e} onClick={handleChange}>{e}</button>
                         })}</>
                     : country === 'Colombia' ?
                         <><h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Departamento:</h5>
                             {DEPARTAMENTOS.map((e, i) => {
-                                return <button className={styles.butt} key={i} name='province' value={e} onClick={handleChange}>{e}</button>
+                                return  <button className="regularBtn"  key={i} name='province' value={e} onClick={handleChange}>{e}</button>
                             })}</>
                         : null
             }

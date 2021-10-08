@@ -69,7 +69,7 @@ const TicketPdf = () => {
           )}
           <p>{Ticket.direction}</p>
 
-          <p>Propietario(a): {Ticket.nameUser}</p>
+          <p>{Ticket.nameUser}</p>
           <p className={styles.p}>Entradas:</p>
           <p className={styles.p}>{Ticket.quantity}</p>
           <p className={styles.p}>Precio unitario:</p>
@@ -90,7 +90,7 @@ const TicketPdf = () => {
 
         <p className={styles.id}>{Ticket.id}</p>
       </div>
-      <button onClick={createPdf} type="primary">
+      <button className="bigBtn" onClick={createPdf} type="primary">
         PDF
       </button>
     </div>

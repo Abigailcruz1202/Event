@@ -57,12 +57,14 @@ console.log('GRAFICAAAA: ',grafica)
         }
       ]
     };
+    const options = {
+      responsive:false,
+      maintainAspectRatio: false,
+    }
     return (
       <div className='graphpromoter'>
         <h2 className='prueba'>Ventas</h2>
-        <div style={{ height: '300px' }}>
-          <Bar data={datas} />
-        </div>
+          <Bar data={datas} options={options} width='1200px' height='400px' />
       </div>
     );
   }

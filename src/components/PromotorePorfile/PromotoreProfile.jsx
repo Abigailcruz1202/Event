@@ -14,7 +14,7 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
     const dispatch =useDispatch();
     const promoterUser=useSelector(state=>state.promoterUser);
     const userInfo = useSelector(state => state.userState);
-
+    console.log("PROMOTER USER: ", promoterUser)
 
     useEffect(()=>{
 
@@ -43,6 +43,7 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
                     <img src={userData.picture} alt="" />
                 </div>
             </div>
+
             <div className={styles.contInfo} >
                 <h3>{userData.business_type} {userData.business_name}</h3>
                 <span>Tienes {followCount} seguidores</span>
@@ -53,10 +54,8 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
                 <div className={styles.barEvent}>  
                     <h4>Mis Eventos</h4>
                     <Link to='/FormEvent' className={styles.link}>              
-                        <button className={styles.btnAddEvent}>
-                            Nuevo Evento 
-                        </button>     
-                    </Link>           
+                        <button className="regularBtn">Nuevo Evento</button>
+                    </Link>
                 </div>
             
                 <ListEvent events={promoterEvents}/>
