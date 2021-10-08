@@ -40,3 +40,37 @@
 .btn:hover{
     background-color: rgb(197, 13, 13);
 }
+
+.title{
+    margin-top: 10px;
+    font-size: 40px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.p{
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
+
+.pSeating{
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-bottom: 0px;
+}
+
+.seating{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.ul{
+    display: flex;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.id{
+    font-weight: bold;
+}
