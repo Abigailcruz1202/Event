@@ -64,7 +64,7 @@ console.log('GRAFICAAAA: ',grafica)
     return (
       <div className='graphpromoter'>
         <h2 className='prueba'>Ventas</h2>
-          <Bar data={datas} options={options} width='1200px' height='400px' />
+          <Bar data={datas} options={options} width='1000px' height='400px' />
       </div>
     );
   }
