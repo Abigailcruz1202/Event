@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from './SelectSector.module.css'
-import { addShopping, tiketsSections } from '../../../actions/actions';
+import { addShopping, tiketsSections, updateInfoLimit } from '../../../actions/actions';
 import { useDispatch, useSelector } from "react-redux";
 
 const SelectSectorSin = ({data,idEvent,detailsEvent, user}) =>{
@@ -48,7 +48,15 @@ const SelectSectorSin = ({data,idEvent,detailsEvent, user}) =>{
             idEvent,
         }
         dispatch(addShopping(obj))
+        // let dataindex = data.findIndex(d=>d.name===comprar.name)
+        // let dataUpdateLimit = data.find(d=>d.name===comprar.name)
+        let objUpdate = {
+            idEvent:detailsEvent.id,
+            dataUpdate:data,
+            type:'sector'
+        }
 
+        //dispatch(updateInfoLimit(objUpdate))
     }
 
     

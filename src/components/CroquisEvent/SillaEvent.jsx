@@ -7,8 +7,8 @@ const SillaEvent =({data, addTicket,fila,removeTicket })=>{
         <td className={styles.td}>
             
             {data.estado === 'deshabilitado'?<span></span>:
-             data.estado === 'no disponible'?<span className={styles.sillaNd} onClick={()=>removeTicket({fila:parseInt(fila),silla:parseInt(data.silla)})}>◛</span>:
-                <span className={styles.silla} onClick={()=>addTicket({fila:parseInt(fila),silla:parseInt(data.silla)})}>◛</span>
+             data.estado === 'seleccionado'?<span className={styles.sillaNd} onClick={()=>removeTicket({fila:parseInt(fila),silla:parseInt(data.silla)})}>◛</span>:
+             data.estado === 'no disponible' ?<span className={styles.sillaNd}>◛</span>:    <span className={styles.silla} onClick={()=>addTicket({fila:parseInt(fila),silla:parseInt(data.silla)})}>◛</span>
             }   
                   
         </td>

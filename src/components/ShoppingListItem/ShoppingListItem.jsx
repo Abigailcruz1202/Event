@@ -24,6 +24,7 @@ const ShoppingListItem = ({
     sku: event.id,
     name: event.name,
     price: `${event.price}.00`,
+    //section: event.nameSection,
     quantity: NumItem,
     currency: "MXN",
   };
