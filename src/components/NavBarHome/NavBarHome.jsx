@@ -13,7 +13,7 @@ const NavBarHome = ({ setSideBar, switchSide}) => {
   return (
     <div>
       <div className={styles.subNav}>
-        <button className={styles.sideBarBtn} onClick={setSide}>
+        <button className="regularBtn" onClick={setSide}>
           <span className={styles.icon}>
             <i className="fas fa-bars"></i>
           </span>

@@ -13,15 +13,14 @@ const LogResponse = ( { styles,setNotFound, icono, message, messageTwo, switchBt
                 <p className="txColorWht margin0">{ messageTwo } </p>
                 {switchBtn
                 ?
-                <button className="btnForm margTop70" onClick={setNotFound}>
+                <button className="regularBtn" onClick={setNotFound}> {/* ¿¡QUÉ #/&$%&?!^* ES ESTOO !? */}
                 ok
               </button>
               :
               <div></div>
             }
-                
         </div>
     )
 }
 
-export default LogResponse
+export default LogResponse;

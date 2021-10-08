@@ -34,8 +34,8 @@ const ModalConfirm = ({Type, message, changeModalConfirm, detailsEvent})=>{
                         {message}
                     </p>
                 </div>
-                <button className={styles.btn} onClick={()=>closeModal('si')}>Si</button>
-                <button className={styles.btn} onClick={()=>closeModal('no')}>No</button>
+                <button className="regularBtn" onClick={()=>closeModal('si')}>Sí</button>
+                <button className="regularBtn" onClick={()=>closeModal('no')}>No</button>
             </div>
         </div>,
         document.getElementById("modal")

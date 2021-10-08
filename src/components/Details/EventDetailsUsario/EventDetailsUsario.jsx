@@ -260,8 +260,8 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                 :null
                             }
                             {detailsEvent.consult.sectorize==='no sectorizar' ? 
-                                eventCart.length === 1? <h3>Este evento ya se agrego al carrito</h3>: 
-                                    <button className="regularBtn"onClick={() => setShopping(detailsEvent.consult)}>
+                                eventCart.length === 1? <h3>Este evento ya se agregó al carrito</h3>: 
+                                    <button className="regularBtn" onClick={() => setShopping(detailsEvent.consult)}>
                                         <span className={styles.icon}>
                                             <i className="fas fa-shopping-cart"></i>
                                         </span>
@@ -310,8 +310,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                     <button className="regularBtn">Reservar</button>
                                 )
                             )
-                        
-                        } 
+                        }
                         </div>
 
                         <div className='comments-container'>
@@ -319,8 +318,8 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                             <div>
                                 {
                                     !userInfo.type ? (
-                                        <button 
-                                        onClick={e => alert('Solo usuarios logeados pueden dejar comentarios')}
+                                        <button
+                                        onClick={e => alert('Solo usuarios logueados pueden dejar comentarios')}
                                         className="regularBtn">    
                                                 Reseña
                                         </button>

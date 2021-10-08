@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import FormPromoter from "../FormPromoter/FormPromoter.jsx";
 import FormUsers from "../FormUsers/FormUsers";
 import styles from './Registration.module.css'
+import styles2 from '../LoginContainer/LoginContainer.module.css';
 
 const Registration = () => {
 const [Switch, setSwitch] = useState('user')
@@ -15,10 +16,10 @@ const switchBtn = () => {
 
     return (
         <div className={styles.mainContainer}>
-            <h2 className={styles.title}>Registrate</h2>
+            <h2 className={styles.title}>Regístrate</h2>
             <div className={styles.container}>
-                <button className='btnForm margin15 margBtm0' onClick={switchBtn}>User</button>
-                <button className='btnForm margin15 margBtm0' onClick={switchBtn}>Promoter</button>
+                <button className={styles2.btnUser} onClick={switchBtn}>Soy Usuario</button>
+                <button className={styles2.btnPromoter} onClick={switchBtn}>Soy Promotor</button>
             </div>
             
             {Switch === 'user'

@@ -53,10 +53,8 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
                 <div className={styles.barEvent}>  
                     <h4>Mis Eventos</h4>
                     <Link to='/FormEvent' className={styles.link}>              
-                        <button className={styles.btnAddEvent}>
-                            Nuevo Evento 
-                        </button>     
-                    </Link>           
+                        <button className="regularBtn">Nuevo Evento</button>
+                    </Link>
                 </div>
             
                 <ListEvent events={promoterEvents}/>

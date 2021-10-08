@@ -8,19 +8,20 @@ const Logout = ({ setOut, setUser, redirec }) => {
     }
     const setLog = () => {
         setUser({});
-        redirec('/')
-        setOut(false)
+        redirec('/');
+        setOut(false);
     }
     return (
         <div className={styles.container}>
-            <p>Estas a punto de cerrar tu sesión</p>
+            <p>Estas a punto de cerrar tu sesión.</p>
             <p>¿ Estás de acuerdo ?</p>
-            <button onClick={setNo} className={ styles.btnNo }>
+            <button onClick={setLog} className="regularBtn">
+                Sí
+            </button>
+            <button onClick={setNo} className="regularBtn">
                 No
             </button>
-            <button onClick={setLog} className={ styles.btnYes }>
-                Si
-            </button>
+
         </div>
     )
 }

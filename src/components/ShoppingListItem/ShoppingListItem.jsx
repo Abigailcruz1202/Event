@@ -94,12 +94,12 @@ const ShoppingListItem = ({
             {NumItem === 1 ? (
               <button className={styles.btnCount}></button>
             ) : (
-              <button onClick={setDel} className={styles.btnCount}>
+              <button onClick={setDel} className="regularBtn">
                 -
               </button>
             )}
             <p className={styles.num}>{NumItem}</p>
-            <button onClick={setAdd} className={styles.btnCount}>
+            <button onClick={setAdd} className="regularBtn">
               +
             </button>
           </div>
@@ -107,7 +107,7 @@ const ShoppingListItem = ({
         </>
       )}
 
-      <button onClick={() => setEliminate(event.id)} className={styles.close}>
+      <button onClick={() => setEliminate(event.id)} className="regularBtn">
         X
       </button>
     </>

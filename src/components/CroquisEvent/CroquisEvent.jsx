@@ -119,7 +119,7 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
             </tbody>   
             </table>
             {tickets.tickets.length? 
-                <button onClick={addCar}>Agregar al carrito</button>:
+                <button className="regularBtn" onClick={addCar}>Agregar al carrito</button>:
                 null   
             }
             
