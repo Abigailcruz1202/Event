@@ -140,13 +140,7 @@ const LoginPromoter = ({setUser, setPromoter, user,  promoter, nameComponent, na
       password: FormState.password
     };
     e.preventDefault();
-    if (!FormState.email || !FormState.password) {
-      setMessage("Todos los campos son obligatorios");
-      setTimeout(function () {
-        setMessage("");
-      }, 2000);
-      return;
-    } 
+   
     setLoading(true)
     try {
       let config = {
