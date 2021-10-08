@@ -36,7 +36,7 @@ const SelectSectorSin = ({data,idEvent,detailsEvent, user}) =>{
             type:false,//no croquis
             price:comprar.price,
             nameSection:comprar.name,
-            direction:detailsEvent.address,
+            address:detailsEvent.address,
             locationCountry:detailsEvent.location.country,
             locationProvince:detailsEvent.location.province,
             locationCity:detailsEvent.location.city,
