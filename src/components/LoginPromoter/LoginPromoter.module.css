@@ -12,13 +12,14 @@
 
 .message{
     color: var(--Other);
-    
+    text-align: center;
 }
 
 .form{
    background-color: var(--Primary);
    width: 450px;
-   height: 350px;
+   min-height: 400px;
+   max-height: fit-content;
    display: flex;
    flex-direction: column;
    align-items: center;

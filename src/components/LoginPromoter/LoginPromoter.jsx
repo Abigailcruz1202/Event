@@ -12,6 +12,7 @@ import { GoogleLogin } from "react-google-login";
 
 const LoginPromoter = ({setUser, setPromoter, user,  promoter, nameComponent, nameComponentOne, nameComponentTwo, messageFalse, messageTwoFalse }) => {
   const history = useHistory();
+  const API = 'https://event-henryapp-backend.herokuapp.com/api/'
 
   //*Estados______________________________________________________________________
   const [FormState, setFormState] = useState({
@@ -51,7 +52,7 @@ const LoginPromoter = ({setUser, setPromoter, user,  promoter, nameComponent, na
         },
         body: JSON.stringify(obj), 
       };
-      let res = await fetch(`${API}/promoter/login`, config);
+      let res = await fetch("https://event-henryapp-backend.herokuapp.com/api/promoter/login", config);
       let json = await res.json();
       let promoter = {
         msg:json.msg,
@@ -69,9 +70,9 @@ const LoginPromoter = ({setUser, setPromoter, user,  promoter, nameComponent, na
       } else {
         setLogger(true);
         setUser(promoter);
-        setTimeout(function () {
-          redirec("/");
-        }, 2000);
+        // setTimeout(function () {
+        //   redirec("/");
+        // }, 2000);
       }
     } catch (err) {
       console.log("error__________________", err);
@@ -138,12 +139,13 @@ const LoginPromoter = ({setUser, setPromoter, user,  promoter, nameComponent, na
       password: FormState.password
     };
     e.preventDefault();
-    // if (!FormState.mail || !FormState.pass) {
-    //   setMessage("Todos los campos son obligatorios");
-    //   setTimeout(function () {
-    //     setMessage("");
-    //   }, 1000);
-    // } 
+    if (!FormState.email || !FormState.password) {
+      setMessage("Todos los campos son obligatorios");
+      setTimeout(function () {
+        setMessage("");
+      }, 2000);
+      return;
+    } 
     setLoading(true)
     try {
       let config = {
@@ -163,9 +165,9 @@ const LoginPromoter = ({setUser, setPromoter, user,  promoter, nameComponent, na
       } else {
         setLogger(true);
         setUser(promoter);
-        setTimeout(function () {
-          redirec("/");
-        }, 2000);
+        // setTimeout(function () {
+        //   redirec("/");
+        // }, 2000);
       }
     } catch (err) {
       console.log("error__________________", err);

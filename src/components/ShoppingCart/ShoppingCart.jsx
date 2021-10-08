@@ -77,7 +77,7 @@ const ShoppingCart = ({ cart, getEventsHome, home }) => {
                 Comprar
                 </button>
               </Link>
-                {home.length === 0? <h3>No hay eventos para mostrar</h3>: 
+                {home.length < 3? <h3>No hay eventos para mostrar</h3>: 
               <div>
                 <ShoppingOthers />
               </div>

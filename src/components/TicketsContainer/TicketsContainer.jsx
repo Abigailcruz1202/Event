@@ -86,7 +86,7 @@ const TicketsContainer = () => {
             </ul>
           </div>
         ) : (
-          <div></div>
+         <></>
         )}
 
         <div className={styles.containerSwitch}>

@@ -42,12 +42,14 @@ const LogInputs = ({
           {MessagePass}
         </span>
       </div>
-      {true ? (
+      {SwitchMail && SwitchPass ? (
         <button className="regularBtn" type="Submit">
           Ingresar
         </button>
       ) : (
-        <button className="regularBtn">Ingresar</button>
+        <>
+        <br /> <br />
+        </>
       )}
       <div className="margTop10">
         <GoogleLogin
