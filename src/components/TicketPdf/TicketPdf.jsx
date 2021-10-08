@@ -1,4 +1,4 @@
-/* import React, { useState, useEffect } from "react";
+ import React, { useState, useEffect } from "react";
 import { useRouteMatch } from "react-router-dom";
 import axios from "axios";
 import styles from "./TicketPdf.module.css";
@@ -98,4 +98,3 @@ const TicketPdf = () => {
 };
 
 export default TicketPdf;
- */

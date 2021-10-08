@@ -34,7 +34,7 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
         await dispatch(getPromoterUser(userData.id))
         setRender(true)
     },[userData.id])
-    if(render) {
+if(render) {
     const followCount = promoterUser.eventPromotor.followed_by.length;
     return(
         <div className={styles.contPrin}>
@@ -43,6 +43,7 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
                     <img src={userData.picture} alt="" />
                 </div>
             </div>
+
             <div className={styles.contInfo} >
                 <h3>{userData.business_type} {userData.business_name}</h3>
                 <span>Tienes {followCount} seguidores</span>
@@ -50,18 +51,16 @@ const PromotorePorfile = ({userData, getEventPromoter, promoterEvents}) =>{
             <hr/>
 
             <div className={styles.contEvents}>
-                <div className={styles.barEvent}>  
+                <div className={styles.barEvent}>
                     <h4>Mis Eventos</h4>
-                    <Link to='/FormEvent' className={styles.link}>              
-                        <button className={styles.btnAddEvent}>
-                            Nuevo Evento 
-                        </button>     
-                    </Link>           
+                    <Link to='/FormEvent' className={styles.link}>
+                        <button className="regularBtn">Nuevo Evento</button>
+                    </Link>
                 </div>
-            
+
                 <ListEvent events={promoterEvents}/>
                 <Grafica events ={userData}/>
-                
+
             </div>
         </div>
     );

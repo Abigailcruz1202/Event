@@ -1,4 +1,4 @@
-/* import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouteMatch } from "react-router-dom"; 
 import axios from 'axios';
 import styles from './TicketsContainer.module.css';
@@ -88,4 +88,4 @@ const setSwitchProx = () => {
 }
 
 export default TicketsContainer
- */
+ 
