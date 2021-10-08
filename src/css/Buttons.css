@@ -33,6 +33,12 @@
     box-shadow: var(--ShadowBtn);
     transform: scale(.9);
   }
+  .regularBtn:focus-within{
+    background-color: var(--Primary);
+    color: var(--Button);
+    box-shadow: var(--Button);
+    transform: scale(.9);
+  }
 
   /* CLOUDINARY BUTTONS */
   .file input::-webkit-file-upload-button {
