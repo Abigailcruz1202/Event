@@ -33,6 +33,7 @@ import {
   TIKETS_SECTIONS,
   CHANGE_MODAL_CONFIRM,
   GET_TICKETS,
+  UPDATE_EVENT_LIMIT,
   } from "../actions/actions";
 
   // Pruebas para guardar usuario en el local storage
@@ -83,7 +84,7 @@ import {
     // grafica 
     grafica:[],
     ticketsSections:[],
-
+    UpdateDataLimit:[],
   };
 
 
@@ -325,6 +326,20 @@ if(action.type === DELETE_TICKET){
   return{
     ...state,
     ticketItems: state.ticketItems.filter(e => e.idEvent !== action.payload) 
+  }
+}
+if(action.type === UPDATE_EVENT_LIMIT){
+  if(!action.payload){
+    return{
+      ...state,
+      UpdateDataLimit:[]
+    }
+  }else{
+    return{
+      ...state,
+      UpdateDataLimit:[...state.UpdateDataLimit,action.payload]
+
+    }
   }
 }
    return state;

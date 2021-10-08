@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {useDispatch, useSelector } from "react-redux";
-import { getEventDetail, tiketsSections, changeModal, addShopping } from "../../actions/actions";
+import { getEventDetail, tiketsSections, changeModal, addShopping, updateInfoLimit } from "../../actions/actions";
 import SelectSector from "../Details/EventDetailsUsario/SelectSector";
 import styles from './CroquisEvent.module.css'
 import FilaEvent from "./FilaEvent";
@@ -10,7 +10,9 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
     const cart = useSelector(state=>state.cartState)
     const details = useSelector(state=>state.detailsEvent)
     const [eventCart, setEventCart] = useState([])
-    const [dataUpdate, setDataUpdate] = useState([...data])
+    let dataUpdate = [...data]
+    //const [dataUpdate, setDataUpdate] = useState([...data])
+    const [select, setSelect] = useState('')
     const [croquis, setCroquis] = useState({
         name:'',
         price:'',
@@ -31,7 +33,7 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
             }
         }
         fetchData()        
-    },[croquis]);
+    },[select]);
 
     useEffect(()=>{
         setEventCart(cart.filter(e =>  e.id === detailsEvent.id))
@@ -41,6 +43,7 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
 
    
     const addCar = ()=>{//agrega al carrito y envia a redux info del ticket
+        
         const obj={
             id:detailsEvent.id,
             name:detailsEvent.name,
@@ -49,6 +52,7 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
             promoterId:detailsEvent.promoterId,           
             type:true,//no croquis
             price:tickets.price,
+            //limit:croquis.limit,
             quantity: tickets.tickets.length,
             nameSection:tickets.sectionName,
             address:detailsEvent.address,
@@ -65,10 +69,24 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
             idEvent,
         }
         dispatch(addShopping(obj))
+
+        let dataUpdateLimit = dataUpdate.map(d=>{
+            if(d.name===tickets.sectionName){
+                d.limit = d.limit-tickets.tickets.length
+                return d
+            }
+            return d
+        })
+        let objUpdate = {
+            idEvent:detailsEvent.id,
+            dataUpdate:dataUpdateLimit,
+            type:'croquis',
+        }
+        dispatch(updateInfoLimit(objUpdate))
     }
         
     const changeSection = (e)=>{//cuando cambia la seccion se setea el plano del croquis
-        
+        setSelect(e.target.value)
         let act = details.consult.sections?.find(sec => sec.name === e.target.value)
         setCroquis(act)
         setTickets({
@@ -76,7 +94,7 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
             price:act.price,
             tickets:[]
         });
-        setDataUpdate([...data])
+        dataUpdate = [...data]
     }
 
     const addTicket = (puesto)=>{//se agrega ticket al stado local
@@ -86,7 +104,7 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
             tickets:[...tickets.tickets,puesto]
         });
         const newArray = croquis.filas
-        newArray[puesto.fila-1][puesto.silla-1].estado = 'no disponible'
+        newArray[puesto.fila-1][puesto.silla-1].estado = 'seleccionado'
         setCroquis({
             ...croquis,
             filas:newArray
@@ -94,7 +112,7 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
         const index = dataUpdate.findIndex(sec=>sec.name === croquis.name)
         const newData = dataUpdate
         newData[index].filas[puesto.fila-1][puesto.silla-1].estado='no disponible'
-        setDataUpdate(newData)
+        dataUpdate = newData
     }
 
     const removeTicket = (puesto)=>{
@@ -113,7 +131,7 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
         const index = dataUpdate.findIndex(sec=>sec.name === croquis.name)
         const newData = dataUpdate
         newData[index].filas[puesto.fila-1][puesto.silla-1].estado='disponible'
-        setDataUpdate(newData)
+        dataUpdate = newData
     }
 
     return (

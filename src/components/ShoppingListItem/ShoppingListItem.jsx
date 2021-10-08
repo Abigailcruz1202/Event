@@ -24,6 +24,7 @@ const ShoppingListItem = ({
     sku: event.id,
     name: event.name,
     price: `${event.price}.00`,
+    //section: event.nameSection,
     quantity: NumItem,
     currency: "MXN",
   };
@@ -42,7 +43,7 @@ const ShoppingListItem = ({
     date: event.start_date,
     schedule: event.schedule,
     seating: ['a1','a2'],
-    nameSection: null,
+    nameSection: event.nameSection,
     // locationCountry: cos.location.country,
     // locationProvince: cos.location.province,
     // locationCity: cos.location.city

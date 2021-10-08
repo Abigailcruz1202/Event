@@ -305,7 +305,7 @@ export function FormEvent(props) {
             props.changeModal('correct', `Revisa todos los campos`);
         } else {
             try{                
-                const res = await axios.put(`${API}/event/edit/${props.modalForm.data.id}`,{...event,locationId:props.modalForm.data.locationId,id:props.modalForm.data.id})               
+                const res = await axios.put(`${API}event/edit/${props.modalForm.data.id}`,{...event,locationId:props.modalForm.data.locationId,id:props.modalForm.data.id})               
                 if(res.data.msg==='update'){
                    props.changeModal('correct', `Evento Actualizado`) 
                    history.push('/perfil')

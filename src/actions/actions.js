@@ -49,11 +49,12 @@ export const PUT_FOLLOW = 'PUT_FOLLOW';
 
 // grafica 
 export const  GET_TICKETS = 'GET_TICKETS'
-
+//actualizar
+export const UPDATE_EVENT_LIMIT='UPDATE_EVENT_LIMIT'
 
  
 
-// export const API = 'http://localhost:3001/api/'
+//export const API = 'http://localhost:3001/api/'
 export const API = 'https://event-henryapp-backend.herokuapp.com/api/'
 
 
@@ -334,6 +335,13 @@ export function getTickets(id){
       type:GET_TICKETS,
       payload: response.data
     })
+  }
+}
+
+export function updateInfoLimit(data){
+  return {
+    type:UPDATE_EVENT_LIMIT,
+    payload:data,
   }
 }
 
