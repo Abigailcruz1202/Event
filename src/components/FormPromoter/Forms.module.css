@@ -1,5 +1,7 @@
 /* CLASES POR ORDEN ALFABÉTICO */
 .category {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
 }
 
@@ -12,13 +14,16 @@
     box-shadow:
     0px 15px 10px -15px var(--Black),
     0px -15px 10px -15px var(--Black);
-    margin: 25px 50px 25px 50px;
+    margin: 25px;
 }
 
 .contRend {
-    margin: 70px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
     height: auto;
-    width: auto;
+    padding-left: 50px;
+    padding-right: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,19 +31,27 @@
     border-radius: 10px;
     background: var(--Primary);
     box-shadow: 0px 0px 50px black;
+    animation: fade var(--Transition);
+    transition-timing-function: var(--CustomBezier);
 }
 
-.contRend input, select, option {
+.contForm2 input, select, option, textarea {
     border-style: none !important;
     border-radius: 10px;
     background: var(--Black);
     color: var(--White);
     min-width: max-content;
+    min-height: max-content;
 }
 
 .countrySelect{
     display: flex;
     justify-content: center;
+    margin-top: 20px;
+}
+
+.date {
+    width: 173px;
 }
 
 .file {
@@ -72,13 +85,25 @@
     text-align: left;
 }
 
+.inputCheck{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
 .row {
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     width: auto;
     border-style: none;
     margin-block: 0.25rem;
+}
+
+.sectorizar {
+    display: flex;
+    flex-direction: column;
 }
 
 .separator { width: 2rem; }
@@ -117,5 +142,13 @@ select:-webkit-autofill:focus::after
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+    }
+}
+/*ANIMATIONS*/
+@keyframes fade {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
     }
 }

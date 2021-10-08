@@ -4,7 +4,7 @@ import { connect, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { API, changeModal, editEvent, postEvent } from '../../actions/actions.js';
 import Croquis from '../Croquis/Croquis.jsx';
-import styles from './FormEvent.module.css'
+import styles from '../FormPromoter/Forms.module.css';
 import SectorsForm from './SectorsForm.jsx';
 import validate from './validate.js';
 
@@ -413,14 +413,16 @@ export function FormEvent(props) {
     }
     let INDEX = 0;
     return (
-        <div className={styles.contenedor}>    
-            <form className={styles.form}>  
+        <div className={styles.contRend}>
+            <form /* className={styles.form} */>  
             {props.modalForm.render?
-            <h2>Editar Evento</h2> : 
-            <h2>Nuevo Evento</h2>  }            
-                <div className={styles.section}>
+            <h2 className="formTitle">Editar Evento</h2> : 
+            <h2 className="formTitle">Nuevo Evento</h2>  }
+            <div className={styles.contForm2}>
+                <div className={styles.category}>
                     <div className={styles.row}>{/*NOMBRE DEL EVENTO*/}
                         <span>Nombre del Evento: </span>
+                        <div className={styles.separator}></div>
                         <div className={styles.inputCheck}>
                             <input 
                                 type="text"
@@ -433,6 +435,7 @@ export function FormEvent(props) {
                     </div>                   
                     <div className={styles.row}>{/*DESCRIPCION DEL EVENTO*/}
                         <span>Descripción: </span>
+                        <div className={styles.separator}></div>
                         <div className={styles.inputCheck}>
                             <textarea                              
                                 value={event.description}
@@ -444,6 +447,7 @@ export function FormEvent(props) {
                     </div>
                     <div className={styles.row}>{/*PARTICIPANTES DEL EVENTO*/}
                         <span>Participantes: </span>
+                        <div className={styles.separator}></div>
                         <div className={styles.inputCheck}>
                             <textarea
                                 value={event.starring}
@@ -454,8 +458,8 @@ export function FormEvent(props) {
                         </div>
                     </div>
                     <div className={styles.row}>{/*IMAGENES DEL EVENTO*/}
-                        <span>Imagenes del Evento prueba: </span>
-                        <div className="file">
+                        <div className={styles.file}>
+                        <label>Imágenes del Evento: </label>
                             <input
                                 onChange={click}
                                 type="file"
@@ -481,7 +485,7 @@ export function FormEvent(props) {
                     } 
                 </div>
                 {/*SECCION UBICACION*/}
-                <div className={styles.section}>
+                <div className={styles.category}>
                     <div className={styles.row}>{/*PAIS*/}
                         <span>Pais: </span>
                         <div className={styles.inputCheck}>
@@ -542,7 +546,7 @@ export function FormEvent(props) {
                     </div>
                 </div>
                 {/*SECCION INFORMACION EVENTO*/}
-                <div className={styles.section}>
+                <div className={styles.category}>
                     <div className={styles.row}>{/*FECHA INICIO*/}
                         <span>Fecha: </span>
                         <div className={styles.inputCheck}>
@@ -704,9 +708,10 @@ export function FormEvent(props) {
                     {!props.modalForm.render?
                     
                     <>
+                    <div className={styles.category}>
                     <div className={styles.row}>
                         <span>Sectorizar: </span>
-                        <div className={styles.sectorizarQ}>
+                        <div className={styles.sectorizar}>
                             <label>
                             <input
                                 checked={event.sectorize === 'no sectorizar'}
@@ -736,12 +741,13 @@ export function FormEvent(props) {
                             />Sectorizar con croquis </label>
                             <span className={styles.tick}></span>
                         </div>                   
-                    </div> 
+                    </div>
+                    </div>
                     {/* SECCIONAR SIN CROQUIS */}
                     {event.sectorize === 'sectorizar sin croquis' && 
                     <>
                         <div className={styles.row}>
-                            <div className={styles.contAddSection}>
+                            <div className={styles.file}>
                                 <input
                                     type='text'
                                     placeholder='Nombre sección'
@@ -766,7 +772,7 @@ export function FormEvent(props) {
                             </div>
                              <button className="regularBtn"  className="regularBtn"  onClick={addSection}>Agregar Sección</button>
                         </div>
-                        <div className={styles.sectionsCont}>
+                        <div className={styles.categorysCont}>
                             <SectorsForm name='Sección' limit='Limite' price='Precio'/>
                             {event.sectores.map(s=>(<SectorsForm key={s.name} name={s.name} limit={s.limit} price={s.price} onCloseSection={onCloseSection}/>))}
                         </div>
@@ -777,7 +783,7 @@ export function FormEvent(props) {
                     {event.sectorize === 'sectorizar con croquis' &&
                     <>
                         <div className={styles.row}>
-                            <div className={styles.contAddSection}>                              
+                            <div className={styles.file}>                              
                                 <input
                                     type='text'
                                     placeholder='Nombre sección'
@@ -816,7 +822,7 @@ export function FormEvent(props) {
                                 mostrarSilla={mostrarSilla}
                             />
                         </div>
-                        <div className={styles.sectionsCont}>
+                        <div className={styles.categorysCont}>
                             <SectorsForm name='Sección' limit='Limite' price='Precio'/>
                             {event.sectoresCroquis.map(s=>(<SectorsForm key={s.name} name={s.name} limit={s.limit} price={s.price} onCloseSection={onCloseSectionCroquis}/>))}
                         </div>
@@ -826,9 +832,8 @@ export function FormEvent(props) {
                     {event.sectorize === 'no sectorizar' &&
                     <>
                         <div className={styles.row}>{/*SI ANTESRIOR ES NO INGRESE PRECIO GENERAL*/}
-                            <span>Precio General: </span>
+                            <span>Precio General (USD): </span>
                             <div className={styles.inputCheck}>
-                                <label>
                                 <input 
                                     id={styles.minWidth}
                                     type="number"
@@ -838,7 +843,6 @@ export function FormEvent(props) {
                                     onChange={inputChange}
                                     placeholder='Precio'
                                  />
-                                 USD</label>
                                 <span className={styles.tick}>{!errors.moneda && !errors.price &&'✓'}</span>
                             </div>                   
                         </div>
@@ -866,10 +870,10 @@ export function FormEvent(props) {
                     <input className="regularBtn" type='submit' onClick={handleClose} value='Cancelar'/>
                 </>
                 :
-                <input className="bigBtn" type='submit' onClick={handleSubmit} value='Crear'/> 
+                <button className="bigBtn" type='submit' onClick={handleSubmit}>Crear!</button> 
 
                  }
-
+            </div>
             </form>
         </div>
     )

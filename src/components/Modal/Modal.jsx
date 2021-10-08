@@ -21,7 +21,7 @@ const Modal = ({Type, message, changeModal})=>{
                         {message}
                     </p>
                 </div>
-                <button className="regularBtn" onClick={closeModal}>Ok</button>
+                <button className="regularBtn" onClick={closeModal}>OK</button>
             </div>
         </div>,
         document.getElementById("modal")

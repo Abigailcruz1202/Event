@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { setUser, setPromoter, API } from "../../actions/actions";
 import { Link } from "react-router-dom";
 import styles from "./LoginPromoter.module.css";
+import styles2 from "../FormPromoter/Forms.module.css";
 import { useHistory } from "react-router-dom";
 import LogResponse from "../LogResponse/LogResponse.jsx";
 import LogInputs from "../LogInputs/LogInputs.jsx";
@@ -234,7 +235,6 @@ const LoginPromoter = ({setUser, setPromoter, user,  promoter, nameComponent, na
           //*_________________________________________________________________
         )
         }
-        
       </form>
     </div>
   );
