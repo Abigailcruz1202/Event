@@ -1,16 +1,19 @@
 import axios from 'axios'
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom';
 import { API } from '../../../actions/actions'
 import './Card.css'
 
 export default function Card({ name, rating, review }) {
+    const [deleted, setDeleted] = useState(false)
+
     const userInfo = useSelector(state => state.userState)
     const params = useParams()
 
     const { id } = params
 
+// dispatch(changemodal(warning, ))
 
     const deleteComment = async () => {
         try {
@@ -23,7 +26,8 @@ export default function Card({ name, rating, review }) {
                 data: {
                 commentId: arr2[0].id
                 }
-            })
+            })            
+            setDeleted(true)
         } catch (error) {
             console.log('bark bark bark', error)
         }
@@ -31,6 +35,17 @@ export default function Card({ name, rating, review }) {
 
     return (
         <div className='comment-card'>
+            {
+                deleted ? (
+                    <>
+                        <div className='comment-top-half'>                        
+                        </div>
+                        <div className='comment-bottom-half'>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Este comentario fue eliminado.</p>
+                        </div>
+                    </>
+                ) : (
+                    <>
             <div className='comment-top-half'>
                 <span>{name}</span>
                 &nbsp;
@@ -46,6 +61,9 @@ export default function Card({ name, rating, review }) {
             <div className='comment-bottom-half'>
                 <p>{review}</p>
             </div>
+                    </>
+                )
+            }
         </div>
     )
 }
