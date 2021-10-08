@@ -38,7 +38,7 @@ const ShoppingListItem = ({
     price: event.price,
     total: Number(event.price) * NumItem,
     quantity: NumItem,
-    direction: event.direction,
+    direction: event.type?event.direction:event.address,
     date: event.start_date,
     schedule: event.schedule,
     nameSection: event.nameSection,
