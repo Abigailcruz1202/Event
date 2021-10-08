@@ -59,7 +59,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
 
     const deleteEvent = async()=>{  
         if(detailsEvent.consult.promoterId === userInfo.id){
-            changeModalConfirm('correct', `¿Deseas eliminar el Evento ${detailsEvent.consult.name}?`, null);
+            changeModalConfirm('warning', `¿Deseas eliminar el Evento ${detailsEvent.consult.name}?`, null);
         }else{
             dispatch(changeModal('incorrect','No puedes eliminar un evento que no te pertenece'));
         }
