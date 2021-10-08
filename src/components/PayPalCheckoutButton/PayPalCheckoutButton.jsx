@@ -85,7 +85,7 @@ const PayPalCheckoutButton = ({ order, resetShopping, tickets, user }) => {
 
            setTimeout(function () {
             redirec(`/tickets/${user.id}`);
-        }, 1000);
+        }, 2000);
             
 
 
