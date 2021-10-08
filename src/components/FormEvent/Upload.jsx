@@ -60,7 +60,7 @@ const Upload = () => {
                     value={fileInputState}
                     className="form-input"
                 />
-                <button className="btn" type="submit">
+                <button className="regularBtn" type="submit">
                     Submit
                 </button>
             </form>

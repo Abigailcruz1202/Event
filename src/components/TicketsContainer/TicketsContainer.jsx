@@ -91,8 +91,10 @@ const TicketsContainer = () => {
 
         <div className={styles.containerSwitch}>
           <div>
-            <button onClick={setSwitchPass}>Próximos</button>
-            <button onClick={setSwitchProx}>Pasados</button>
+
+          <button className="regularBtn" onClick={setSwitchPass}>Próximos</button>
+          <button className="regularBtn" onClick={setSwitchProx}>Pasados</button>
+
           </div>
           {Switch ? (
             <div className={styles.ulContainer}>
@@ -115,4 +117,7 @@ const TicketsContainer = () => {
   );
 };
 
+
 export default TicketsContainer;
+
+

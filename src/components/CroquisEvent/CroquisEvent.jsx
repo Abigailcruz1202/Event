@@ -7,34 +7,38 @@ import FilaEvent from "./FilaEvent";
 
 const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
     const dispatch = useDispatch()
-    const cart = useSelector(state=>state.cartState,)
+    const cart = useSelector(state=>state.cartState)
+    const details = useSelector(state=>state.detailsEvent)
     const [eventCart, setEventCart] = useState([])
-    const ticketsSections = useSelector(state => state.ticketsSections)
+    const [dataUpdate, setDataUpdate] = useState([...data])
     const [croquis, setCroquis] = useState({
         name:'',
         price:'',
         limit:null,
         filas:[],
     });//croquis que renderizo
-
-    // useEffect(()=>{
-    //     if(ticketsSections.length){
-    //         let eventsAddCroquis = ticketsSections.filter(t=>t.type === true)
-    //         console.log(eventsAddCroquis[eventsAddCroquis.length-1].dataUpdate)
-    //         data=eventsAddCroquis[eventsAddCroquis.length-1].dataUpdate
-    //         console.log(ticketsSections,'ticketsSections')
-    //         console.log(data)
-    //     }
-    // },[croquis])//actualiza la data
-    useEffect(()=>{
-        setEventCart(cart.filter(e =>  e.id === detailsEvent.id))
-    },[cart])
-    const [dataUpdate, setDataUpdate] = useState([...data])
     const [tickets, setTickets] = useState({
         sectionName:croquis.name,
         price:croquis.price,
         tickets:[]
     });//tikets selecionados
+    useEffect( () => {
+        const fetchData = async () => {
+            try{
+                dispatch(getEventDetail(detailsEvent.id))
+            }catch(error){
+               console.log(error)
+            }
+        }
+        fetchData()        
+    },[croquis]);
+
+    useEffect(()=>{
+        setEventCart(cart.filter(e =>  e.id === detailsEvent.id))
+    },[cart])
+
+    
+
    
     const addCar = ()=>{//agrega al carrito y envia a redux info del ticket
         const obj={
@@ -61,22 +65,11 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
             idEvent,
         }
         dispatch(addShopping(obj))
-        // setTickets({
-        //     sectionName:croquis.name,
-        //     price:croquis.price,
-        //     tickets:[]
-        // })
-        // let updateIndex = dataUpdate.findIndex(d=>d.name === croquis.name)
-        // let update = dataUpdate
-        // update[updateIndex].limit = update[updateIndex].limit -tickets.tickets.length
-        // console.log(update)
-        // setDataUpdate(
-        //     update
-        // )    
     }
         
     const changeSection = (e)=>{//cuando cambia la seccion se setea el plano del croquis
-        let act = data?.find(sec => sec.name === e.target.value)
+        
+        let act = details.consult.sections?.find(sec => sec.name === e.target.value)
         setCroquis(act)
         setTickets({
             sectionName:e.target.value,
@@ -104,6 +97,25 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
         setDataUpdate(newData)
     }
 
+    const removeTicket = (puesto)=>{
+        let newTickets = tickets.tickets.filter(t=>!(t.fila===puesto.fila && t.silla===puesto.silla))
+        setTickets({
+            sectionName:croquis.name,
+            price:croquis.price,
+            tickets:newTickets,
+        });
+        const newArray = croquis.filas
+        newArray[puesto.fila-1][puesto.silla-1].estado = 'disponible'
+        setCroquis({
+            ...croquis,
+            filas:newArray
+        })
+        const index = dataUpdate.findIndex(sec=>sec.name === croquis.name)
+        const newData = dataUpdate
+        newData[index].filas[puesto.fila-1][puesto.silla-1].estado='disponible'
+        setDataUpdate(newData)
+    }
+
     return (
     eventCart.length >= 1? <h3>Este evento ya se agrego al carrito</h3>:
     <div className={styles.contTable}>
@@ -115,11 +127,12 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
                                                 data={fila}
                                                 addTicket={addTicket}
                                                 fila={i+1}
+                                                removeTicket={removeTicket}
                                             />)}
             </tbody>   
             </table>
             {tickets.tickets.length? 
-                <button onClick={addCar}>Agregar al carrito</button>:
+                <button className="regularBtn" onClick={addCar}>Agregar al carrito</button>:
                 null   
             }
             

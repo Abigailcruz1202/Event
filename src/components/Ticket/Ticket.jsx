@@ -1,4 +1,4 @@
-import React from "react";
+ import React from "react";
 import {Link} from 'react-router-dom';
 import styles from "./Ticket.module.css";
 import moment from "moment";
@@ -62,7 +62,7 @@ const Ticket = ({ ticket }) => {
           ))}
         </ul>
         <Link to={`/ticketpdf/${ticket.id}`}>
-        <button>PDF</button>
+        <button className="bigBtn">PDF</button>
         </Link>
       </div>
     </>

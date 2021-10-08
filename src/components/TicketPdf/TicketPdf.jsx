@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+/* import React, { useState, useEffect } from "react";
 import { useRouteMatch } from "react-router-dom";
 import axios from "axios";
 import styles from "./TicketPdf.module.css";
@@ -90,7 +90,7 @@ const TicketPdf = () => {
 
         <p className={styles.id}>{Ticket.id}</p>
       </div>
-      <button onClick={createPdf} type="primary">
+      <button className="bigBtn" onClick={createPdf} type="primary">
         PDF
       </button>
     </div>
@@ -98,3 +98,4 @@ const TicketPdf = () => {
 };
 
 export default TicketPdf;
+ */

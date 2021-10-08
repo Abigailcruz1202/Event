@@ -6,7 +6,9 @@
 }
 
 .contSlideShow {
+  /* background-color: rgba(216, 216, 216, 0.657); */
   display: flex;
+  height: 500px;
   flex-wrap: nowrap;
 }
 
@@ -42,4 +44,15 @@
 
 .right {
   right: 0;
+}
+.placeholder {
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+.spinner {
+  display: block;
+  width: 70px;
+  height: 70px;
+  margin: auto;
 }

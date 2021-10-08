@@ -1,6 +1,7 @@
 .graphpromoter{
-    width:550px;
-    height:600px;
+    width:100%;
+    height:450px;
+    display: block;
     align-content:center;
     text-align: center;
     background:var(--White) ;

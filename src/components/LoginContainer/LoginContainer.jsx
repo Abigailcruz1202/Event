@@ -15,7 +15,7 @@ const LoginContainer = () => {
     }
     return (
         <div className={ styles.container }>
-            <div>
+            <div> { /* VER qué hago con el estilo de estos botones... */ }
             <button onClick={ setUser } className={styles.btnUser}>Usuario</button>
             <button onClick={ setPromoter } className={styles.btnPromoter}>Promotor</button>
             </div>
@@ -23,15 +23,15 @@ const LoginContainer = () => {
             {Switch
             ?
             <LoginUser
-            nameComponent='Log in'
+            nameComponent='Inicia sesión'
                 nameComponentOne='Ingresando usuario'
                 nameComponentTwo='Usuario no encontrado'
                 messageFalse='El usuario no se encuentra registrado'
                 messageTwoFalse='o el password no es correcto'
             />
             :
-            <LoginPromoter 
-            nameComponent='Log in'
+            <LoginPromoter
+            nameComponent='Inicia sesión'
                 nameComponentOne='Ingresando Promotor'
                 nameComponentTwo='promotor no encontrado'
                 messageFalse='El promotor no se encuentra registrado'

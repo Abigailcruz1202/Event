@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from './Carousel.module.css'
 //import {ReactComponent as Left} from '../../Utilities/left.svg'
 import left from '../../Utilities/left.svg'
@@ -6,7 +6,11 @@ import left from '../../Utilities/left.svg'
 import right from '../../Utilities/right.svg'
 //import styled from 'styled-components';
 import Slide from "./Slide";
-import FakeDB from '../../FakeDB/FakeDB'
+import { API } from "../../actions/actions";
+import axios from "axios";
+import spinner from '../../Utilities/spinner.gif'
+import {Link} from 'react-router-dom'
+//import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -14,7 +18,17 @@ import FakeDB from '../../FakeDB/FakeDB'
 const Carousel = ()=>{
     const slideShow = useRef(null);
     const intervaloSlideShow = useRef(null);
-
+    const [data, setData] = useState([])
+    //const dispatch = useDispatch()
+    //const detailsEvent = useSelector(state.detailsEvent)
+    useEffect(()=>{
+        const getEvents = async()=>{
+            const data = await axios(`${API}main`) 
+            console.log(data.data, 'soyyyy yoooo soyyy yooooo')
+            setData(data.data)
+        }
+        getEvents()
+    },[])
     const next = ()=>{
         if(slideShow.current?.children.length > 0){// comprobamos si el slide tiene elementos
             const firstElement = slideShow.current.children[0]// obtengo el primer elemento
@@ -72,8 +86,15 @@ const Carousel = ()=>{
  
         <div className={styles.contMain}>
             <div className={styles.contSlideShow} ref={slideShow}>
-                {/* Diego: Agregue la propiedad key y cambie las imagenes de la FakeDB para evitar errores en consola*/}
-                {FakeDB.map(e=><Slide key={e.id} img={e.img} name={e.name} />)}
+                
+                {
+                    data.length? (data.map(e=>
+                        <Slide key={e.id} img={e.pictures[0]} name={e.name} id={e.id} />
+                    )
+                ) : (
+                        <img className={styles.spinner} src={spinner} alt="Loading..." />
+                )
+                }
             </div>
             <div className={styles.control}>
                 <button className={styles.left} onClick={previous}>

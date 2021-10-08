@@ -62,7 +62,7 @@ const SelectSectorSin = ({data,idEvent,detailsEvent, user}) =>{
                     <option key={seccion} value={seccion}>{seccion}</option>
                 )}
             </select>
-            {comprar.limit?<button onClick={addCar}>Agregar al carrito</button>:
+            {comprar.limit ? <button className="regularBtn" onClick={addCar}>Agregar al carrito</button>:
             null   
             }
         </>
