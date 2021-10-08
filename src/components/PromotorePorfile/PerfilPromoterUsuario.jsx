@@ -35,7 +35,7 @@ const PromotorePorfile = () =>{
         await dispatch(getPromoterUser(id))
         setRender(true)
 
-    },[id])
+    },[id, FollowButton])
 
 
     if(render){
