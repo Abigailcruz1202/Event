@@ -76,7 +76,7 @@ const PayPalCheckoutButton = ({ order, resetShopping, tickets, user }) => {
           console.log(response)
 
           dispatch(changeModal('correct', `El pago se realizó correctamente. \n ID: ${response.id}`));
-          redirec(`/tickets/${user.id}`);
+         
 
           tickets.map( async ticket => {
             await fetchPostTicket(ticket)
