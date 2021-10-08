@@ -85,7 +85,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
     const setShopping = (event) => {
         addShopping(event)
     }
-    
+
     const addOrRemoveFavorite = async (userId, eventName, eventId, heart, favorite) =>{
         try {
                 // Checa si usuario ya lo tenia agregado para cambiar corazon
@@ -95,6 +95,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                     && !heart
                     && !favorite
                 ){
+
                     setClick(true)
                     setFavorite(true)
                     return
@@ -224,12 +225,12 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                     
                                 </div>
                                 <div className={styles.rightColumn}>
-                                    <h4>Fecha Finalización:</h4>
-                                    <p>{` ${detailsEvent.consult.finish_date}`}</p>
-                                    <h4>Dias:</h4>
-                                    <p>{` ${detailsEvent.consult.weekdays.map((e)=>(e))}`}</p>
+                                    {/* <h4>Fecha Finalización:</h4>
+                                    <p>{` ${detailsEvent.consult.finish_date}`}</p> */}
+                                    <h4>Dia:</h4>
+                                    <p>{` ${detailsEvent.consult.weekdays}`}</p>
                                     <h4>Horarios:</h4>
-                                    <p>{` ${detailsEvent.consult.schedule.map((e)=>(e))}`}</p>
+                                    <p>{` ${detailsEvent.consult.schedule}`}</p>
                                     <h4>Tipo de Evento:</h4>
                                     <p>{` ${detailsEvent.consult.tags}`}</p>
                                     <h4>Clasificación:</h4>                            
@@ -301,14 +302,14 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                             !userInfo.type ? (
                                 <span>&nbsp;</span>
                             ) : (
-                                userInfo.type === 'promoter' ? (
+                                userInfo.type === 'promoter' && detailsEvent.consult.promoterId === userInfo.id ? (
                                 <>
                                     <button className="regularBtn" onClick={editEvento}>Editar</button>
                                     <button className="regularBtn" onClick={deleteEvent}>Eliminar</button>
                                 </>
-                                ) : (
-                                    <button className="regularBtn">Reservar</button>
-                                )
+
+                                ) : null
+
                             )
                         }
                         </div>

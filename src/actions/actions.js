@@ -52,8 +52,10 @@ export const  GET_TICKETS = 'GET_TICKETS'
 
 
  
+
 // export const API = 'http://localhost:3001/api/'
 export const API = 'https://event-henryapp-backend.herokuapp.com/api/'
+
 
 
 //*_get_activities_home______________________________________________
