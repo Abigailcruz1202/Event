@@ -204,7 +204,7 @@ export function FormEvent(props) {
                 sectores: [...event.sectores,sections]
             }))
         }else{
-            props.changeModal('correct', `Revisa todos los campos del sector`)
+            props.changeModal('warning', `Revisa todos los campos del sector`)
         }
     }
 
@@ -247,7 +247,7 @@ export function FormEvent(props) {
                 columnasC:'',
             })
         }else{
-            props.changeModal('correct', `Revisa todos los campos del sector`)
+            props.changeModal('warning', `Revisa todos los campos del sector`)
         }
     }
 
@@ -302,7 +302,7 @@ export function FormEvent(props) {
         e.preventDefault();
         let obj = validate(event)      
         if(Object.keys(obj).length !== 0) {
-            props.changeModal('correct', `Revisa todos los campos`);
+            props.changeModal('warning', `Revisa todos los campos`);
         } else {
             try{                
                 const res = await axios.put(`${API}/event/edit/${props.modalForm.data.id}`,{...event,locationId:props.modalForm.data.locationId,id:props.modalForm.data.id})               
@@ -312,11 +312,11 @@ export function FormEvent(props) {
                 }                             
                 else if(res.data.created){
 
-                    props.changeModal('correct', `El Nombre del evento ya se encuentra registrado`)
+                    props.changeModal('incorrect', `El Nombre del evento ya se encuentra registrado`)
                 }
                 props.editEvent(null)
             }catch(error){
-               props.changeModal('correct', `Intentalo de nuevo más tarde`)
+               props.changeModal('incorrect', `Inténtalo de nuevo más tarde`)
                props.editEvent(null)
             }
         }
@@ -329,12 +329,12 @@ export function FormEvent(props) {
          let obj = validate(event)
        
          if(Object.keys(obj).length !== 0) {
-             props.changeModal('correct', `Revisa todos los campos`);
+             props.changeModal('warning', `Revisa todos los campos`);
          } else {
              try{
                  const res = await axios.post(`${API}/event`,event)
                  if(res.data.msg){
-                    props.changeModal('correct', `Intentalo de nuevo más tarde`) 
+                    props.changeModal('incorrect', `Inténtalo de nuevo más tarde`) 
                  }
                  else if(res.data.created){
                     props.changeModal('correct', `¡Evento creado con éxito!`)
@@ -363,10 +363,10 @@ export function FormEvent(props) {
                     history.push('/perfil')
                  }else if(!res.data.created){
 
-                     props.changeModal('correct', `El Nombre del evento ya se encuentra registrado`)
+                     props.changeModal('incorrect', `El Nombre del evento ya se encuentra registrado`)
                  }
              }catch(error){
-                props.changeModal('correct', `Intentalo de nuevo más tarde`)
+                props.changeModal('incorrect', `Inténtalo de nuevo más tarde`)
              }
          }
     }
@@ -862,14 +862,14 @@ export function FormEvent(props) {
                 {props.modalForm.render?
 
                 <>
-                    <input type='submit' onClick={handleEdit} value='Editar'/>
-                    <input type='submit' onClick={handleClose} value='Cancelar'/>
+                    <input className="regularBtn" type='submit' onClick={handleEdit} value='Editar'/>
+                    <input className="regularBtn" type='submit' onClick={handleClose} value='Cancelar'/>
                 </>
                 :
-                <input type='submit' onClick={handleSubmit} value='Crear'/> 
+                <input className="bigBtn" type='submit' onClick={handleSubmit} value='Crear'/> 
 
                  }
-                
+
             </form>
         </div>
     )
