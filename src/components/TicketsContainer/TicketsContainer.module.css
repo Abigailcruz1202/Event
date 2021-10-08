@@ -1,41 +1,95 @@
-.container{
-  background-color: var(--Black );
-  padding-top: 10px;
+
+
+.containerParrallax{
+  width: 100vw; 
+  height: 350px;
+}
+
+.imgHead{
+  width: 100vw;
+  height: 350px;
+}
+
+.subContainer{
+  padding-top: 70px;
+  background-color: var(--White);
+  position: relative;
+  z-index: 10;
+ 
+}
+
+.contContainers{
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+ justify-content: space-around;
 }
 
 .title{
-  text-align: center;
+  margin-left: 10%;
+  padding: 11px;
+  width: fit-content;
   font-size: 40px;
+  color: var(--White);
+  background-color: rgb(94, 141, 144);
+  background-color: var(--Primary);
+  margin-top: 10px;
+  margin-bottom: 50px;
+  border-radius: var(--RadiusOne);
+}
+@media (max-width: 768px) { 
+  .title{
+   margin: auto;
+   margin-bottom: 50px;
+  }
 }
 
 .ulContainer{
   margin: auto;
   margin-bottom: 70px;
-  width: 75%;
-  min-height: 700px;
+  width: 1000px;
+  min-height: 400px;
   max-height: fit-content;
-  box-shadow: inset 2px 2px 20px #000000;
-  background-color: var(--Back);
+  background-color: var(--Primary);
   text-align: center;
   color: var(--Black);
-  padding: 10px;
   border-radius: var(--RadiusOne);
+  border: 2px solid var(--Button);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.ulContainerNow{
+@media (max-width: 768px) { 
+  .ulContainer{
+   width:90%;
+  }
+}
+.ulContainerPass{
   margin: auto;
   margin-bottom: 70px;
-  width: 50%;
-  min-height: 700px;
+  width: 1000px;
+  min-height: 400px;
   max-height: fit-content;
-  box-shadow: inset 2px 2px 20px #000000;
-  background-color: var(--Back);
+  background-color: var(--Primary);
   text-align: center;
   color: var(--Black);
-  padding: 7px;
   border-radius: var(--RadiusOne);
+  border: 2px solid var(--Alert);
+}
+@media (max-width: 768px) { 
+  .ulContainerPass{
+   width:90%;
+  }
+}
+.ulContainerNow{
+  margin-bottom: 70px;
+  width: 500px;
+  min-height: 400px;
+  max-height: fit-content;
+  background-color: var(--Primary);
+  text-align: center;
+  color: var(--Black);
+  border-radius: var(--RadiusOne);
+  border: 2px solid var(--Success);
 }
 
 .ul{

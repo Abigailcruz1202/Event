@@ -69,7 +69,7 @@ const TicketPdf = () => {
           )}
           <p>{Ticket.direction}</p>
 
-          <p>Propietario(a): {Ticket.nameUser}</p>
+          <p>{Ticket.nameUser}</p>
           <p className={styles.p}>Entradas:</p>
           <p className={styles.p}>{Ticket.quantity}</p>
           <p className={styles.p}>Precio unitario:</p>
