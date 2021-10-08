@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 import axios from "axios";
 import styles from "../FormPromoter/Forms.module.css";
-import {API} from '../../actions/actions'
+import { API, changeModal } from '../../actions/actions'
 
 
 export function Validate(input) {
@@ -50,6 +51,7 @@ export function Validate(input) {
 }
 
 export function FormUsers() {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [user, setUser] = useState({
     first_name: "",
@@ -103,7 +105,7 @@ export function FormUsers() {
       console.log(user, "user");
       try {
         const res = await axios.post(`${API}user/`, user);
-        alert(res.data.msg);
+        dispatch(changeModal('correct', res.data.msg));
       } catch (error) {
         console.log("error", error);
       }

@@ -2,10 +2,10 @@
 import React, { useState } from 'react'
 import DisplayComments from '../Comments/DisplayComments/DisplayComments'
 import { Link } from 'react-router-dom'
-import { useEffect} from 'react'
-import  {useDispatch , useSelector} from 'react-redux'
-import {useParams} from 'react-router-dom'
-import {getEventDetail} from '../../actions/actions'
+import { useEffect } from 'react'
+import  { useDispatch , useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getEventDetail, changeModal } from '../../actions/actions';
 import { Carousel } from 'react-carousel-minimal';
 import Loading from '../Loading/Loading'
 import styles from './EventsDetailsPromoter.css'
@@ -41,7 +41,7 @@ export default function EventDetailsUsario() {
                 await dispatch(getEventDetail(id))
                 setRender(true)
             }catch(error){
-                alert('intentalo mas tarde')
+                dispatch(changeModal('incorrect', 'intentalo mas tarde'))
             }
         },[id])
   

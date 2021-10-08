@@ -2,13 +2,15 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-import {useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeModal } from  '../../../actions/actions';
 import success from '../../../Utilities/successGif.gif'
 import error from '../../../Utilities/error.png'
 import style from './CreateComment.module.css'
 
 //Diego: Componente de creacion de comentarios.
 export default function CreateComment() {
+    const dispatch = useDispatch();
     const userInfo = useSelector(state => state.userState)
     const location = useLocation()
 
@@ -49,7 +51,7 @@ export default function CreateComment() {
 
     // useEffect(() => {
     //     if (performance.navigation.type == performance.navigation.TYPE_RELOAD) return (
-    //         alert('Algo salio mal.'),
+    //         dispatch(changeModal('correct', 'Algo salió mal...'));
     //         window.location = `/eventDetailsUsuario/${input.event_id}`
     //     )
     //     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -85,9 +87,9 @@ export default function CreateComment() {
     async function handleSubmit(e){
         e.preventDefault();
         const { review, rating, user_id, event_id, checkbox } = input
-        if (!rating || !review) return alert('Todos los campos son requeridos.')
-        else if (review.length < 40 || review.length > 300) return alert('El comentario debe tener entre 40 y 300 caracteres.')
-        else if (!checkbox) return alert('Es necesario que confirmes que tu comentario sigue nuestras normas.')
+        if (!rating || !review) return dispatch(changeModal('warning', 'Todos los campos son requeridos.'))
+        else if (review.length < 40 || review.length > 300) dispatch(changeModal('warning', 'El comentario debe tener entre 40 y 300 caracteres.'))
+        else if (!checkbox) return dispatch(changeModal('warning', 'Es necesario que confirmes que tu comentario sigue nuestras normas.'))
             else {
                 axios.post('https://event-henryapp-backend.herokuapp.com/api/comment', {
                     review,
@@ -95,10 +97,10 @@ export default function CreateComment() {
                     user_id,
                     event_id
                 })
-                setEditing(false)           
+                setEditing(false);
             }
     }
-    return (       
+    return (
         <div className={style.newCommentWrapper}>
             {
                 !canComment ? (
@@ -123,7 +125,7 @@ export default function CreateComment() {
                                 </div>
                                 <p className={style.charactersRequired}> 
                                     {
-                                        !minimumRequired ? (                                  
+                                        !minimumRequired ? (
                                             <span className={style.notMinimumRequired}>
                                                 {input.review.length}
                                             </span>
