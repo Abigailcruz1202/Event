@@ -11,7 +11,7 @@ const PayPalCheckoutButton = ({ order, resetShopping, tickets, user }) => {
   const redirec = (dir) => {
     history.push(dir);
   };
-console.log('tickets------------------',tickets )
+
 
   //*funcion ticket post
   const fetchPostTicket = async (e) => {
@@ -74,11 +74,14 @@ console.log('tickets------------------',tickets )
       .then(response => {
           console.log(response)
           alert(`el pago se realizo correctamente, ID: ${response.id}`)
-          tickets.map( async ticket => (
+          tickets.map( async ticket => {
             await fetchPostTicket(ticket)
-          ))
+          })
            resetShopping()
+           setTimeout(function () {
             redirec(`/tickets/${user.id}`);
+        }, 1000);
+            
 
       })
       .catch(error => {

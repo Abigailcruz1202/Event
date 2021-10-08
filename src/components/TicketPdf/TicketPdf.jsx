@@ -38,7 +38,7 @@ const TicketPdf = () => {
     doc.setFont("Courier", "normal");
     doc.setFontSize(20);
     doc.text(`${date[2]}/${date[1]}/${date[0]}`, 300, 330, "center");
-    doc.text(`${Ticket.schedule.map((e) => e)}Hrs`, 300, 360, "center");
+    doc.text(`${Ticket.schedule}Hrs`, 300, 360, "center");
     doc.text(`${Ticket.direction}`, 300, 390, "center");
     doc.text( `${Ticket.nameUser}`, 300, 440, "center");
     doc.text(`Entradas: ${Ticket.quantity}`, 300, 470, "center");
@@ -58,15 +58,7 @@ const TicketPdf = () => {
         <div className={styles.containerData}>
           <h3 className={styles.title}>{Ticket.nameEvent}</h3>
           <p>{`${date[2]}/${date[1]}/${date[0]}`}</p>
-          {!Ticket.schedule ? (
-            <h4>Sin Horario</h4>
-          ) : (
-            <ul>
-              {Ticket.schedule.map((e) => (
-                <li key={e}>{e} hrs</li>
-              ))}
-            </ul>
-          )}
+          <p>{Ticket.schedule}</p>
           <p>{Ticket.direction}</p>
 
           <p>{Ticket.nameUser}</p>

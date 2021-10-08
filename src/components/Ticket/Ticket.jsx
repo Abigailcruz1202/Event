@@ -40,11 +40,7 @@ const Ticket = ({ ticket }) => {
 
       <div className={styles.subContainer}>
         <p>{`${date[2]}/${date[1]}/${date[0]}`}</p>
-        <ul>
-          {ticket.schedule.map((e) => (
-            <li key={e}>{e} hrs</li>
-          ))}
-        </ul>
+        <p>{ticket.schedule}</p>
         <p>{ticket.direction}</p>
       </div>
       <p>Propietario(a): {ticket.nameUser}</p>
