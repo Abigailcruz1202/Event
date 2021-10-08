@@ -35,19 +35,21 @@ const TicketPdf = () => {
     doc.setFont("Courier New", "bold");
     doc.setFontSize(40);
     doc.text(Ticket.nameEvent, 300, 270, "center" );
-    doc.setFont("Courier", "normal");
-    doc.setFontSize(20);
+    doc.setFont("Arial", "normal");
+    doc.setFontSize(25);
     doc.text(`${date[2]}/${date[1]}/${date[0]}`, 300, 330, "center");
-    doc.text(`${Ticket.schedule}Hrs`, 300, 360, "center");
-    doc.text(`${Ticket.direction}`, 300, 390, "center");
-    doc.text( `${Ticket.nameUser}`, 300, 440, "center");
-    doc.text(`Entradas: ${Ticket.quantity}`, 300, 470, "center");
-    doc.text(`Precio: ${Ticket.price}`, 300, 510, "center");
-    doc.text(`Total: ${Ticket.total}`, 300, 550, "center");
-    doc.text(`${Ticket.seating.map((e) => e)}`, 300, 590, "center");
+    doc.text(`${Ticket.schedule}Hrs`, 300, 370, "center");
+    doc.text(`${Ticket.direction}`, 300, 410, "center");
+    doc.text( `${Ticket.nameUser}`, 300, 450, "center");
+    doc.text(`Entradas: ${Ticket.quantity}`, 300, 490, "center");
+    doc.text(`Precio: ${Ticket.price}`, 300, 530, "center");
+    doc.text(`Total: ${Ticket.total}`, 300, 570, "center");
+    doc.text("Asientos: ", 300, 610, "center");
+    doc.setFont("Arial", "bold");
+    doc.text(`${Ticket.seating.map((e) => e)}`, 300, 650, "center");
     doc.setFont("Courier New", "bold");
     doc.setFontSize(15);
-    doc.text(300, 810, Ticket.id);
+    doc.text(Ticket.id, 300, 810, "center" );
     doc.save(`Event-${Ticket.nameEvent}-${date[2]}/${date[1]}/${date[0]}.pdf`);
   };
 
@@ -57,19 +59,20 @@ const TicketPdf = () => {
         <img src={logo} alt="" className={styles.img} />
         <div className={styles.containerData}>
           <h3 className={styles.title}>{Ticket.nameEvent}</h3>
-          <p>{`${date[2]}/${date[1]}/${date[0]}`}</p>
-          <p>{Ticket.schedule}</p>
-          <p>{Ticket.direction}</p>
+          <p className={styles.p}>{`${date[2]}/${date[1]}/${date[0]}`}</p>
+          <p className={styles.p}>{Ticket.schedule}</p>
+          <p className={styles.p}>{Ticket.direction}</p>
 
-          <p>{Ticket.nameUser}</p>
-          <p className={styles.p}>Entradas:</p>
-          <p className={styles.p}>{Ticket.quantity}</p>
-          <p className={styles.p}>Precio unitario:</p>
-          <p className={styles.p}>{Ticket.price}</p>
+          <p className={styles.p}>{Ticket.nameUser}</p>
+          
+          <p className={styles.p}>{`Entradas: ${Ticket.quantity}`}</p>
+          
+          <p className={styles.p}>{`Precio unitario: ${Ticket.price}`}</p>
           <p className={styles.p}>Total: {Ticket.total}</p>
-          <div>
+          <p className={styles.pSeating}>Asientos: </p>
+          <div className={styles.seating}>
             {!Ticket.seating ? (
-              <h4>Sin Asientos</h4>
+              <h4 className={styles.p}>Sin Asientos</h4>
             ) : (
               <ul className={styles.ul}>
                 {Ticket.seating.map((e) => (
