@@ -8,6 +8,8 @@
     align-items: center;
     justify-content: center; 
     background: rgba(0, 0, 0, 0.75);
+    animation: fade var(--Transition);
+    transition-timing-function: var(--CustomBezier);
 }
 .modalCont{
     position: fixed; 
@@ -22,8 +24,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: var(--BigShadow);
+    box-shadow: var(--BigShadowModal);
 }
+
 .text{
     margin:10px;
     height: 30%;
@@ -59,4 +62,14 @@
     background-color: var(--Primary);
     transition-duration: 300ms;
     color: var(--Button);
+    }
+
+    @keyframes fade {
+        from {
+            z-index: -1;
+            opacity: 0;
+        } to {
+            z-index: 10;
+            opacity: 1;
+        }
     }

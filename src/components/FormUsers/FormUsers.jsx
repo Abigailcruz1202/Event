@@ -8,8 +8,8 @@ import { API, changeModal } from '../../actions/actions'
 export function Validate(input) {
   let errors = {};
   console.log(input, "validate");
-  if (!input.name) {
-    errors.name = "*";
+  if (!input.first_name) {
+    errors.first_name = "*";
   }
   if (!input.last_name) {
     errors.last_name = "*";
@@ -28,7 +28,7 @@ export function Validate(input) {
     )
   ) {
     // /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i
-    errors.email = "*Correo invalido";
+    errors.email = "*";
   }
   if (!input.password) {
     errors.password = "*";
@@ -38,10 +38,10 @@ export function Validate(input) {
     )
   ) {
     // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/
-    errors.password = "Contraseña invalida";
+    errors.password = "*";
   }
   if(!input.repeat || input.repeat !== input.password) {
-    errors.repeat = "Las contraseñas aún no coinciden";
+    errors.repeat = "*";
   }
   if (!input.phone) {
     errors.phone = "*";
