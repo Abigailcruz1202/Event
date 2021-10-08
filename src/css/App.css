@@ -74,6 +74,7 @@ a {
   color: var(--Button);
   font-weight: 350;
   margin: 20px;
+  margin-bottom: 0;
 
 }
 
@@ -179,6 +180,9 @@ filter: brightness(60%);
 /** MARGIN_____________________________________________________ */
 .margin0{
   margin: 0px;
+}
+.margin5{
+  margin: 5px;
 }
 .margin15{
   margin: 15px;

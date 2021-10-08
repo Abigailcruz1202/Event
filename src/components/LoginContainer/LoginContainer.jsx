@@ -16,8 +16,8 @@ const LoginContainer = () => {
     return (
         <div className={ styles.container }>
             <div> { /* VER qué hago con el estilo de estos botones... */ }
-            <button onClick={ setUser } className={styles.btnUser}>Usuario</button>
-            <button onClick={ setPromoter } className={styles.btnPromoter}>Promotor</button>
+            <button onClick={ setUser } className={styles.btnUser}>Soy Usuario</button>
+            <button onClick={ setPromoter } className={styles.btnPromoter}>Soy Promotor</button>
             </div>
             
             {Switch

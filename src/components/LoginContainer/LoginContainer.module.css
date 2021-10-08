@@ -1,12 +1,12 @@
 .container{
-    height: 79vh;
+    height: auto;
     display: flex;
     justify-content: center;
     padding-top: 0px;
     padding-bottom: 40px;
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
 }
 
 .btnUser{

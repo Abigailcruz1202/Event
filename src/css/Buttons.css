@@ -11,6 +11,7 @@
 
   /* REGULAR BUTTONS */
   .regularBtn{
+    max-width: max-content;
     background-color: var(--Secondary);
     color: var(--Black);
     font-weight: bold;
