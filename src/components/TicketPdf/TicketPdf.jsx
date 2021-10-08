@@ -1,4 +1,4 @@
-/* import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouteMatch } from "react-router-dom";
 import axios from "axios";
 import styles from "./TicketPdf.module.css";
@@ -38,7 +38,7 @@ const TicketPdf = () => {
     doc.setFont("Courier", "normal");
     doc.setFontSize(20);
     doc.text(`${date[2]}/${date[1]}/${date[0]}`, 300, 330, "center");
-    doc.text(`${Ticket.schedule.map((e) => e)}Hrs`, 300, 360, "center");
+    doc.text(`${Ticket.schedule}Hrs`, 300, 360, "center");
     doc.text(`${Ticket.direction}`, 300, 390, "center");
     doc.text( `${Ticket.nameUser}`, 300, 440, "center");
     doc.text(`Entradas: ${Ticket.quantity}`, 300, 470, "center");
@@ -58,18 +58,10 @@ const TicketPdf = () => {
         <div className={styles.containerData}>
           <h3 className={styles.title}>{Ticket.nameEvent}</h3>
           <p>{`${date[2]}/${date[1]}/${date[0]}`}</p>
-          {!Ticket.schedule ? (
-            <h4>Sin Horario</h4>
-          ) : (
-            <ul>
-              {Ticket.schedule.map((e) => (
-                <li key={e}>{e} hrs</li>
-              ))}
-            </ul>
-          )}
+          <p>{Ticket.schedule}</p>
           <p>{Ticket.direction}</p>
 
-          <p>Propietario(a): {Ticket.nameUser}</p>
+          <p>{Ticket.nameUser}</p>
           <p className={styles.p}>Entradas:</p>
           <p className={styles.p}>{Ticket.quantity}</p>
           <p className={styles.p}>Precio unitario:</p>
@@ -90,12 +82,11 @@ const TicketPdf = () => {
 
         <p className={styles.id}>{Ticket.id}</p>
       </div>
-      <button className="bigBtn" onClick={createPdf} type="primary">
-        PDF
+      <button className={styles.btn} onClick={createPdf} type="primary">
+        DESCARGA
       </button>
     </div>
   );
 };
 
 export default TicketPdf;
- */

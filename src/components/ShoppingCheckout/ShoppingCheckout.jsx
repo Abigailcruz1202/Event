@@ -12,7 +12,7 @@ const ShoppingCheckout = () => {
   }, []);
 
   const imgPruebaCabecera =
-    "https://media.iastatic.es/ia_img/image/tienda-online_png_770x570_q85.jpg";
+    "https://static1.abc.es/media/bienestar/2020/11/24/compras-blak-friday-knN--1024x512@abc.jpg";
 
   //*-----------------------------------------------------------------
 

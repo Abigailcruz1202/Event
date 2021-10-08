@@ -46,6 +46,7 @@
   --ShadowTwo: 2px 2px 2px rgba(0, 0, 0, 1);
   --ShadowBtn:  0 0 10px rgba(0, 0, 0, 1);
   --BigShadow: 0 0 20px 30px var(--Black);
+  --BigShadowModal: 0 0 30px 20px black;
   --Transition: .4s;
   --CustomBezier: cubic-bezier(0.1, 0.9, 1, 1); /* Transición animada personalizada */
 }
@@ -67,10 +68,14 @@ a {
 }
 
 .formTitle {
+  display: flex;
+  justify-content: center;
   font-size: 1.5rem;
   color: var(--Button);
   font-weight: 350;
   margin: 20px;
+  margin-bottom: 0;
+
 }
 
 .thumbnail {
@@ -175,6 +180,9 @@ filter: brightness(60%);
 /** MARGIN_____________________________________________________ */
 .margin0{
   margin: 0px;
+}
+.margin5{
+  margin: 5px;
 }
 .margin15{
   margin: 15px;

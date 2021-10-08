@@ -11,7 +11,7 @@
   }
 
 .titleContainer{
-    background-color: var(--Primary);
+    background-color: var(--Black);
     width: 95%;
     height: 100%;
     padding: 7px;
@@ -56,4 +56,18 @@
     background-color: var(--Success);
     color: var(--White);
     text-align: center;
+  }
+
+  .btn{
+    margin-top: 20px;
+    padding: 7px 11px;
+    background-color: var(--Alert);
+    color: var(--White);
+    border-radius: var(--RadiusOne);
+    cursor: pointer;
+  }
+  .btn:hover{
+    transition: .3s;
+    
+    background-color: red;
   }

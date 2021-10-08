@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 import axios from "axios";
 import styles from "../FormPromoter/Forms.module.css";
-import {API} from '../../actions/actions'
+import { API, changeModal } from '../../actions/actions'
 
 
 export function Validate(input) {
   let errors = {};
   console.log(input, "validate");
-  if (!input.name) {
-    errors.name = "*";
+  if (!input.first_name) {
+    errors.first_name = "*";
   }
   if (!input.last_name) {
     errors.last_name = "*";
@@ -27,7 +28,7 @@ export function Validate(input) {
     )
   ) {
     // /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i
-    errors.email = "*Correo invalido";
+    errors.email = "*";
   }
   if (!input.password) {
     errors.password = "*";
@@ -37,10 +38,10 @@ export function Validate(input) {
     )
   ) {
     // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/
-    errors.password = "Contraseña invalida";
+    errors.password = "*";
   }
   if(!input.repeat || input.repeat !== input.password) {
-    errors.repeat = "Las contraseñas aún no coinciden";
+    errors.repeat = "*";
   }
   if (!input.phone) {
     errors.phone = "*";
@@ -50,6 +51,7 @@ export function Validate(input) {
 }
 
 export function FormUsers() {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [user, setUser] = useState({
     first_name: "",
@@ -103,7 +105,7 @@ export function FormUsers() {
       console.log(user, "user");
       try {
         const res = await axios.post(`${API}user/`, user);
-        alert(res.data.msg);
+        dispatch(changeModal('correct', res.data.msg));
       } catch (error) {
         console.log("error", error);
       }
@@ -240,8 +242,9 @@ export function FormUsers() {
 
             <div className={styles.row}>
               <label>Fecha de Nacimiento: </label>
+              <div className={styles.separator}></div>
               <div className={styles.inputCheck}>
-                <input
+                <input className={styles.date}
                   type="date"
                   name="birthdate"
                   value={user.birthdate}
@@ -264,20 +267,22 @@ export function FormUsers() {
                 {errors.phone && <span className="danger">{errors.phone}</span>}
               </div>
             </div>
+            <div className={styles.row}>
+            <label>País: </label>
+            <div className={styles.inputCheck}>
+              <input
+                className={errors.country && "danger"}
+                type="text"
+                name="country"
+                value={user.country}
+                onChange={handleInputChange}
+                placeholder='País..'
+              />
+              {errors.country && <span className="danger">{errors.country}</span>}
+            </div>
+          </div>
+          </div>
 
-          </div>
-          <label>País: </label>
-          <div className={styles.inputCheck}>
-          <input
-            className={errors.country && "danger"}
-            type="text"
-            name="country"
-            value={user.country}
-            onChange={handleInputChange}
-            placeholder='País..'
-          />
-          {errors.country && <span className="danger">{errors.country}</span>}
-          </div>
           {/* 
           <label>Provincia/Estado/Departamento: </label>
           <div className={styles.inputCheck}>
@@ -332,6 +337,7 @@ export function FormUsers() {
             </div>
             <div className={styles.row}>
               <span >Repetir contraseña: </span>
+              <div className={styles.separator}></div>
                 <div className={styles.inputCheck}>
                  <input
                   type="password"

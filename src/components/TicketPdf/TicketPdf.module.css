@@ -28,3 +28,15 @@
     height: 250px;
 }
 
+.btn{
+    background-color: red;
+    color: var(--White);
+    margin-bottom: 100px;
+    padding: 11px;
+    border-radius: var(--RadiusOne);
+    cursor: pointer;
+}
+
+.btn:hover{
+    background-color: rgb(197, 13, 13);
+}

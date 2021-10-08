@@ -1,6 +1,7 @@
 .li{
     width: 270px;
-    height: 500px;
+    min-height: 500px;
+    max-height: fit-content;
     background-color: var(--White);
     color: var(--Black);
     margin: 20px;
@@ -11,6 +12,11 @@
     box-shadow: var(--Shadow);
 }
 
-/* .li:hover{
-  
-} */
+.icon{
+    font-size: 500px;
+    color: var(--Alert);
+}
+
+.sin{
+    font-size: 50px;
+}

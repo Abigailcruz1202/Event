@@ -1,4 +1,4 @@
-/* import React from "react";
+import React from "react";
 import {Link} from 'react-router-dom';
 import styles from "./Ticket.module.css";
 import moment from "moment";
@@ -40,11 +40,7 @@ const Ticket = ({ ticket }) => {
 
       <div className={styles.subContainer}>
         <p>{`${date[2]}/${date[1]}/${date[0]}`}</p>
-        <ul>
-          {ticket.schedule.map((e) => (
-            <li key={e}>{e} hrs</li>
-          ))}
-        </ul>
+        <p>{ticket.schedule}</p>
         <p>{ticket.direction}</p>
       </div>
       <p>Propietario(a): {ticket.nameUser}</p>
@@ -62,7 +58,7 @@ const Ticket = ({ ticket }) => {
           ))}
         </ul>
         <Link to={`/ticketpdf/${ticket.id}`}>
-        <button className="bigBtn">PDF</button>
+        <button className={styles.btn}>PDF</button>
         </Link>
       </div>
     </>
@@ -70,4 +66,4 @@ const Ticket = ({ ticket }) => {
 };
 
 export default Ticket;
- */
+

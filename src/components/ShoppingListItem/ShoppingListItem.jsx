@@ -39,10 +39,9 @@ const ShoppingListItem = ({
     price: event.price,
     total: Number(event.price) * NumItem,
     quantity: NumItem,
-    direction: event.address,
+    direction: event.type?event.direction:event.address,
     date: event.start_date,
     schedule: event.schedule,
-    seating: ['a1','a2'],
     nameSection: event.nameSection,
     // locationCountry: cos.location.country,
     // locationProvince: cos.location.province,
@@ -128,3 +127,4 @@ export default connect(mapStateToProps, {
   addTicket,
   deleteTicket,
 })(ShoppingListItem);
+

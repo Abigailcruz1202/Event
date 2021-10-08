@@ -1,6 +1,6 @@
 .contPrin{
     width: 100%;
-    height: 1000px;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,7 +14,7 @@
     position: relative;
     background: var(--Secondary);
     width: 70%;
-    height: 320px;
+    height: auto;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     display: flex;
@@ -32,18 +32,18 @@
         border-bottom-right-radius: 0px;
     }
 }
-    /* @media (max-width: 420px) { 
+     @media (max-width: 420px) { 
       .card{
        width: 50vw;
        height: max-content;
       }
-    } */
+    } 
 
 .imgProfile{
-    position: absolute;
     background: gray;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
+    margin: 20px;
     border-radius: 50%;
     top:5px;
     overflow: hidden;
@@ -66,11 +66,11 @@
 .contEvents{
     width: 80%;
 }
-/* @media (max-width: 768px) { 
+@media (max-width: 768px) { 
     .contEvents{
         width: 100%;
     }
-} */
+} 
 
 .contEvents h4 {
     color:white;
@@ -82,7 +82,7 @@
     width: 150px;
     border-radius: 10px;
     background-color: var(--Button);
-    font-weight: 600;   
+    font-weight: 600;
 }
 .barEvent{
     display: flex;

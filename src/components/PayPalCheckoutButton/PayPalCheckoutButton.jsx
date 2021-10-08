@@ -1,14 +1,16 @@
+
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import ReactDOM from "react-dom";
 import { useHistory } from "react-router-dom";
 import paypal from "paypal-checkout";
-import { API, resetShopping, updateInfoLimit } from "../../actions/actions";
-//import SelectSectorSin from "../Details/EventDetailsUsario/SelectSectorSin";
+import { API, resetShopping, updateInfoLimit,changeModal  } from "../../actions/actions";
 import axios from "axios";
 const PayPalCheckoutButton = ({ order, resetShopping, tickets, user,UpdateDataLimit}) => {
-  const API = 'https:localhost:3001/api/ticket/create'
+  // const API = 'https://event-henryapp-backend.herokuapp.com/api/ticket/create'
+
   const history = useHistory();
+  const dispatch = useDispatch();
   const redirec = (dir) => {
     history.push(dir);
   };
@@ -90,32 +92,39 @@ const PayPalCheckoutButton = ({ order, resetShopping, tickets, user,UpdateDataLi
       return actions.payment.execute()
       .then(response => {
           console.log(response)
-          upDate()//leo
-          alert(`el pago se realizo correctamente, ID: ${response.id}`)
 
-          redirec(`/tickets/${user.id}`);
-          tickets.map( async ticket => (
+          upDate()//leo
+
+          dispatch(changeModal('correct', `El pago se realizó correctamente. \n ID: ${response.id}`));
+         
+
+          tickets.map( async ticket => {
             await fetchPostTicket(ticket)
-          ))
+          })
            resetShopping()
-             
+
+           setTimeout(function () {
+            redirec(`/tickets/${user.id}`);
+        }, 1000);
+            
+
 
       })
 
       .catch(error => {
-        console.log(error)
-        alert('Ocurrio un error')
+        console.log('ERROR EN AUTORIZACIÓN DE PAGO: ', error);
+        dispatch(changeModal('incorrect', 'Ocurrió un error.'))
     }) 
   }
   const onError = (error) => {
     console.log(error)
-    alert('No se pudo realizar el pago')
+    dispatch(changeModal('incorrect', 'No se pudo realizar el pago.'))
   };
   const onCancel = (data, actions) => {
-    alert('Pago cancelado')
+    dispatch(changeModal('warning', 'Pago cancelado.'))
   };
   return (
-      <PaypalButton 
+      <PaypalButton
         env={paypalConf.env}
         client={paypalConf.client}
         payment={(data, actions) => payment(data, actions)}
@@ -139,4 +148,6 @@ function mapStateToProps(state) {
   };
 }
 
+
 export default connect(mapStateToProps, { resetShopping,updateInfoLimit })(PayPalCheckoutButton);
+
