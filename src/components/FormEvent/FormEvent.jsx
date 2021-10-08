@@ -592,7 +592,7 @@ export function FormEvent(props) {
                                 format = 'HH:mm'
                                 name='schedule'
                                 value={event.schedule}
-                                onBlur={inputChange}                                   
+                                onChange={inputChange}                                   
                              />
 
                             <span className={styles.tick}>{!errors.schedule && '✓'}</span>
