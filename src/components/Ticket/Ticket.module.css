@@ -40,6 +40,7 @@
     height: 100%;
     background-color: var(--Button);
     text-align: center;
+    font-size: 23px;
   }
 
   .ocur{
@@ -48,6 +49,7 @@
     background-color: var(--Other);
     color: var(--White);
     text-align: center;
+    font-size: 23px;
   }
 
   .today{
@@ -56,6 +58,7 @@
     background-color: var(--Success);
     color: var(--White);
     text-align: center;
+    font-size: 23px;
   }
 
   .btn{
@@ -70,4 +73,8 @@
     transition: .3s;
     
     background-color: red;
+  }
+
+  .titles{
+    margin-bottom: 0px;
   }
