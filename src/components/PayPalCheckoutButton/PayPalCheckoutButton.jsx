@@ -6,12 +6,12 @@ import paypal from "paypal-checkout";
 import { resetShopping } from "../../actions/actions";
 
 const PayPalCheckoutButton = ({ order, resetShopping, tickets, user }) => {
-  const API = 'https://event-henryapp-backend.herokuapp.com/api/ticket/create'
+  // const API = 'https://event-henryapp-backend.herokuapp.com/api/ticket/create'
   const history = useHistory();
   const redirec = (dir) => {
     history.push(dir);
   };
-
+console.log('tickets------------------',tickets )
 
   //*funcion ticket post
   const fetchPostTicket = async (e) => {
@@ -24,7 +24,7 @@ const PayPalCheckoutButton = ({ order, resetShopping, tickets, user }) => {
           },
           body: JSON.stringify(e),
         };
-        let res = await fetch(API, config);
+        let res = await fetch('https://event-henryapp-backend.herokuapp.com/api/ticket/create', config);
         let json = await res.json();
         console.log(json);
       } catch (err) {}
@@ -74,13 +74,11 @@ const PayPalCheckoutButton = ({ order, resetShopping, tickets, user }) => {
       .then(response => {
           console.log(response)
           alert(`el pago se realizo correctamente, ID: ${response.id}`)
-
-          redirec(`/tickets/${user.id}`);
           tickets.map( async ticket => (
             await fetchPostTicket(ticket)
           ))
            resetShopping()
-             
+            redirec(`/tickets/${user.id}`);
 
       })
       .catch(error => {

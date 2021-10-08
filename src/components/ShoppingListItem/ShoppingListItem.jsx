@@ -41,7 +41,6 @@ const ShoppingListItem = ({
     direction: event.address,
     date: event.start_date,
     schedule: event.schedule,
-    seating: ['a1','a2'],
     nameSection: event.nameSection,
     // locationCountry: cos.location.country,
     // locationProvince: cos.location.province,
