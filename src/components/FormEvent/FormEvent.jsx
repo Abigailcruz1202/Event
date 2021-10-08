@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { API, changeModal, editEvent, postEvent } from '../../actions/actions.js';
 import Croquis from '../Croquis/Croquis.jsx';
@@ -16,7 +16,7 @@ const regiones = {
 
 
 export function FormEvent(props) {
-    console.log('soyyy props', props)
+    const dispatch = useDispatch()
     const history = useHistory()
     const [errors, setErrors] = useState({});
     const [load, setLoad] = useState(false);
@@ -49,10 +49,10 @@ export function FormEvent(props) {
         city:'',//general
         address: '',//general
         start_date: '',//general
-        finish_date: '',//si es recurrente
-        isRecurrent:0,//general
-        schedule: [],//general
-        weekdays: [],//si es recurrente
+        //finish_date: '',//si es recurrente
+        //isRecurrent:0,//general
+        schedule: '',//general
+        weekdays: '',//si es recurrente
         tags: '',//general
         age_rating: '',//general
         sectorize:'no sectorizar',//general
@@ -69,7 +69,7 @@ export function FormEvent(props) {
   
 
     useEffect(()=>{
-        if(props.modalForm.data.address){
+        if(props.modalForm?.data?.name){
             let divC=''
             if(props.modalForm.data.location.country === 'Argentina'){
                 divC='provincias'
@@ -89,8 +89,8 @@ export function FormEvent(props) {
                 city:props.modalForm.data.location.city,
                 address: props.modalForm.data.address,
                 start_date: props.modalForm.data.start_date,
-                finish_date: props.modalForm.data.finish_date,
-                isRecurrent:props.modalForm.data.isrecurrent,
+                //finish_date: props.modalForm.data.finish_date,
+                //isRecurrent:props.modalForm.data.isrecurrent,
                 schedule: props.modalForm.data.schedule,
                 weekdays: props.modalForm.data.weekdays,
                 tags: props.modalForm.data.tags,
@@ -112,8 +112,8 @@ export function FormEvent(props) {
                 city:props.modalForm.data.location.city,
                 address: props.modalForm.data.address,
                 start_date: props.modalForm.data.start_date,
-                finish_date: props.modalForm.data.finish_date,
-                isRecurrent:props.modalForm.data.isrecurrent,
+                //finish_date: props.modalForm.data.finish_date,
+                //isRecurrent:props.modalForm.data.isrecurrent,
                 schedule: props.modalForm.data.schedule,
                 weekdays: props.modalForm.data.weekdays,
                 tags: props.modalForm.data.tags,
@@ -162,19 +162,19 @@ export function FormEvent(props) {
         }))
     }
 
-    const deleteHour = (hour)=>{
-        setEvent({
-            ...event,
-            schedule: event.schedule.filter((h)=> h!== hour)
-        })
-    }
+    // const deleteHour = (hour)=>{
+    //     setEvent({
+    //         ...event,
+    //         schedule: event.schedule.filter((h)=> h!== hour)
+    //     })
+    // }
 
-    const deleteDay = (day)=>{
-        setEvent({
-            ...event,
-            weekdays: event.weekdays.filter((d)=> d!== day)
-        })
-    }
+    // const deleteDay = (day)=>{
+    //     setEvent({
+    //         ...event,
+    //         weekdays: event.weekdays.filter((d)=> d!== day)
+    //     })
+    // }
     //Inicio secciones
     const handleChangeSection = (e)=>{
         setSections({
@@ -278,27 +278,23 @@ export function FormEvent(props) {
         })
     },[sectionsCroquis.filasC,sectionsCroquis.columnasC,sectionsCroquis.nameC,sectionsCroquis.priceC])
     //Fin secciones
-    const handleEdit = async(e)=>{
-        
+    const handleClose = ()=>{
+        dispatch(editEvent());
+    }
+
+    const handleEdit = async(e)=>{        
         e.preventDefault();
-        let obj = validate(event)
-      
+        let obj = validate(event)      
         if(Object.keys(obj).length !== 0) {
             props.changeModal('correct', `Revisa todos los campos`);
         } else {
-            try{
-                console.log(props.modalForm.data.id,'soy yooo')
-                
-                const res = await axios.put(`${API}/event/edit/${props.modalForm.data.id}`,{...event,locationId:props.modalForm.data.locationId,id:props.modalForm.data.id})
-                
-                console.log(res)
+            try{                
+                const res = await axios.put(`${API}/event/edit/${props.modalForm.data.id}`,{...event,locationId:props.modalForm.data.locationId,id:props.modalForm.data.id})               
                 if(res.data.msg==='update'){
                    props.changeModal('correct', `Evento Actualizado`) 
                    history.push('/perfil')
-                }
-                              
+                }                             
                 else if(res.data.created){
-                    console.log('eyyyyyyyy', res.data.created)
                     props.changeModal('correct', `El Nombre del evento ya se encuentra registrado`)
                 }
                 props.editEvent(null)
@@ -320,7 +316,6 @@ export function FormEvent(props) {
          } else {
              try{
                  const res = await axios.post(`${API}/event`,event)
-                 console.log('respuesta del backkkkkkkkk',res.data)
                  if(res.data.msg){
                     props.changeModal('correct', `Intentalo de nuevo más tarde`) 
                  }
@@ -350,7 +345,6 @@ export function FormEvent(props) {
                     });
                     history.push('/perfil')
                  }else if(!res.data.created){
-                     console.log('eyyyyyyyy', res.data.created)
                      props.changeModal('correct', `El Nombre del evento ya se encuentra registrado`)
                  }
              }catch(error){
@@ -369,15 +363,15 @@ export function FormEvent(props) {
 
             e.target.value === 'México' && 
             setEvent({...event,divC:'estados',country:'México'});
-        }else if(e.target.name === 'weekdays' ||e.target.name === 'schedule'){
-            console.log(e)
-            setEvent(
-                {...event, [e.target.name]:[...event[e.target.name], e.target.value]
-            }) 
-        }else if(e.target.name === 'isRecurrent'){
-            setEvent(
-                {...event, isRecurrent:parseInt(e.target.value)
-            }) 
+        // }else if(e.target.name === 'weekdays' ||e.target.name === 'schedule'){
+        //     console.log(e)
+        //     setEvent(
+        //         {...event, [e.target.name]:[...event[e.target.name], e.target.value]
+        //     }) 
+        // }else if(e.target.name === 'isRecurrent'){
+        //     setEvent(
+        //         {...event, isRecurrent:parseInt(e.target.value)
+        //     }) 
         }else if(e.target.name === 'sectorize'){
             setEvent({
                 ...event,
@@ -387,8 +381,6 @@ export function FormEvent(props) {
                 price:'',
                 limit:'',
             });  
-
-
         }
         else{
             setEvent({
@@ -546,7 +538,7 @@ export function FormEvent(props) {
                             <span className={styles.tick}>{!errors.start_date && '✓'}</span>
                         </div>
                     </div>
-                    <div className={styles.row}>{/*recurrente*/}
+                    {/* <div className={styles.row}>
                         <span>Recurrente: </span>
                         <div className={styles.inputCheckRec}>                           
                             <input 
@@ -567,9 +559,9 @@ export function FormEvent(props) {
                             />No <br />                            
                             <span className={styles.tick}>{!errors.isRecurrent && '✓'}</span>
                         </div>
-                    </div>
-                    {event.isRecurrent?
-                        <div className={styles.row}>{/*FECHA FINAL*/}
+                    </div> */}
+                    {/* {event.isRecurrent?
+                        <div className={styles.row}>
                              <span>Fecha Final: </span>
                              <div className={styles.inputCheck}>
                                 <input 
@@ -582,25 +574,24 @@ export function FormEvent(props) {
                                 <span className={styles.tick}>{!errors.finish_date && '✓'}</span>
                             </div>
                         </div>:null
-                    }
+                    } */}
                     {/* {event.isRecurrent && */}
                     {/* <> */}
                     <div className={styles.row}>{/*HORARIOS*/}
-                        <span>Horarios: </span>
+                        <span>Horario: </span>
                         <div className={styles.inputCheck}>                              
                             <input 
                                 id={styles.minWidth}
                                 type="time"
                                 format = 'HH:mm'
                                 name='schedule'
-                                value={event.schedule[event.schedule.length]}
+                                value={event.schedule}
                                 onBlur={inputChange}                                   
                              />
-                             {/* <button onClick={()=>addSchedule(hour)}>Add</button>  */}
                             <span className={styles.tick}>{!errors.schedule && '✓'}</span>
                         </div> 
                     </div>  
-                    {event.schedule.length!==0 &&
+                    {/* {event.schedule.length!==0 &&
                         <div className={styles.imagenes}>
                             {
                                 event.schedule.map((hour,i)=>
@@ -614,19 +605,18 @@ export function FormEvent(props) {
                                 )
                             }
                         </div>   
-                    }                                    
+                    }                                     */}
                     {/* </>
                     } */}
-                    {event.isRecurrent?
-                    <>
-                    <div className={styles.row}>{/*HORARIOS DISPONIBLES*/}
-                        <span>Dias: </span>
+                    {/* {event.isRecurrent?
+                    <> */}
+                    <div className={styles.row}>
+                        <span>Dia: </span>
                         <div className={styles.inputCheck}>
                             <select
                                 name='weekdays'
                                 value={event.weekdays}
-                                onChange={inputChange}
-                               
+                                onChange={inputChange}                               
                             >
                                 <option value='' disabled>seleccione</option>
                                 <option value={'Lunes'}>Lunes</option>
@@ -640,7 +630,7 @@ export function FormEvent(props) {
                             <span className={styles.tick}>{!errors.weekdays && '✓'}</span>
                         </div> 
                     </div>
-                    {event.weekdays.length!==0 &&
+                    {/* {event.weekdays.length!==0 &&
                         <div className={styles.imagenes}>
                             {
                                 event.weekdays.map((day,i)=>
@@ -656,7 +646,7 @@ export function FormEvent(props) {
                         </div> 
                     } 
                     </>:null
-                    }
+                    } */}
                     <div className={styles.row}>{/*TIPO DE EVENTO*/}
                         <span>Tipo de Evento: </span>
                         <div className={styles.inputCheck}>
@@ -692,6 +682,9 @@ export function FormEvent(props) {
                             <span className={styles.tick}>{!errors.age_rating && '✓'}</span>
                         </div>                   
                     </div>
+                    {!props.modalForm.render?
+                    
+                    <>
                     <div className={styles.row}>
                         <span>Sectorizar: </span>
                         <div className={styles.sectorizarQ}>
@@ -845,9 +838,14 @@ export function FormEvent(props) {
                         </div>
                     </>
                     }
+                    </>:null}
                 </div>
                 {props.modalForm.render?
-                <input type='submit' onClick={handleEdit} value='Editar'/>:
+                <>
+                    <input type='submit' onClick={handleEdit} value='Editar'/>
+                    <input type='submit' onClick={handleClose} value='Cancelar'/>
+                </>
+                :
                 <input type='submit' onClick={handleSubmit} value='Crear'/> 
                  }
                 

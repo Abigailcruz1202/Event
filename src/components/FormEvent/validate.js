@@ -14,11 +14,7 @@ export default function validate(form) {
         )) error.address = true
     if(!form.start_date) error.start_date = true;
     //SI ES RECURRENTE
-    if(form.isRecurrent){   
-        if(!form.finish_date) error.finish_date = true; 
-        if(form.weekdays.length < 1) error.weekdays=true;  
-    }
-
+    if(form.weekdays.length < 1) error.weekdays=true;  
     if(form.sectorize === 'no sectorizar'){
         if(!form.price) error.price=true;
         if(!form.ticket_limit) error.ticket_limit=true;

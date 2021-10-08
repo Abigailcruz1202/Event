@@ -88,9 +88,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
         const checkFavorite = async () => {
             if (!userInfo.id) return
             try {
-
                 const req = await axios.get(`${API}user/${userInfo.id}`)
-
                 let isFavoriteResult = req?.data.favorite[0].includes(detailsEvent.consult?.name)
                 if (isFavoriteResult) {
                     setClick(true)
@@ -225,12 +223,12 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                     
                                 </div>
                                 <div className={styles.rightColumn}>
-                                    <h4>Fecha Finalización:</h4>
-                                    <p>{` ${detailsEvent.consult.finish_date}`}</p>
-                                    <h4>Dias:</h4>
-                                    <p>{` ${detailsEvent.consult.weekdays.map((e)=>(e))}`}</p>
+                                    {/* <h4>Fecha Finalización:</h4>
+                                    <p>{` ${detailsEvent.consult.finish_date}`}</p> */}
+                                    <h4>Dia:</h4>
+                                    <p>{` ${detailsEvent.consult.weekdays}`}</p>
                                     <h4>Horarios:</h4>
-                                    <p>{` ${detailsEvent.consult.schedule.map((e)=>(e))}`}</p>
+                                    <p>{` ${detailsEvent.consult.schedule}`}</p>
                                     <h4>Tipo de Evento:</h4>
                                     <p>{` ${detailsEvent.consult.tags}`}</p>
                                     <h4>Clasificación:</h4>                            
@@ -302,14 +300,12 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                             !userInfo.type ? (
                                 <span>&nbsp;</span>
                             ) : (
-                                userInfo.type === 'promoter' ? (
+                                userInfo.type === 'promoter' && detailsEvent.consult.promoterId === userInfo.id ? (
                                 <>
                                     <button className={styles.button} onClick={editEvento}>Editar</button>
                                     <button className={styles.button} onClick={deleteEvent}>Eliminar</button>
                                 </>
-                                ) : (
-                                    <button className={styles.button}>Reservar</button>
-                                )
+                                ) : null
                             )
                         
                         } 

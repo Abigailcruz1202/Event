@@ -7,34 +7,38 @@ import FilaEvent from "./FilaEvent";
 
 const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
     const dispatch = useDispatch()
-    const cart = useSelector(state=>state.cartState,)
+    const cart = useSelector(state=>state.cartState)
+    const details = useSelector(state=>state.detailsEvent)
     const [eventCart, setEventCart] = useState([])
-    const ticketsSections = useSelector(state => state.ticketsSections)
+    const [dataUpdate, setDataUpdate] = useState([...data])
     const [croquis, setCroquis] = useState({
         name:'',
         price:'',
         limit:null,
         filas:[],
     });//croquis que renderizo
-
-    // useEffect(()=>{
-    //     if(ticketsSections.length){
-    //         let eventsAddCroquis = ticketsSections.filter(t=>t.type === true)
-    //         console.log(eventsAddCroquis[eventsAddCroquis.length-1].dataUpdate)
-    //         data=eventsAddCroquis[eventsAddCroquis.length-1].dataUpdate
-    //         console.log(ticketsSections,'ticketsSections')
-    //         console.log(data)
-    //     }
-    // },[croquis])//actualiza la data
-    useEffect(()=>{
-        setEventCart(cart.filter(e =>  e.id === detailsEvent.id))
-    },[cart])
-    const [dataUpdate, setDataUpdate] = useState([...data])
     const [tickets, setTickets] = useState({
         sectionName:croquis.name,
         price:croquis.price,
         tickets:[]
     });//tikets selecionados
+    useEffect( () => {
+        const fetchData = async () => {
+            try{
+                dispatch(getEventDetail(detailsEvent.id))
+            }catch(error){
+               console.log(error)
+            }
+        }
+        fetchData()        
+    },[croquis]);
+
+    useEffect(()=>{
+        setEventCart(cart.filter(e =>  e.id === detailsEvent.id))
+    },[cart])
+
+    
+
    
     const addCar = ()=>{//agrega al carrito y envia a redux info del ticket
         const obj={
@@ -58,22 +62,11 @@ const CroquisEvent = ({data, modPut, idEvent,detailsEvent,user})=>{
             idEvent,
         }
         dispatch(addShopping(detailsEvent))
-        // setTickets({
-        //     sectionName:croquis.name,
-        //     price:croquis.price,
-        //     tickets:[]
-        // })
-        // let updateIndex = dataUpdate.findIndex(d=>d.name === croquis.name)
-        // let update = dataUpdate
-        // update[updateIndex].limit = update[updateIndex].limit -tickets.tickets.length
-        // console.log(update)
-        // setDataUpdate(
-        //     update
-        // )    
     }
         
     const changeSection = (e)=>{//cuando cambia la seccion se setea el plano del croquis
-        let act = data?.find(sec => sec.name === e.target.value)
+        
+        let act = details.consult.sections?.find(sec => sec.name === e.target.value)
         setCroquis(act)
         setTickets({
             sectionName:e.target.value,
