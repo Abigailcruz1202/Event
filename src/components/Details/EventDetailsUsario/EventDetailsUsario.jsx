@@ -12,7 +12,7 @@ import CroquisEvent from '../../CroquisEvent/CroquisEvent';
 import SelectSectorSin from './SelectSectorSin';
 
 
-const pushDta=(detailsEvent)=>{
+const pushDta=(detailsEvent)=>{  
     let data = [];
     let picture = detailsEvent.consult?.pictures
     for (let index = 0; index < picture?.length; index++) {
@@ -46,7 +46,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                 await dispatch(getEventDetail(id))
                 setRender(true)
             }catch(error){
-                alert('Algo salio mal al cargar este evento.')
+                dispatch(changeModal('incorrect','Algo salio mal'))
             }
         }
         fetchData()
