@@ -242,8 +242,9 @@ export function FormUsers() {
 
             <div className={styles.row}>
               <label>Fecha de Nacimiento: </label>
+              <div className={styles.separator}></div>
               <div className={styles.inputCheck}>
-                <input
+                <input className={styles.date}
                   type="date"
                   name="birthdate"
                   value={user.birthdate}
@@ -266,20 +267,22 @@ export function FormUsers() {
                 {errors.phone && <span className="danger">{errors.phone}</span>}
               </div>
             </div>
+            <div className={styles.row}>
+            <label>País: </label>
+            <div className={styles.inputCheck}>
+              <input
+                className={errors.country && "danger"}
+                type="text"
+                name="country"
+                value={user.country}
+                onChange={handleInputChange}
+                placeholder='País..'
+              />
+              {errors.country && <span className="danger">{errors.country}</span>}
+            </div>
+          </div>
+          </div>
 
-          </div>
-          <label>País: </label>
-          <div className={styles.inputCheck}>
-          <input
-            className={errors.country && "danger"}
-            type="text"
-            name="country"
-            value={user.country}
-            onChange={handleInputChange}
-            placeholder='País..'
-          />
-          {errors.country && <span className="danger">{errors.country}</span>}
-          </div>
           {/* 
           <label>Provincia/Estado/Departamento: </label>
           <div className={styles.inputCheck}>
@@ -334,6 +337,7 @@ export function FormUsers() {
             </div>
             <div className={styles.row}>
               <span >Repetir contraseña: </span>
+              <div className={styles.separator}></div>
                 <div className={styles.inputCheck}>
                  <input
                   type="password"
