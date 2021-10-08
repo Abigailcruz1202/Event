@@ -45,8 +45,8 @@
 .ulContainer{
   margin: auto;
   margin-bottom: 70px;
-  width: 70vw;
-  min-height: 400px;
+  width: 60vw;
+  min-height: 700px;
   max-height: fit-content;
   background-color: rgb(224, 235, 245);
   text-align: center;
@@ -65,10 +65,10 @@
 .ulContainerPass{
   margin: auto;
   margin-bottom: 70px;
-  width: 70vw;
-  min-height: 400px;
+  width: 60vw;
+  min-height: 700px;
   max-height: fit-content;
-  background-color: rgb(224, 241, 245);
+  background-color: rgb(224, 235, 245);
   text-align: center;
   color: var(--Black);
   border-radius: var(--RadiusOne);
@@ -82,9 +82,9 @@
 .ulContainerNow{
   margin-bottom: 70px;
   width: 500px;
-  min-height: 400px;
+  min-height: 700px;
   max-height: fit-content;
-  background-color: var(--Primary);
+  background-color: rgb(224, 235, 245);
   text-align: center;
   color: var(--Black);
   border-radius: var(--RadiusOne);
@@ -101,3 +101,21 @@
   
 }
 
+.btnP{
+  background-color: var(--Button);
+  border-radius: var(--RadiusBtn);
+  padding: 5px;
+}
+.btnP:hover{
+  background-color: rgb(241, 223, 139);
+}
+
+.btnPass{
+  background-color: var(--Alert);
+  border-radius: var(--RadiusBtn);
+  padding: 5px;
+  color: var(--Back);
+}
+.btnPass:hover{
+  background-color: rgb(241, 145, 100);
+}

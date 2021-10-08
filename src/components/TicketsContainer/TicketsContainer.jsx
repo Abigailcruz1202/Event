@@ -39,7 +39,7 @@ const TicketsContainer = () => {
   }, []);
 
   const imgPruebaCabecera =
-    "https://media.iastatic.es/ia_img/image/tienda-online_png_770x570_q85.jpg";
+    "https://www.institutoorl-iom.com/wp-content/uploads/2016/02/los-oidos-concierto.jpg";
 
   //funciones
   const setSwitchPass = () => {
@@ -92,8 +92,8 @@ const TicketsContainer = () => {
         <div className={styles.containerSwitch}>
           <div>
 
-          <button className="regularBtn" onClick={setSwitchPass}>Próximos</button>
-          <button className="regularBtn" onClick={setSwitchProx}>Pasados</button>
+          <button className={styles.btnP}onClick={setSwitchPass}>Próximos</button>
+          <button className={styles.btnPass} onClick={setSwitchProx}>Pasados</button>
 
           </div>
           {Switch ? (

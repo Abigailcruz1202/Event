@@ -12,6 +12,11 @@
     box-shadow: var(--Shadow);
 }
 
-/* .li:hover{
-  
-} */
+.icon{
+    font-size: 500px;
+    color: var(--Alert);
+}
+
+.sin{
+    font-size: 50px;
+}
