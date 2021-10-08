@@ -25,13 +25,12 @@
 }
 
 .title{
-  margin-left: 10%;
+  margin: auto;
   padding: 11px;
   width: fit-content;
   font-size: 40px;
   color: var(--White);
-  background-color: rgb(94, 141, 144);
-  background-color: var(--Primary);
+  background-color: var(--Black);
   margin-top: 10px;
   margin-bottom: 50px;
   border-radius: var(--RadiusOne);
@@ -46,10 +45,10 @@
 .ulContainer{
   margin: auto;
   margin-bottom: 70px;
-  width: 1000px;
+  width: 70vw;
   min-height: 400px;
   max-height: fit-content;
-  background-color: var(--Primary);
+  background-color: rgb(224, 235, 245);
   text-align: center;
   color: var(--Black);
   border-radius: var(--RadiusOne);
@@ -66,10 +65,10 @@
 .ulContainerPass{
   margin: auto;
   margin-bottom: 70px;
-  width: 1000px;
+  width: 70vw;
   min-height: 400px;
   max-height: fit-content;
-  background-color: var(--Primary);
+  background-color: rgb(224, 241, 245);
   text-align: center;
   color: var(--Black);
   border-radius: var(--RadiusOne);

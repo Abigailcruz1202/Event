@@ -70,9 +70,9 @@ const Login = ({ setUser, user, nameComponent, nameComponentOne, nameComponentTw
         
         setLogger(true);
         setUser(user);
-        setTimeout(function () {
-          redirec("/");
-        }, 2000);
+        // setTimeout(function () {
+        //   redirec("/");
+        // }, 2000);
       }
     } catch (err) {
       console.log("error__________________", err);
@@ -139,12 +139,13 @@ const Login = ({ setUser, user, nameComponent, nameComponentOne, nameComponentTw
       password: FormState.password
     };
     e.preventDefault();
-    // if (!FormState.mail || !FormState.pass) {
-    //   setMessage("Todos los campos son obligatorios");
-    //   setTimeout(function () {
-    //     setMessage("");
-    //   }, 1000);
-    // } 
+    if (!FormState.email || !FormState.password) {
+      setMessage("Todos los campos son obligatorios");
+      setTimeout(function () {
+        setMessage("");
+      }, 2000);
+    return;
+     } 
     setLoading(true)
     try {
       let config = {
@@ -174,9 +175,9 @@ const Login = ({ setUser, user, nameComponent, nameComponentOne, nameComponentTw
       } else {
         setLogger(true);
         setUser(json);
-        setTimeout(function () {
-          redirec("/");
-        }, 2000);
+        // setTimeout(function () {
+        //   redirec("/");
+        // }, 2000);
       }
     } catch (err) {
       console.log("error__________________", err);

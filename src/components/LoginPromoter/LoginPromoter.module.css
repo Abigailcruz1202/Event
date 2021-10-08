@@ -12,7 +12,7 @@
 
 .message{
     color: var(--Other);
-    
+    text-align: center;
 }
 
 .form{

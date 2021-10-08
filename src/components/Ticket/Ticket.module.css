@@ -57,3 +57,17 @@
     color: var(--White);
     text-align: center;
   }
+
+  .btn{
+    margin-top: 20px;
+    padding: 7px 11px;
+    background-color: var(--Alert);
+    color: var(--White);
+    border-radius: var(--RadiusOne);
+    cursor: pointer;
+  }
+  .btn:hover{
+    transition: .3s;
+    
+    background-color: red;
+  }

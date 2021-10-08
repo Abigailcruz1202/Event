@@ -62,7 +62,7 @@ const Ticket = ({ ticket }) => {
           ))}
         </ul>
         <Link to={`/ticketpdf/${ticket.id}`}>
-        <button className="bigBtn">PDF</button>
+        <button className={styles.btn}>PDF</button>
         </Link>
       </div>
     </>
@@ -70,3 +70,4 @@ const Ticket = ({ ticket }) => {
 };
 
 export default Ticket;
+
