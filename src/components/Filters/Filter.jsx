@@ -13,15 +13,13 @@ export function Filters(props) {
 
     const tags = ["Exteriores", "Interiores", "En vivo", "Recital", "Teatro", "Película", "Disco", "Deportes"]
     const age_rating = ["0+", "7+", "13+", "18+"]
-    const weekdays = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
+    // const weekdays = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
     const countrys = ['México', 'Colombia', 'Argentina']
     const ESTADOS = ['Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche', 'Coahuila', 'Colima', 'Chiapas', 'Chihuahua', 'Durango', 'Distrito Federal', 'Guanajuato', 'Guerrero', 'Hidalgo', 'Jalisco', 'México', 'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca', 'Puebla', 'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa', 'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán', 'Zacatecas']
     const DEPARTAMENTOS = ['Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bolívar', 'Boyacá', 'Caldas', 'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía', 'Guaviare', 'Huila', 'La Guajira', 'Magdalena', 'Meta', 'Nariño', 'Norte de Santander', 'Putumayo', 'Quindío', 'Risaralda', 'San Andrés y Providencia', 'Santander', 'Sucre', 'Tolima', 'Valle del Cauca', 'Vaupés', 'Vichada']
     const PROVINCIAS = ['Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba', 'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa', 'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro', 'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe', 'Santiago del Estero', 'Tierra del Fuego', 'Tucumán']
 
     const [typesFilters, setTypesFilter] = useState([])
-    const [state, setState] = useState()
-    const [type, setType] = useState('')
     const [country, setCountry] = useState()
     const get = props.getEvents
     let result;
@@ -30,18 +28,8 @@ export function Filters(props) {
     }, [get])
 
     useEffect(() => {
-        if(typesFilters)props.addTypes(typesFilters)
+        if (typesFilters) props.addTypes(typesFilters)
     }, [typesFilters])
-
-    useEffect(()=>{
-        if(type === 'DESC'){
-            console.log(state,'sta desc')
-            props.orderDescPrice(state)
-        }else if(type === 'ASC'){
-            console.log(state,'sta')
-            props.orderAscPrice(state)
-        }
-    },[type,props.orderAscPrice, props.orderDescPrice])
 
     const handleChange = (e) => {
         let val = e.target.value;
@@ -53,11 +41,11 @@ export function Filters(props) {
                 result = stateFilters.filter((e) => e.tags === val)
                 props.filterTags(result)
             }
-            if(typesFilters.length === 0){
+            if (typesFilters.length === 0) {
                 setTypesFilter(['Tipos de eventos'])
-                }else if(!typesFilters.includes('Tipos de eventos')){
-                 setTypesFilter([...typesFilters,'Tipos de eventos'])
-                }
+            } else if (!typesFilters.includes('Tipos de eventos')) {
+                setTypesFilter([...typesFilters, 'Tipos de eventos'])
+            }
         }
         if (e.target.name === 'age_rating') {
             if (stateFilters.length === 0) {
@@ -67,25 +55,11 @@ export function Filters(props) {
                 result = stateFilters.filter((e) => e.age_rating === val)
                 props.filterAgeRating(result)
             }
-            if(typesFilters.length === 0){
+            if (typesFilters.length === 0) {
                 setTypesFilter(['Clasificación'])
-                }else if(!typesFilters.includes('Clasificación')){
-                 setTypesFilter([...typesFilters,'Clasificación'])
-                }
-        }
-        if (e.target.name === 'weekdays') {
-            if (stateFilters.length === 0) {
-                result = stateHome.filter((e) => e.weekdays.find((day) => day === val))
-                props.filterWeekdays(result)
-            } else {
-                result = stateFilters.filter((e) => e.weekdays.find((day) => day === val))
-                props.filterWeekdays(result)
+            } else if (!typesFilters.includes('Clasificación')) {
+                setTypesFilter([...typesFilters, 'Clasificación'])
             }
-            if(typesFilters.length === 0){
-                setTypesFilter(['Días'])
-                }else if(!typesFilters.includes('Días')){
-                 setTypesFilter([...typesFilters,'Días'])
-                }
         }
         if (e.target.name === 'country') {
             setCountry(val)
@@ -96,11 +70,12 @@ export function Filters(props) {
                 result = stateFilters.filter((e) => e.location.country === val)
                 props.filterCountry(result)
             }
-            if(typesFilters.length === 0){
+            if (typesFilters.length === 0 ) {
+                console.log('COUNTRY: ',country)
                 setTypesFilter(['País'])
-                }else if(!typesFilters.includes('País')){
-                 setTypesFilter([...typesFilters,'País'])
-                }
+            } else if (!typesFilters.includes('País')) {
+                setTypesFilter([...typesFilters, 'País'])
+            }
         }
         if (e.target.name === 'province') {
             if (stateFilters.length === 0) {
@@ -110,39 +85,60 @@ export function Filters(props) {
                 result = stateFilters.filter((e) => e.location.province === val)
                 props.filterProvince(result)
             }
-            if(typesFilters.length === 0){
-                setTypesFilter(['Región'])
-                }else if(!typesFilters.includes('Región')){
-                 setTypesFilter([...typesFilters,'Región'])
+            if (typesFilters.length === 0) {
+                if (country === 'Argentina' && typesFilters.length === 0) {
+                    setTypesFilter(['Provincias'])
+                } else if (country === 'México' && typesFilters.length === 0) {
+                    setTypesFilter(['Estados'])
+                } else if (country === 'Colombia' && typesFilters.length === 0) {
+                    setTypesFilter(['Departamentos'])
                 }
-        }
-    }
-    const orderChange = (e) => {
-        if (e.target.name === 'DESC') {
-            console.log('DESC')
-            setType('DESC')
-            if (stateFilters.length === 0 || stateFilters === undefined){
-                result = stateHome.sort((a, b) => b.price - a.price)
-                setState(result)
-                console.log('if,"DESC"')
-            }else {
-                result = stateFilters.sort((a, b) => b.price - a.price)
-                setState(result)
-                console.log('else,"DESC"')
+            } else {
+                let filters = [];
+                if (country === 'Argentina' && !typesFilters.includes('Provincias')) {
+                    if (typesFilters.includes('Estados')) {
+                        filters = typesFilters.filter((e) => e !== 'Estados')
+                        filters.push('Provincias')
+                        setTypesFilter(filters)
+                    } else if (typesFilters.includes('Departamentos')) {
+                        filters = typesFilters.filter((e) => e !== 'Departamentos')
+                        filters.push('Provincias')
+                        setTypesFilter(filters)
+                    } else {
+                        setTypesFilter([...typesFilters, 'Provincias'])
+                        console.log('typesFilters', typesFilters)
+                    }
+                } else if (country === 'México' && !typesFilters.includes('Estados')) {
+                    if (typesFilters.includes('Provincias')) {
+                        filters = typesFilters.filter((e) => e !== 'Provincias')
+                        filters.push('Estados')
+                        setTypesFilter(filters)
+                    } else if (typesFilters.includes('Departamentos')) {
+                        filters = typesFilters.filter((e) => e !== 'Departamentos')
+                        filters.push('Estados')
+                        setTypesFilter(filters)
+                    } else {
+                        setTypesFilter([...typesFilters, 'Estados'])
+                        console.log('typesFilters', typesFilters)
+                    }
+                } else if (country === 'Colombia' && !typesFilters.includes('Departamentos')) {
+                    if (typesFilters.includes('Provincias')) {
+                        filters = typesFilters.filter((e) => e !== 'Provincias')
+                        filters.push('Departamentos')
+                        setTypesFilter(filters)
+                    } else if (typesFilters.includes('Estados')) {
+                        filters = typesFilters.filter((e) => e !== 'Estados')
+                        filters.push('Departamentos')
+                        setTypesFilter(filters)
+                    } else {
+                        setTypesFilter([...typesFilters, 'Departamentos'])
+                        console.log('typesFilters', typesFilters)
+                    }
+                }
             }
         }
-        if (e.target.name === 'ASC') {
-            console.log('ASC')
-            setType('ASC')
-            if(stateFilters.length === 0 || stateFilters === undefined){
-            result = stateHome.sort((a, b) => a.price - b.price)
-            setState(result)
-            }else{
-                result = stateFilters.sort((a, b) => a.price - b.price)
-                setState(result)
-            }
-        }
     }
+
     const all = (e) => {
         props.removeFilters()
         props.removeTypes()
@@ -154,44 +150,35 @@ export function Filters(props) {
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Tipos de eventos:</h5>
 
             {tags.map((e, i) => {
-                return  <button className="regularBtn"  key={i} name='tags' value={e} onClick={handleChange}>{e}</button>
+                return <button className="regularBtn" key={i} name='tags' value={e} onClick={handleChange}>{e}</button>
             })}
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Clasificación:</h5>
 
             {age_rating.map((e, i) => {
-                return  <button className="regularBtn"  key={i} name='age_rating' value={e} onClick={handleChange}>{e}</button>
+                return <button className="regularBtn" key={i} name='age_rating' value={e} onClick={handleChange}>{e}</button>
             })}
-            <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Días:</h5>
-
-            {weekdays.map((e, i) => {
-                return  <button className="regularBtn"  key={i} name='weekdays' value={e} onClick={handleChange}>{e}</button>
-            })}
-
-            <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Ordenar precios:</h5>
-             <button className="regularBtn"  name='DESC' onClick={orderChange}>DESC</button>
-             <button className="regularBtn"  name='ASC' onClick={orderChange}>ASC</button>
 
             <h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>País:</h5>
 
             {countrys.map((e, i) => {
-                return  <button className="regularBtn"  key={i} name='country' value={e} onClick={handleChange}>{e}</button>
+                return <button className="regularBtn" key={i} name='country' value={e} onClick={handleChange}>{e}</button>
             })}
             {country === 'Argentina' ?
                 <><h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Provincia:</h5>
 
                     {PROVINCIAS.map((e, i) => {
-                        return  <button className="regularBtn"  key={i} name='province' value={e} onClick={handleChange}>{e}</button>
+                        return <button className="regularBtn" key={i} name='province' value={e} onClick={handleChange}>{e}</button>
                     })}</>
                 : country === 'México' ?
                     <><h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Estado:</h5>
 
                         {ESTADOS.map((e, i) => {
-                            return  <button className="regularBtn"  key={i} name='province' value={e} onClick={handleChange}>{e}</button>
+                            return <button className="regularBtn" key={i} name='province' value={e} onClick={handleChange}>{e}</button>
                         })}</>
                     : country === 'Colombia' ?
                         <><h5 className={styles.h5Filters} style={{ marginBlockEnd: '0' }}>Departamento:</h5>
                             {DEPARTAMENTOS.map((e, i) => {
-                                return  <button className="regularBtn"  key={i} name='province' value={e} onClick={handleChange}>{e}</button>
+                                return <button className="regularBtn" key={i} name='province' value={e} onClick={handleChange}>{e}</button>
                             })}</>
                         : null
             }
