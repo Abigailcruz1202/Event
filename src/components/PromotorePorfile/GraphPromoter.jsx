@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Bar } from 'react-chartjs-2';
 import Loading from '../Loading/Loading'
 import styles from './GraphPromoter.css'
-import { getTickets } from '../../actions/actions'
+import { getTickets, changeModal } from '../../actions/actions'
 
 
 function GraphPromoter({ events }) {
@@ -18,7 +18,7 @@ console.log('GRAFICAAAA: ',grafica)
         await dispatch(getTickets(id))
         setRender(true)
       } catch (error) {
-        alert('Algo salio mal al cargar este evento.')
+        dispatch(changeModal('incorrect', 'Algo salió mal al cargar este evento.'))
       }
     }
     fetchData()

@@ -46,7 +46,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                 await dispatch(getEventDetail(id))
                 setRender(true)
             }catch(error){
-                dispatch(changeModal('incorrect','Algo salio mal'))
+                dispatch(changeModal('incorrect','Algo salió mal.'))
             }
         }
         fetchData()
@@ -59,10 +59,10 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
 
     const deleteEvent = async()=>{  
         if(detailsEvent.consult.promoterId === userInfo.id){
-            changeModalConfirm('correct', `Desea Eliminar el Evento ${detailsEvent.consult.name}`, null);
+            changeModalConfirm('correct', `¿Deseas eliminar el Evento ${detailsEvent.consult.name}?`, null);
         }else{
-            dispatch(changeModal('correct','No puedes eliminar un evento que no te pertenece'));
-        }        
+            dispatch(changeModal('incorrect','No puedes eliminar un evento que no te pertenece'));
+        }
     }
     //Fin Borrar evento boton unicamente disponoble para promotor
 
@@ -183,17 +183,17 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                 // Boton de Favoritos
                                 !userInfo.type ? (
                                     <div className={styles.heart}>
-                                        <Heart                                            
+                                        <Heart
                                             isClick={isClick}
                                             onClick={() => {
-                                                alert('Inicia sesión para guardar este evento en tus favoritos.')                                            
-                                            }} 
+                                                dispatch(changeModal('incorrect', 'Inicia sesión para guardar este evento en tus favoritos.'))                                           
+                                            }}
                                         />
                                     </div>
                                 ) : (
-                                    userInfo.type === 'user' ? (                                        
+                                    userInfo.type === 'user' ? (
                                         <div className={styles.heart}>
-                                            <Heart                                             
+                                            <Heart
                                             isClick={isClick}
                                             onClick={() => {
                                                 setClick(!isClick)
@@ -204,9 +204,9 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                         <span>&nbsp;</span>
                                     )
                                 )
-                                
+
                             }
-                            <h4>Descripcion:</h4>
+                            <h4>Descripción:</h4>
                             <p className={styles.description}>{ detailsEvent.consult.description}</p>
                             <div className={styles.detailsUsers2User}>
                                 <div className={styles.leftColumn}>
@@ -320,7 +320,7 @@ const EventDetailsUsario = ({ addShopping, cart, user, changeModalConfirm }) => 
                                 {
                                     !userInfo.type ? (
                                         <button
-                                        onClick={e => alert('Solo usuarios logueados pueden dejar comentarios')}
+                                        onClick={e => dispatch(changeModal('incorrect', 'Sólo los usuarios logueados pueden dejar comentarios'))}
                                         className="regularBtn">    
                                                 Reseña
                                         </button>
