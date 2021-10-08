@@ -71,7 +71,6 @@ export function Filters(props) {
                 props.filterCountry(result)
             }
             if (typesFilters.length === 0 ) {
-                console.log('COUNTRY: ',country)
                 setTypesFilter(['País'])
             } else if (!typesFilters.includes('País')) {
                 setTypesFilter([...typesFilters, 'País'])
