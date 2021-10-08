@@ -89,17 +89,17 @@ function FormPromoter({changeModal}) {
         let obj = validate(form)
 
         if(Object.keys(obj).length !== 0) {
-            changeModal('correct', `Revisa todos los campos`);
+            changeModal('incorrect', `Revisa todos los campos`);
         } else {
             console.log('entreeeeeeeeeeeeeeeeeeeeeeeeee')
             try{              
                 const res = await axios.post(`${API}promoter`,form)
                 console.log('respuesta del backkkkkkkkk',res.data)
                 if(res.data.msg){
-                    changeModal('correct', `Intentalo de nuevo más tarde`)
+                    changeModal('incorrect', `Intentalo de nuevo más tarde`)
                 }
                 else if(res.data.created){
-                    changeModal('correct', `Promoter creado con éxito. \n Espere 48hrs para su autorización. Bienvenido a eVent, ${form.promoter_name}!`)
+                    changeModal('correct', `Promoter creado con éxito. \n Bienvenido a eVent, ${form.promoter_name}!`)
                     setForm({
                         promoter_name:'',
                         promoter_lastName:'',
@@ -118,11 +118,10 @@ function FormPromoter({changeModal}) {
                         city:'',
                 });
                 }else if(!res.data.created){
-                    // console.log('eyyyyyyyy', res.data.created)
-                    changeModal('correct', `Revisa los datos 'Nombre del negocio', 'Telefono', 'Correo' o '${condition.idNumber}' ya se encuentran registrados.`)
+                    changeModal('incorrect', `Revisa los datos 'Nombre del negocio', 'Telefono', 'Correo' o '${condition.idNumber}' ya se encuentran registrados.`)
                 }
             }catch(error){
-                changeModal('correct', `Intentalo de nuevo más tarde`)
+                changeModal('warning', `Intentalo de nuevo más tarde`)
             }
         }
     }
