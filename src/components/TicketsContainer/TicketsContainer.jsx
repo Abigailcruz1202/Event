@@ -20,6 +20,7 @@ const TicketsContainer = () => {
      useEffect(() => {
     const fetchTickets = async () =>{
       const tickets = await axios.get(`${API}ticket/user/${ID}`)
+      console.log('tickets--------------',tickets)
       setArrTickets(tickets.data);
     }
     fetchTickets();
@@ -87,3 +88,4 @@ const setSwitchProx = () => {
 }
 
 export default TicketsContainer
+
